@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   has_secure_password
-  validates :name, uniqueness: { case_sensitive: false }
 
   # Will return an array of tasks from the parent_user instance
   has_many :parent_tasks, foreign_key: :task_giver_id, class_name: "Task"
