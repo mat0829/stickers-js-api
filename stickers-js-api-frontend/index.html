@@ -1,51 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
     <meta charset="utf-8" />
     <title>Stickers</title>
     <script type="text/javascript" src="index.js"></script>
     <link rel="stylesheet" href="index.css" />
   </head>
+
   <body>
+    <h1>Welcome to Stickers!</h1>
     <div id="user-header">
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQivcuOfYXuEIrxKruExED2MC6eHhHpCK8-dOJAWDl4R8we-7eY"
+        src="https://publicdomainvectors.org/tn_img/Button---Happy.png"
         alt="user-header"
       />
-    </div>
+    </div><br>
 
     <div class="container">
-      <form class="add-user-form">
-        <h3>Add a new User</h3>
-
-        <input
-          type="text"
-          name="name"
-          value=""
-          placeholder="Enter User name here"
-          class="input-text"
-        />
-        <br />
-        <input
-          type="text"
-          name="image"
-          value=""
-          placeholder="Enter a User's image URL..."
-          class="input-text"
-        />
-        <br />
-        <input
-          type="submit"
-          name="submit"
-          value="Create New User"
-          class="submit"
-        />
+      <form id="new-task-form">
+        <h3>Task Name: <input type="text" autocomplete="off"></h3>
+        <h3>Sticker Value: <input type="integer" placeholder="Enter a # between 5 and 100" autocomplete="off"></h3>
+        <input type="submit" value="Create new Task">
       </form>
+      <div id="task-container">
+      </div>
+        
     </div>
-    <p style="text-align:left">
-      Click here to add a new User <button id="new-toy-btn">Add a new User!</button>
-    </p>
 
-    <div id="User-collection"></div>
   </body>
+
 </html>
