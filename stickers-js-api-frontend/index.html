@@ -4,12 +4,12 @@
   <head>
     <meta charset="utf-8" />
     <title>Stickers</title>
-    <script type="text/javascript" src="index.js"></script>
-    <link rel="stylesheet" href="index.css" />
+
+    <link rel="stylesheet" href="styles/index.css" />
   </head>
 
   <body>
-    <h1>Welcome to Stickers!</h1>
+    
     <div id="user-header">
       <img
         src="https://publicdomainvectors.org/tn_img/Button---Happy.png"
@@ -18,16 +18,22 @@
     </div><br>
 
     <div class="container">
-      <form id="new-task-form">
-        <h3>Task Name: <input type="text" autocomplete="off"></h3>
-        <h3>Sticker Value: <input type="integer" placeholder="Enter a # between 5 and 100" autocomplete="off"></h3>
-        <input type="submit" value="Create new Task">
-      </form>
-      <div id="task-container">
+      <h1>Welcome to Stickers!</h1>
+      <div id="new-task-container">
+        <form id="new-task-form">
+          <h3>Task Name: <input type="text" autocomplete="off"></h3>
+          <h3>Sticker Value: <input type="integer" placeholder="Enter a # between 5 and 100" autocomplete="off"></h3>
+          <input type="submit" value="Create new Task">
+        </form>
       </div>
-        
-    </div>
+      <div id="tasks-container">
 
+      </div>
+    </div>
+    <script src="src/components/tasks.js"></script>
+    <script src="src/components/app.js"></script>
+    <script src="src/adapters/tasksAdapter.js"></script>
+    <script src="src/index.js"></script>
   </body>
 
 </html>
