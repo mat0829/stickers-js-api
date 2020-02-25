@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2020_02_21_001041) do
     t.string "task_name"
     t.boolean "completed"
     t.integer "sticker_value"
-    t.integer "task_receiver_id"
     t.integer "task_giver_id"
+    t.integer "task_receiver_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_001041) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "password_digest"
+    t.string "password"
     t.string "img"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

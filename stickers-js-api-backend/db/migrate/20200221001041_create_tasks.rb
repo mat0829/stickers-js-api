@@ -4,8 +4,8 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.string :task_name
       t.boolean :completed
       t.integer :sticker_value
-      t.integer :task_receiver_id
       t.integer :task_giver_id
+      t.integer :task_receiver_id
 
       t.timestamps
     end
