@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: [:show, :update, :destroy]
     
   def index
     @users = User.all
@@ -6,7 +7,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(id: params[:id])
     render json: @user, status: 200
   end
 
@@ -20,7 +20,6 @@ class Api::V1::UsersController < ApplicationController
   end
   
   def update
-    @user = User.find(id: params[:id])
     if @user.update(user_params)
       render json: @user, status: 200
     else
@@ -29,12 +28,15 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(id: params[:id])
     @user.delete
     render json: {userId: @user.id}
   end
 
   private
+
+    def set_user
+      @user = User.find(params[:id])
+    end
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :img)

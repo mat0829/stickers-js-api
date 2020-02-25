@@ -1,4 +1,5 @@
 class Api::V1::TasksController < ApplicationController
+  before_action :set_task, only: [:show, :update, :destroy]
 
   def index
     @tasks = Task.all
@@ -6,7 +7,6 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(id: params[:id])
     render json: @task, status: 200
   end
 
@@ -20,7 +20,6 @@ class Api::V1::TasksController < ApplicationController
   end
   
   def update
-    @task = Task.find(id: params[:id])
     if @task.update(task_params)
       render json: @task, status: 200
     else
@@ -29,12 +28,15 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(id: params[:id])
     @task.delete
     render json: {taskId: @task.id}
   end
 
   private
+
+    def set_task
+      @task = Task.find(params[:id])
+    end
 
     def task_params
       params.require(:task).permit(:task_name, :completed, :sticker_value, 
