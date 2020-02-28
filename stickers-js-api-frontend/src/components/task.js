@@ -5,6 +5,6 @@ class Task {
   }
 
   renderLi() {
-    return `<li>${this.task_name}</li>`
+    return `<li data-id=${this.id}> ${this.task_name} </li>`
   }
 }

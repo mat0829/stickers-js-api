@@ -21,4 +21,18 @@ class TasksAdapter {
       body: JSON.stringify({task}),
     }).then(response => response.json())
   }
+
+  updateTask(value, id) {
+    const task = {
+      task_name: value
+    }
+
+    return fetch(`${this.baseUrl}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({task}),
+    }).then(response => response.json())
+  }
 }
