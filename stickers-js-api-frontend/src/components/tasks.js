@@ -8,12 +8,12 @@ class Tasks {
 
   InitBindingsAndEventListeners() {
     this.tasksContainer = document.getElementById('tasks-container')
-    this.body = document.querySelector('body')
+    this.tasksContent = document.querySelector('ul')
     this.newTaskName = document.getElementById('new-task-name')
     this.taskForm = document.getElementById('new-task-form')
     this.taskForm.addEventListener('submit', this.createTask.bind(this))
     this.tasksContainer.addEventListener('dblclick', this.handleTaskClick.bind(this))
-    this.body.addEventListener('blur', this.updateTask.bind(this), true)
+    this.tasksContent.addEventListener('blur', this.updateTask.bind(this), true)
   }
 
   createTask(event) {
