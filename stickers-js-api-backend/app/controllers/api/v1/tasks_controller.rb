@@ -12,19 +12,13 @@ class Api::V1::TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    if @task.save
+    @task.save
       render json: @task, status: 200
-    else
-      render json: @task.errors
-    end
   end
   
   def update
-    if @task.update(task_params)
+    @task.update(task_params)
       render json: @task, status: 200
-    else
-      render json: @task.errors, status: :unprocessable_entity
-    end
   end
 
   def destroy

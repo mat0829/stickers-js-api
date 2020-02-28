@@ -9,27 +9,30 @@
   </head>
 
   <body>
-    
     <div id="user-header">
-      <img
-        src="https://publicdomainvectors.org/tn_img/Button---Happy.png"
-        alt="user-header"
-      />
+      <h1>Welcome to Stickers!</h1>
+      <img src="https://publicdomainvectors.org/tn_img/Button---Happy.png" alt="user-header"/>
     </div><br>
 
     <div class="container">
-      <h1>Welcome to Stickers!</h1>
+      <h2>Create a new Task</h2>
       <div id="new-task-container">
         <form id="new-task-form">
-          <h3>Task Name: <input type="text" autocomplete="off"></h3>
-          <h3>Sticker Value: <input type="integer" placeholder="Enter a # between 5 and 100" autocomplete="off"></h3>
-          <input type="submit" value="Create new Task">
+          <h3>Task Name: <input type="text" name="task-name" id="new-task-name" autocomplete="off"></h3>
+          <input type="submit" value="Create Task">
         </form>
       </div>
-      <div id="tasks-container">
+      <div id="tasks-content">
+        <h2>Current Tasks:</h2>
+        <ul id="tasks-container">
 
+        </ul>
+        <div id="task-show">
+
+        </div>
       </div>
     </div>
+    <script type="text/javascript" src="src/components/task.js"></script>
     <script src="src/components/tasks.js"></script>
     <script src="src/components/app.js"></script>
     <script src="src/adapters/tasksAdapter.js"></script>
