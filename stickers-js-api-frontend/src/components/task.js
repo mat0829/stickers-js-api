@@ -1,10 +1,15 @@
 class Task {
-  constructor(taskJSON) {
-    this.id = taskJSON.id
-    this.task_name = taskJSON.task_name
+  constructor(taskObj) {
+    this.id = taskObj.id
+    this.taskName = taskObj.task_name
+    this.taskValue = taskObj.sticker_value
   }
 
-  renderLi() {
-    return `<li data-id=${this.id}> ${this.task_name} </li>`
+  renderTask() {
+    return `<li data-id=${this.id}> ${this.taskName}
+              <ul id="task-values-ul">
+                <li data-id=${this.id}> Worth (${this.taskValue} Sticker Points!) </li>
+              </ul>
+            </li><br>`
   }
 }

@@ -10,6 +10,7 @@ class Tasks {
     this.tasksContainer = document.getElementById('tasks-container')
     this.tasksContent = document.querySelector('ul')
     this.newTaskName = document.getElementById('new-task-name')
+    this.newTaskValue = document.getElementById('new-task-value')
     this.taskForm = document.getElementById('new-task-form')
     this.taskForm.addEventListener('submit', this.createTask.bind(this))
     this.tasksContainer.addEventListener('dblclick', this.handleTaskClick.bind(this))
@@ -18,11 +19,13 @@ class Tasks {
 
   createTask(event) {
     event.preventDefault()
-    const value = this.newTaskName.value
+    const name = this.newTaskName.value
+    const taskValue = this.newTaskValue.value
 
-    this.adapter.createTask(value).then(task => {
+    this.adapter.createTask(name, taskValue).then(task => {
       this.tasks.push(new Task(task))
       this.newTaskName.value = ''
+      this.newTaskValue.value = ''
       this.render()
     })
   }
@@ -58,6 +61,6 @@ class Tasks {
   }
 
   render() {
-    this.tasksContainer.innerHTML = this.tasks.map(task => task.renderLi()).join('')
+    this.tasksContainer.innerHTML = this.tasks.map(task => task.renderTask()).join('')
   }
 }

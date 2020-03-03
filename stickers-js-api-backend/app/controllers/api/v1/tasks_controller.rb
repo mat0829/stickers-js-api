@@ -33,6 +33,6 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:task_name)
+      params.require(:task).permit(:task_name, :completed, :sticker_value)
     end
 end

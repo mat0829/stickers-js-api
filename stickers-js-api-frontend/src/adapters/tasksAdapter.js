@@ -9,9 +9,10 @@ class TasksAdapter {
     .then(response => response.json())
   }
 
-  createTask(value) {
+  createTask(name, value) {
     const task = {
-      task_name: value
+      task_name: name,
+      sticker_value: value
     }
     return fetch(this.baseUrl, {
       method: 'POST',
@@ -22,9 +23,10 @@ class TasksAdapter {
     }).then(response => response.json())
   }
 
-  updateTask(value, id) {
+  updateTask(name, value, id) {
     const task = {
-      task_name: value
+      task_name: name,
+      sticker_value: value
     }
 
     return fetch(`${this.baseUrl}/${id}`, {
