@@ -16,7 +16,7 @@ child_user = User.create!(
 3.times do
   Task.create!(
       task_name: Faker::Lorem.sentence(rand(2..10)).chomp('.'),
-      sticker_value: Faker::Number.within(range: 1..100),
+      task_value: Faker::Number.within(range: 1..100)
       #task_giver_id: 1,
       #task_receiver_id: 2
   )

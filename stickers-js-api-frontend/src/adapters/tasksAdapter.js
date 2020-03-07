@@ -12,7 +12,7 @@ class TasksAdapter {
   createTask(name, value) {
     const task = {
       task_name: name,
-      sticker_value: value
+      task_value: value
     }
     return fetch(this.baseUrl, {
       method: 'POST',
@@ -23,14 +23,24 @@ class TasksAdapter {
     }).then(response => response.json())
   }
 
-  updateTask(name, value, id) {
+  updateTask(name, id, value) {
     const task = {
       task_name: name,
-      sticker_value: value
+      task_value: value
     }
 
     return fetch(`${this.baseUrl}/${id}`, {
       method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({task}),
+    }).then(response => response.json())
+  }
+
+  deleteTask(id) {
+    fetch(`${this.baseUrl}/${id}`, {
+      method: 'DELETE',
       headers: {
         'content-type': 'application/json',
       },
