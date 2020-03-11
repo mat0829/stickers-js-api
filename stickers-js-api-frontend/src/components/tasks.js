@@ -3,17 +3,31 @@ class Tasks {
     this.tasks = []
     this.adapter = new TasksAdapter()
     this.InitBindingsAndEventListeners()
-    this.fetchAndLoadTasks()
+    //this.fetchAndLoadTasks()
   }
 
   InitBindingsAndEventListeners() {
-    this.tasksContainer = document.getElementById('tasks-container')
+    this.homeButton = document.getElementById('home-btn').addEventListener('click', this.refreshPage.bind(this))
+
+    this.tasksContent = document.getElementById('tasks-container')
+    this.tasksIndexBtn = document.getElementById('tasks-index-btn').addEventListener('click', this.fetchAndLoadTasks.bind(this))
     this.newTaskName = document.getElementById('new-task-name')
     this.newTaskValue = document.getElementById('new-task-value')
-    this.taskForm = document.getElementById('new-task-form')
-    this.taskForm.addEventListener('submit', this.createTask.bind(this))
-    this.tasksContainer.addEventListener('dblclick', this.handleTaskClick.bind(this))
-    this.tasksContainer.addEventListener('blur', this.updateTask.bind(this), true)
+    this.taskForm = document.getElementById('new-task-form').addEventListener('submit', this.createTask.bind(this))
+    this.createTaskBtn = document.getElementById('create-task-btn').addEventListener('click', this.hideTask.bind(this))
+    
+    this.showTask = document.getElementById('show-task')
+    this.tasksContent.addEventListener('dblclick', this.handleTaskClick.bind(this))
+    //this.tasksContent.addEventListener('blur', this.updateTask.bind(this), true)
+  }
+
+  hideTask() {
+    const taskContainer = document.getElementById('task-container')
+    if (taskContainer.style.display === 'none') {
+      taskContainer.style.display = 'block'
+    } else {
+      taskContainer.style.display = 'none'
+    }
   }
 
   createTask(event) {
@@ -30,18 +44,19 @@ class Tasks {
   }
 
   handleTaskClick() {
-    this.toggleTask(event)
+    this.getTask(event)
   }
 
-  toggleTask(event) {
-    const li = event.target
-    li.contentEditable = true
-    li.focus()
-    li.classList.add('editable')
+  getTask(event) {
+    const id = event.target.dataset.id
+    this.adapter.getTask(id)
+    .then(task => {
+      task
+      this.renderTask(task)
+    })
   }
 
   updateTask(event) {
-    debugger
     const li = event.target
     li.contentEditable = false
     li.classList.remove('editable')
@@ -74,7 +89,18 @@ class Tasks {
     })
   }
 
+  renderTask(task) {
+    let html = `<h1>${task.task_name}</h1>` +
+    `<h2>Task Value: ${task.task_value} Sticker Points!</h2>` +
+    `<h3>Task is completed? ${task.completed}</h3>`
+    this.showTask.innerHTML = html
+  }
+
+  refreshPage() {
+    window.location.reload(false)
+  }
+
   render() {
-    this.tasksContainer.innerHTML = this.tasks.map(task => task.renderTaskName()).join('')
+    this.tasksContent.innerHTML = this.tasks.map(task => task.renderTaskName()).join('')
   }
 }

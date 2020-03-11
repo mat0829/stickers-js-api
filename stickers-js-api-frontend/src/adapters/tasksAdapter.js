@@ -9,6 +9,12 @@ class TasksAdapter {
     .then(response => response.json())
   }
 
+  getTask(id) {
+    return fetch(`${this.baseUrl}/${id}`)
+    .then(response => response.json())
+    .then(json => json)
+  }
+
   createTask(name, value) {
     const task = {
       task_name: name,
@@ -31,16 +37,6 @@ class TasksAdapter {
 
     return fetch(`${this.baseUrl}/${id}`, {
       method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({task}),
-    }).then(response => response.json())
-  }
-
-  deleteTask(id) {
-    fetch(`${this.baseUrl}/${id}`, {
-      method: 'DELETE',
       headers: {
         'content-type': 'application/json',
       },
