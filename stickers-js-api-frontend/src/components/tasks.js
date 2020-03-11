@@ -3,30 +3,39 @@ class Tasks {
     this.tasks = []
     this.adapter = new TasksAdapter()
     this.InitBindingsAndEventListeners()
-    //this.fetchAndLoadTasks()
+    this.fetchAndLoadTasks()
   }
 
   InitBindingsAndEventListeners() {
     this.homeButton = document.getElementById('home-btn').addEventListener('click', this.refreshPage.bind(this))
-
-    this.tasksContent = document.getElementById('tasks-container')
-    this.tasksIndexBtn = document.getElementById('tasks-index-btn').addEventListener('click', this.fetchAndLoadTasks.bind(this))
+    this.tasksContent = document.getElementById('tasks-content')
+    this.tasksContainer = document.getElementById('tasks-container')
+    this.tasksIndexBtn = document.getElementById('tasks-index-btn').addEventListener('click', this.hideTasks.bind(this))
     this.newTaskName = document.getElementById('new-task-name')
     this.newTaskValue = document.getElementById('new-task-value')
     this.taskForm = document.getElementById('new-task-form').addEventListener('submit', this.createTask.bind(this))
-    this.createTaskBtn = document.getElementById('create-task-btn').addEventListener('click', this.hideTask.bind(this))
+    this.createTaskBtn = document.getElementById('create-task-btn').addEventListener('click', this.hideTaskForm.bind(this))
     
     this.showTask = document.getElementById('show-task')
     this.tasksContent.addEventListener('dblclick', this.handleTaskClick.bind(this))
     //this.tasksContent.addEventListener('blur', this.updateTask.bind(this), true)
   }
 
-  hideTask() {
-    const taskContainer = document.getElementById('task-container')
-    if (taskContainer.style.display === 'none') {
-      taskContainer.style.display = 'block'
+  hideTaskForm() {
+    const formElement = document.getElementById('new-task-container')
+    if (formElement.style.display === 'none') {
+      formElement.style.display = 'block'
     } else {
-      taskContainer.style.display = 'none'
+      formElement.style.display = 'none'
+    }
+  }
+
+  hideTasks() {
+    const tasksElement = document.getElementById('tasks-content')
+    if (tasksElement.style.display === 'none') {
+      tasksElement.style.display = 'block'
+    } else {
+      tasksElement.style.display = 'none'
     }
   }
 
@@ -101,6 +110,6 @@ class Tasks {
   }
 
   render() {
-    this.tasksContent.innerHTML = this.tasks.map(task => task.renderTaskName()).join('')
+    this.tasksContainer.innerHTML = this.tasks.map(task => task.renderTaskName()).join('')
   }
 }

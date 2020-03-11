@@ -1,3 +1,7 @@
-div.task-container {
+div.tasks-container {
+  display: none;
+}
+
+div.new-task-container {
   display: none;
 }
