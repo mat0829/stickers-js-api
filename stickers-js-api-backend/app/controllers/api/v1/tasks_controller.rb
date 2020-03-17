@@ -17,6 +17,7 @@ class Api::V1::TasksController < ApplicationController
   end
   
   def update
+    params.inspect
     @task.update(task_params)
       render json: @task, status: 200
   end
@@ -33,6 +34,6 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:task_name, :task_value, :completed)
+      params.require(:task).permit(:name, :value, :completed, :image)
     end
 end

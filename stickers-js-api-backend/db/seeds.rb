@@ -13,14 +13,30 @@ child_user = User.create!(
     img: Faker::Avatar.image
 )
 
-3.times do
-  Task.create!(
-      task_name: Faker::Lorem.sentence(rand(2..10)).chomp('.'),
-      task_value: Faker::Number.within(range: 1..100)
-      #task_giver_id: 1,
-      #task_receiver_id: 2
-  )
-end
+
+Task.create!(
+  name: "Get straight A's on your Report Card",
+  value: '500',
+  image: 'https://i.pinimg.com/originals/e6/5d/86/e65d86af554c7faabc16684669edfa76.png'
+  #task_giver_id: 1,
+  #task_receiver_id: 2
+)
+
+Task.create!(
+  name: 'Do the dishes',
+  value: '20',
+  image: 'https://c.stocksy.com/a/24x700/z9/1895342.jpg?1575844750'
+  #task_giver_id: 1,
+  #task_receiver_id: 2
+)
+
+Task.create!(
+  name: 'Feed the animals',
+  value: '5',
+  image: 'https://www.theinternetpetvet.com/wp-content/uploads/2014/09/dog-cat-feeding.jpg'
+  #task_giver_id: 1,
+  #task_receiver_id: 2
+)
 
 system "clear"  
   puts "After seeding the database: "

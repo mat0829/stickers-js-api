@@ -1,13 +1,41 @@
 class Task {
-  constructor(taskObj) {
-    this.id = taskObj.id
-    this.taskName = taskObj.task_name
-    this.taskValue = taskObj.task_value
-    this.taskCompleted = taskObj.completed
+
+  static findTask(id) {
+    return this.allTasks.find((task) => task.id === id) //`this` will be Task when invoked like -> Task.findTask(1)
   }
 
-  renderTaskName() {
-    return `<li class='task-name-li' data-id=${this.id}>${this.taskName}</li>
-            <li class='task-value-li' data-id=${this.id}>${this.taskValue}</li><br>`
+  static updateTask(updatedTaskData) {
+    const taskToUpdate = this.findTask(updatedTaskData.id) // if we invoke Task.updateTask(newTaskJSON), `this` will be Task class
+    taskToUpdate.name = updatedTaskData.name
+    taskToUpdate.value = updatedTaskData.value
+    taskToUpdate.image = updatedTaskData.image
+    taskToUpdate.completed = updatedTaskData.completed
+    return taskToUpdate //return the updated task instance for method chaining; taskToUpdate.renderDetails() etc
+  }
+
+  constructor(taskObj) {
+    this.id = taskObj.id
+    this.name = taskObj.name
+    this.value = taskObj.value
+    this.completed = taskObj.completed
+    this.image = taskObj.image
+    Task.allTasks.push(this)
+  }
+
+  renderSpan() {
+    return `<span data-id="${this.id}">${this.name}</span>`
+  }
+
+  renderDetails() {
+    const isTaskCompletedString = this.completed ? 'true' : 'false'
+    return `<img src="${this.image}">
+          <h2>${this.name}</h2>
+          <h3>Worth ${this.value} Sticker Points!</h3>
+          <button>Task Completed? ${isTaskCompletedString}</button>
+          <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
+          <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
+          `
   }
 }
+
+Task.allTasks = []

@@ -1,58 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-  <head>
-    <meta charset="utf-8" />
-    <title>Stickers</title>
+<head>
+  <meta charset="utf-8">
 
-    <link rel="stylesheet" href="styles/index.css" />
-  </head>
+  <title>Stickers!</title>
+  <link rel="stylesheet" href="styles/index.css">
+  <!-- <script type="text/javascript" src="src/index.js"></script> -->
+  <!-- <script type="text/javascript" src="src/adapters/adapter.js"></script> -->
+  <script type="text/javascript" src="src/components/task.js"></script>
+  <script type="text/javascript" src="src/index.js"></script>
+  <!-- <link rel="shortcut icon" href="https://publicdomainvectors.org/tn_img/Button---Happy.png"> -->
+</head>
 
-  <body>
-    <div id="user-header">
-      <h1>Welcome to Stickers!</h1>
-      <img src="https://publicdomainvectors.org/tn_img/Button---Happy.png" alt="user-header"/>
-    </div><br>
+<body>
+  <div id="stickers-header">
+    <h1>Stickers!</h1>
 
-    <div id="navagation-buttons">
-      <button id="home-btn">Home</button>
-      <button id="create-task-btn">Create a Task</button>
-      <button id="tasks-index-btn">Show/Hide Tasks</button>
+    <img src="https://publicdomainvectors.org/tn_img/Button---Happy.png" alt="stickers-header"/>
+
+    <nav id="nav-bar">
+      <button id="showPage1Btn" data-launch-view="page1">Tasks Page</button>
+      <button id="showPage2Btn" data-launch-view="page2">Create a Task</button>
+      <button id="showPage3Btn" data-launch-view="page3">Stickers Page</button>
+    </nav>
+  </div>
+
+  <div id="lotOfPages"></div>
+    
+    <div class="view" id="page1">
+      <center>
+      <h1>Please <a href="/login">Login</a> or Sign up below:</h1>
+      <form id="new-user-form" action="/signup" method="POST">
+        <h3>Username: <input type="text" name="username" autocomplete="off"></h3><br>
+        <h3>Email: <input type="text" name="email" autocomplete="off"></h3><br>
+        <h3>Password: <input type="password" name="password"></h3><br>
+        <input type="submit" value="Create User">
+      </form> 
+    </center><br>
     </div>
-
-    <div id="task-container">
-      <div id="new-task-container">
-        <h2>Create a new Task</h2>
-        <form id="new-task-form">
-          <h3>Task Name: <input type="text" name="task-name" id="new-task-name" autocomplete="off"></h3>
-
-          <h3>Choose Task Sticker Value:</h3>
-          <select id="new-task-value" name="new-task-value">
-            <option value="5">5 Sticker Points</option>
-            <option value="10">10 Sticker Points</option>
-            <option value="20">20 Sticker Points</option>
-            <option value="25">25 Sticker Points</option>
-            <option value="50">50 Sticker Points</option>
-            <option value="75">75 Sticker Points</option>
-            <option value="100">100 Sticker Points</option>
-          </select>
-          
-          <input type="submit" value="Create Task">
-        </form><br>
+        
+    <div class="view hide" id="page2">
+      <div id="filter-div">
+        <button id="completed-task-filter">Show all completed tasks: OFF</button>
       </div>
-      <div id="tasks-content">
-        <ul id="tasks-container">
-          
-        </ul>
-        <div id="show-task">
+      <center><h1>Current Tasks:</h1></center>
+      <div id="task-bar">
+
+      </div>
+
+      <div id="task-summary-container">
+        <form id="task-form" method="post">
+          <label for="taskName">Task Name: </label>
+          <input id="task-name-input" type="text" name="taskName" value="">
+    
+          <label for="taskValue">Task Point Value: </label>
+          <input id="task-value-input" type="number" name="taskValue" value="">
+    
+          <label for="taskImage">Image URL: </label>
+          <input id="task-img-input" type="text" name="taskImage" value="">
+    
+          <label for="taskCompleted">Task Completed?</label>
+          <input id="completed-task-input" type="checkbox" name="taskCompleted" value="">
+    
+          <button type="submit" name="button">Submit Edited Task</button>
+        </form>
+    
+        <div id="task-info">
+    
         </div>
-      </div>
     </div>
-    <script type="text/javascript" src="src/components/task.js"></script>
-    <script src="src/components/tasks.js"></script>
-    <script src="src/components/app.js"></script>
-    <script src="src/adapters/tasksAdapter.js"></script>
-    <script src="src/index.js"></script>
-  </body>
+
+    <div class="view hide" id="page3">
+      <h1>Create a new Task:</h1>
+      <form id="new-task-form">
+        <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" autocomplete="off"></h3>
+
+        <h3>Choose Task Sticker Value:</h3>
+        <select id="new-task-value" name="newTaskValue">
+          <option value="5">5 Sticker Points</option>
+          <option value="10">10 Sticker Points</option>
+          <option value="20">20 Sticker Points</option>
+          <option value="25">25 Sticker Points</option>
+          <option value="50">50 Sticker Points</option>
+          <option value="75">75 Sticker Points</option>
+          <option value="100">100 Sticker Points</option>
+        </select>
+
+        <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" autocomplete="off"></h3>
+        
+        <input type="submit" value="Create Task">
+      </form><br>
+    </div>
+  </div>
+  
+  
+  </div>
+
+</body>
 
 </html>
