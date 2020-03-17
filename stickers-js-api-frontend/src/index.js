@@ -95,17 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
 // DELETE REQUEST TO DELETE TASK
-   
     taskInfo.addEventListener('click', (event) => {
       if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
         console.log(event.target)
-        const taskToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
-        fetch(`http://localhost:3000/api/v1/tasks/${taskToDeleteId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json' //MIME type we're sending to the server
-          }
-        })
+        var result = confirm("Want to delete?");
+        if (result) {
+          const taskToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
+          fetch(`http://localhost:3000/api/v1/tasks/${taskToDeleteId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json' //MIME type we're sending to the server
+            }
+          }).then(window.location.reload(false))
+        }
       }
     })
 })
