@@ -5,8 +5,8 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.integer :value
       t.boolean :completed, default: false
       t.string :image
-      #t.integer :task_giver_id
-      #t.integer :task_receiver_id
+      t.integer :taskGiverId
+      t.integer :taskReceiverId
 
       t.timestamps
     end

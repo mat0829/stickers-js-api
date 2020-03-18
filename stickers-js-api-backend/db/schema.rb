@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2020_02_21_001041) do
     t.integer "value"
     t.boolean "completed", default: false
     t.string "image"
+    t.integer "taskGiverId"
+    t.integer "taskReceiverId"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -28,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_001041) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.string "img"
+    t.string "avatar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

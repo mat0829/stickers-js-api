@@ -11,6 +11,10 @@ class Api::V1::UsersController < ApplicationController
     render json: @user, status: 200
   end
 
+  def profile
+    render json: { user: UserSerializer.new(current_user) }, status: :accepted
+  end
+
   def create
     @user = User.create(user_params)
     if @user.valid?
@@ -41,6 +45,6 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :img)
+      params.require(:user).permit(:name, :email, :password, :avatar)
     end
 end

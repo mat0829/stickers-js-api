@@ -1,11 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c DOM is loaded", "color :purple")
 
+  //const loginForm = document.querySelector('#user-login-form')
+
+  const adultUserForm = document.querySelector('#adult-new-user-form')
+  const adultNewAvatarInput = document.querySelector('#adult-new-user-avatar')
+  const adultNewNameInput = document.querySelector('#adult-new-user-name')
+  const adultNewEmailInput = document.querySelector('#adult-new-user-email')
+  const adultNewPasswordInput = document.querySelector('#adult-new-user-password')
+  
+  const childUserForm = document.querySelector('#child-new-user-form')
+  const childNewAvatarInput = document.querySelector('#child-new-user-avatar')
+  const childNewNameInput = document.querySelector('#child-new-user-name')
+  const childNewEmailInput = document.querySelector('#child-new-user-email')
+  const childNewPasswordInput = document.querySelector('#child-new-user-password')
+  const userInfo = document.querySelector('#user-info')
+
   const newTaskForm = document.querySelector('#new-task-form')
   const newTaskNameInput = document.querySelector('#new-task-name')
   const newTaskValueInput = document.querySelector('#new-task-value')
   const newTaskImageInput = document.querySelector('#new-task-image')
-  //const createTaskPageBtn = document.getElementById
+  
   const taskBar = document.querySelector('#task-bar')
   const taskInfo = document.querySelector('#task-info')
   const taskForm = document.querySelector('#task-form')
@@ -14,18 +29,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskImgInput = document.querySelector('#task-img-input')
   const completedTaskInput = document.querySelector('#completed-task-input')
 
-// INITIAL FETCH
-  fetch('http://localhost:3000/api/v1/tasks', { method: 'GET' })
-    .then(/*function*/(resp) => resp.json())
-    .then(/*function*/(taskDataJSON) => {
-      taskDataJSON.forEach(/*function*/(task) => {
-        const newTask = new Task(task)
-        taskBar.innerHTML += newTask.renderSpan()
-      })
+// CREATE A NEW ADULT USER
+  adultUserForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    fetch(`http://localhost:3000/api/v1/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', //MIME type we're sending to the server
+         Accept: 'application/json'
+       },
+       body: JSON.stringify({
+         // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+         user: {
+          name: adultNewNameInput.value,
+          email: adultNewEmailInput.value,
+          password: adultNewPasswordInput.value,
+          avatar: adultNewAvatarInput.value
+         }
+       })
     })
+    .then((r) => r.json())
+    .then((newUserJSON) => {
+      debugger
+      const newUser = new User(newUserJSON) //delegate updating tasks to the Task class
+      taskInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
+    })
+  })
+
+// INITIAL FETCH
+  //fetch('http://localhost:3000/api/v1/tasks', { method: 'GET' })
+  //  .then(/*function*/(resp) => resp.json())
+  //  .then(/*function*/(taskDataJSON) => {
+  //    taskDataJSON.forEach(/*function*/(task) => {
+  //      const newTask = new Task(task)
+  //      taskBar.innerHTML += newTask.renderSpan()
+  //    })
+  //  })
 
 // CREATE A NEW TASK
-  newTaskForm.addEventListener('submit', (event) => {
+ /* newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
@@ -109,5 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
           }).then(window.location.reload(false))
         }
       }
-    })
+    })*/
 })

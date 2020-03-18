@@ -19,6 +19,8 @@ class Task {
     this.value = taskObj.value
     this.completed = taskObj.completed
     this.image = taskObj.image
+    this.taskGiverId = taskObj.taskGiverId
+    this.taskReceiverId = taskObj.taskReceiverId
     Task.allTasks.push(this)
   }
 
