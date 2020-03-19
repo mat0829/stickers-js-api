@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c DOM is loaded", "color :purple")
 
-  //const loginForm = document.querySelector('#user-login-form')
+  const loginForm = document.querySelector('#user-login-form')
+  const userLoginName = document.querySelector('#user-login-name')
+  const userLoginPassword = document.querySelector('#user-login-password')
 
   const adultUserForm = document.querySelector('#adult-new-user-form')
   const adultNewAvatarInput = document.querySelector('#adult-new-user-avatar')
@@ -29,10 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskImgInput = document.querySelector('#task-img-input')
   const completedTaskInput = document.querySelector('#completed-task-input')
 
+// USER LOGIN
+  loginForm.addEventListener('submit', (event) => {
+    debugger
+    event.preventDefault()
+    fetch('http://localhost:3000/api/v1/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', //MIME type we're sending to the server
+         Accept: 'application/json'
+       },
+       body: JSON.stringify({
+         user: {
+          name: userLoginName.value,
+          password: userLoginPassword.value
+         }
+       })
+    })
+    .then((r) => r.json())
+    .then((newUserJSON) => {
+      const newUser = new User(newUserJSON)
+      userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
+    })
+  })
+
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    fetch(`http://localhost:3000/api/v1/users`, {
+    fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', //MIME type we're sending to the server
@@ -50,9 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((newUserJSON) => {
-      debugger
-      const newUser = new User(newUserJSON) //delegate updating tasks to the Task class
-      taskInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
+      const newUser = new User(newUserJSON)
+      userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
   })
 
