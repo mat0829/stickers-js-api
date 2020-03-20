@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((r) => r.json())
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
-      debugger
       localStorage.setItem("token", newUser.password)
       userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
@@ -86,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // INITIAL FETCH
   navBar.addEventListener('click', (event) => {
-    debugger
+    event.preventDefault()
     if (event.target.id === 'tasksBtn') {
       const token = localStorage.token
       fetch('http://localhost:3000/api/v1/tasks', {
@@ -110,10 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
+     const token = localStorage.token
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
        headers: {
-         'Content-Type': 'application/json' //MIME type we're sending to the server
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
         },
        body: JSON.stringify({
          // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)

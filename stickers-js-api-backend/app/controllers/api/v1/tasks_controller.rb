@@ -1,5 +1,4 @@
 class Api::V1::TasksController < ApplicationController
-  skip_before_action :authorized, only: [:create]
   before_action :set_task, only: [:show, :update, :destroy]
 
   def index
@@ -16,7 +15,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.parent_tasks.build(task_params)
     @task.save
       render json: @task, status: 200
   end
