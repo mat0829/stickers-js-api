@@ -4,7 +4,7 @@ class User {
       this.id = userObj.user.id
       this.name = userObj.user.name
       this.email = userObj.user.email
-      this.password = userObj.password
+      this.password = userObj.jwt
       this.avatar = userObj.user.avatar
       User.allUsers.push(this)
     }

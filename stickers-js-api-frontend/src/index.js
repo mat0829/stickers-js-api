@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const newTaskValueInput = document.querySelector('#new-task-value')
   const newTaskImageInput = document.querySelector('#new-task-image')
   
+  const navBar = document.querySelector('#nav-bar')
   const taskBar = document.querySelector('#task-bar')
   const taskInfo = document.querySelector('#task-info')
   const taskForm = document.querySelector('#task-form')
@@ -33,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // USER LOGIN
   loginForm.addEventListener('submit', (event) => {
-    debugger
     event.preventDefault()
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((r) => r.json())
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
+      debugger
+      localStorage.setItem("token", newUser.password)
       userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -77,22 +79,36 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((r) => r.json())
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
+      localStorage.setItem("token", newUser.password)
       userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
   })
 
 // INITIAL FETCH
-  //fetch('http://localhost:3000/api/v1/tasks', { method: 'GET' })
-  //  .then(/*function*/(resp) => resp.json())
-  //  .then(/*function*/(taskDataJSON) => {
-  //    taskDataJSON.forEach(/*function*/(task) => {
-  //      const newTask = new Task(task)
-  //      taskBar.innerHTML += newTask.renderSpan()
-  //    })
-  //  })
+  navBar.addEventListener('click', (event) => {
+    debugger
+    if (event.target.id === 'tasksBtn') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/tasks', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(taskDataJSON) => {
+        taskDataJSON.forEach(/*function*/(task) => {
+          const newTask = new Task(task)
+          taskBar.innerHTML += newTask.renderSpan()
+        })
+      })
+    }
+  })
 
 // CREATE A NEW TASK
- /* newTaskForm.addEventListener('submit', (event) => {
+  newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
@@ -104,7 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
          name: newTaskNameInput.value,
          value: newTaskValueInput.value,
          image: newTaskImageInput.value,
-         completed: completedTaskInput.checked
+         completed: completedTaskInput.checked,
+         taskGiverId: '1',
+         taskReceiverId: '2'
        })
      })
      .then((r) => r.json())
@@ -176,5 +194,5 @@ document.addEventListener('DOMContentLoaded', () => {
           }).then(window.location.reload(false))
         }
       }
-    })*/
+    })
 })
