@@ -32,6 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskImgInput = document.querySelector('#task-img-input')
   const completedTaskInput = document.querySelector('#completed-task-input')
 
+// FETCH USER PROFILE
+  navBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'userProfileBtn') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(userDataJSON) => {
+        const newUser = new User(userDataJSON)
+        userInfo.innerHTML += newUser.renderUserProfile()
+      })
+    }
+  })
+
 // USER LOGIN
   loginForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -67,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
           newUser.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
         }
       }
-      userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
+      userInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })
 
@@ -109,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
           newUser.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
         }
       }
-      userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
+      userInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
 
-// INITIAL FETCH
+// INITIAL FETCH OF TASKS
   navBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'tasksBtn') {

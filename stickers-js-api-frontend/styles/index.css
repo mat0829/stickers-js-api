@@ -4,6 +4,11 @@ body {
   margin: 0;
 }
 
+#user-profile img{
+  max-width: 20vw;
+  max-height: 20vw;
+}
+
 #user-info img {
   max-width: 20vw;
   max-height: 20vw;
@@ -66,4 +71,11 @@ body {
 #task-info img {
   max-width: 20vw;
   max-height: 20vw;
+}
+
+li {
+  font-size: 25px;
+  text-align: center;
+  list-style: square;
+  font-weight: bold;
 }
