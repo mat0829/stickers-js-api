@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
        headers: {
-        Accept: 'application/json',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
         },
@@ -160,11 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // PATCH REQUEST TO UPDATE TASK
     taskForm.addEventListener('submit', (event) => {
       event.preventDefault()
+      const token = localStorage.token
       const updateTaskId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
       fetch(`http://localhost:3000/api/v1/tasks/${updateTaskId}`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json' //MIME type we're sending to the server
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)

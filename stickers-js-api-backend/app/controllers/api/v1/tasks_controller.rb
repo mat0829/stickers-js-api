@@ -33,7 +33,7 @@ class Api::V1::TasksController < ApplicationController
   private
 
     def set_task
-      @task = Task.find(params[:id])
+      @task = current_user.parent_tasks.find(params[:id])
     end
 
     def task_params
