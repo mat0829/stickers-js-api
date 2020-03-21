@@ -52,6 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.password)
+      const number = Math.floor((Math.random() * 1000) + 1)
+      if (newUser.avatar == '') {
+        newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png`
+      }
       userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -79,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.password)
+      const number = Math.floor((Math.random() * 1000) + 1)
+      if (newUser.avatar == '') {
+        newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png`
+      }
       userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
   })
