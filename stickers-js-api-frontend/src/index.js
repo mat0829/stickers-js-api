@@ -52,9 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.password)
-      const number = Math.floor((Math.random() * 1000) + 1)
+      const number = Math.floor((Math.random() * 100) + 1)
       if (newUser.avatar == '') {
-        newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png`
+        //newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Robots
+        //newUser.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Monsters
+        //newUser.avatar = `https://cataas.com/cat?`+`${number}` // Cats
+        newUser.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Dogs
+
       }
       userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
@@ -83,9 +87,20 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.password)
-      const number = Math.floor((Math.random() * 1000) + 1)
+      const number = Math.floor((Math.random() * 100) + 1)
       if (newUser.avatar == '') {
-        newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png`
+        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
+        if (userChoice == 'Robot' || userChoice == 'robot') {
+          newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+        } else if (userChoice == 'Cat' || userChoice == 'cat') {
+          newUser.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+        } else if (userChoice == 'Dog' || userChoice == 'dog') {
+          newUser.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+        } else if (userChoice == 'Monster' || userChoice == 'monster') {
+          newUser.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+        } else {
+          newUser.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+        }
       }
       userInfo.innerHTML += newUser.renderUser() //render the changes so the DOM is in sync with our data
     })
