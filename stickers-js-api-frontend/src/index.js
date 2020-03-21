@@ -188,11 +188,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(event.target)
         var result = confirm("Want to delete?");
         if (result) {
+          const token = localStorage.token
           const taskToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
           fetch(`http://localhost:3000/api/v1/tasks/${taskToDeleteId}`, {
             method: 'DELETE',
             headers: {
-              'Content-Type': 'application/json' //MIME type we're sending to the server
+              'Content-Type': 'application/json', //MIME type we're sending to the server
+              'Authorization': `Bearer ${token}`
             }
           }).then(window.location.reload(false))
         }
