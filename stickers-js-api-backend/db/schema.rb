@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_001041) do
     t.string "email"
     t.string "password_digest"
     t.string "avatar"
+    t.string "token", default: "placeholder"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultNewNameInput = document.querySelector('#adult-new-user-name')
   const adultNewEmailInput = document.querySelector('#adult-new-user-email')
   const adultNewPasswordInput = document.querySelector('#adult-new-user-password')
+
+  const adultEditUserForm = document.querySelector('#adult-edit-user-form')
+  const adultEditAvatarInput = document.querySelector('#adult-edit-user-avatar')
+  const adultEditNameInput = document.querySelector('#adult-edit-user-name')
+  const adultEditEmailInput = document.querySelector('#adult-edit-user-email')
+  const adultEditPasswordInput = document.querySelector('#adult-edit-user-password')
   
   const childUserForm = document.querySelector('#child-new-user-form')
   const childNewAvatarInput = document.querySelector('#child-new-user-avatar')
@@ -31,65 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskValueInput = document.querySelector('#task-value-input')
   const taskImgInput = document.querySelector('#task-img-input')
   const completedTaskInput = document.querySelector('#completed-task-input')
-
-// FETCH USER PROFILE
-  navBar.addEventListener('click', (event) => {
-    event.preventDefault()
-    if (event.target.id === 'userProfileBtn') {
-      const token = localStorage.token
-      fetch('http://localhost:3000/api/v1/profile', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      .then(/*function*/(resp) => resp.json())
-      .then(/*function*/(userDataJSON) => {
-        const newUser = new User(userDataJSON)
-        userInfo.innerHTML += newUser.renderUserProfile()
-      })
-    }
-  })
-
-// USER LOGIN
-  loginForm.addEventListener('submit', (event) => {
-    event.preventDefault()
-    fetch('http://localhost:3000/api/v1/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', //MIME type we're sending to the server
-         Accept: 'application/json'
-       },
-       body: JSON.stringify({
-         user: {
-          name: userLoginName.value,
-          password: userLoginPassword.value
-         }
-       })
-    })
-    .then((r) => r.json())
-    .then((newUserJSON) => {
-      const newUser = new User(newUserJSON)
-      localStorage.setItem("token", newUser.password)
-      const number = Math.floor((Math.random() * 100) + 1)
-      if (newUser.avatar == '') {
-        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing.)")
-        if (userChoice == 'Robot' || userChoice == 'robot') {
-          newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-        } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          newUser.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-        } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          newUser.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-        } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          newUser.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-        } else {
-          newUser.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-        }
-      }
-      userInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
-    })
-  })
 
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
@@ -113,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((r) => r.json())
     .then((newUserJSON) => {
       const newUser = new User(newUserJSON)
-      localStorage.setItem("token", newUser.password)
+      localStorage.setItem("token", newUser.token)
       const number = Math.floor((Math.random() * 100) + 1)
       if (newUser.avatar == '') {
         userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
@@ -132,6 +79,108 @@ document.addEventListener('DOMContentLoaded', () => {
       userInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
+
+// USER LOGIN
+  loginForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    fetch('http://localhost:3000/api/v1/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', //MIME type we're sending to the server
+         Accept: 'application/json'
+       },
+       body: JSON.stringify({
+         user: {
+          name: userLoginName.value,
+          password: userLoginPassword.value
+         }
+       })
+    })
+    .then((r) => r.json())
+    .then((newUserJSON) => {
+      const newUser = new User(newUserJSON)
+      localStorage.setItem("token", newUser.token)
+      const number = Math.floor((Math.random() * 100) + 1)
+      if (newUser.avatar == '') {
+        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing.)")
+        if (userChoice == 'Robot' || userChoice == 'robot') {
+          newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+        } else if (userChoice == 'Cat' || userChoice == 'cat') {
+          newUser.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+        } else if (userChoice == 'Dog' || userChoice == 'dog') {
+          newUser.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+        } else if (userChoice == 'Monster' || userChoice == 'monster') {
+          newUser.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+        } else {
+          newUser.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+        }
+      }
+      userInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
+    })
+  })
+
+// FETCH USER PROFILE
+  navBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'userProfileBtn') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(userDataJSON) => {
+        const newUser = new User(userDataJSON)
+        userInfo.innerHTML += newUser.renderUserProfile()
+      })
+    }
+  })
+
+// CLICK EDIT USER + PRE-FILL FORM
+    userInfo.addEventListener('click', (event) => {
+      if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
+        console.log(event.target)
+        const clickedUserId = parseInt(event.target.dataset.id)
+        const foundUser = User.findUser(clickedUserId)
+        // pre-fill the form data:
+        adultEditNameInput.value = foundUser.name
+        adultEditEmailInput.value = foundUser.email
+        adultEditPasswordInput.value = foundUser.password
+        adultEditAvatarInput.value = foundUser.avatar
+        adultEditUserForm.dataset.id = foundUser.id //store the task id in the form so we can PATCH with that id later
+      }
+    })
+
+// PATCH REQUEST TO UPDATE USER
+    adultEditUserForm.addEventListener('submit', (event) => {
+      event.preventDefault()
+      const token = localStorage.token
+      const updateUserId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
+      fetch(`http://localhost:3000/api/v1/users/${updateUserId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+          user: {
+            name: adultEditNameInput.value,
+            email: adultEditEmailInput.value,
+            password: adultEditPasswordInput.value,
+            avatar: adultEditAvatarInput.value
+          }
+        })
+      })
+      .then((r) => r.json())
+      .then((updatedUserJSON) => {
+        const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
+        userInfo.innerHTML = updatedUser.renderUserProfile() //render the changes so the DOM is in sync with our data
+      })
+    })
 
 // INITIAL FETCH OF TASKS
   navBar.addEventListener('click', (event) => {

@@ -29,13 +29,18 @@
     
     <div class="view" id="user-container">
       <center>
-      <ul id="user-profile">
-
-      </ul>
-      
-      <div id="user-info">
+        <div id="user-info">
     
-      </div>
+        </div>
+      <form id="adult-edit-user-form" method="PATCH">
+        <h1>Edit Adult User:</h1>
+        <h3>Name: <input id="adult-edit-user-name" type="text" name="name" autocomplete="off"></h3>
+        <h3>Email: <input id="adult-edit-user-email" type="text" name="email" autocomplete="off"></h3>
+        <h3>Password: <input id="adult-edit-user-password" type="password" name="password"></h3>
+        <h3>Avatar Image: <input id="adult-edit-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
+        <input type="submit" value="Update User">
+      </form>
+      
       <h1>Please Login:
       <form id="user-login-form">
         <input id="user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
@@ -52,7 +57,7 @@
         <input type="submit" value="Create User">
       </form>
 
-      <form id="child-new-user-form" method="POST">
+      <form id="child-new-user-form" method="POST" hidden>
         <h1>New Child User:</h1>
         <h3>Name: <input id="child-new-user-name" type="text" name="name" autocomplete="off"></h3>
         <h3>Email: <input id="child-new-user-email" type="text" name="email" autocomplete="off"></h3>

@@ -4,14 +4,9 @@ body {
   margin: 0;
 }
 
-#user-profile img{
-  max-width: 20vw;
-  max-height: 20vw;
-}
-
 #user-info img {
-  max-width: 20vw;
-  max-height: 20vw;
+  max-width: 15vw;
+  max-height: 15vw;
 }
 
 #filter-div {
@@ -19,7 +14,6 @@ body {
   justify-content: center;
   align-items: center;
   background: black;
-
 }
 
 #completed-task-filter {
