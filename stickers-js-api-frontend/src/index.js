@@ -59,23 +59,24 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((newUserJSON) => {
-      const newUser = new User(newUserJSON)
-      localStorage.setItem("token", newUser.token)
       const number = Math.floor((Math.random() * 100) + 1)
-      if (newUser.avatar == '') {
+      if (newUserJSON.user.avatar == '') {
         userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
         if (userChoice == 'Robot' || userChoice == 'robot') {
-          newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+          newUserJSON.user.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
         } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          newUser.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+          newUserJSON.user.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
         } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          newUser.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+          newUserJSON.user.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
         } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          newUser.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+          newUserJSON.user.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
         } else {
-          newUser.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+          newUserJSON.user.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
         }
+        localStorage.setItem("avatar", newUserJSON.user.avatar)
       }
+      const newUser = new User(newUserJSON)
+      localStorage.setItem("token", newUser.token)
       userInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -133,6 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(userDataJSON) => {
+        const placeholderAvatar = localStorage.avatar
+        if (userDataJSON.user.avatar == '') {
+          userDataJSON.user.avatar = placeholderAvatar
+        }
         const newUser = new User(userDataJSON)
         userInfo.innerHTML += newUser.renderUserProfile()
       })
@@ -150,6 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
         adultEditEmailInput.value = foundUser.email
         adultEditPasswordInput.value = foundUser.password
         adultEditAvatarInput.value = foundUser.avatar
+        /*if (foundUser.avatar == '') {
+          avatar = foundUser.avatar
+        }*/
         adultEditUserForm.dataset.id = foundUser.id //store the task id in the form so we can PATCH with that id later
       }
     })
@@ -182,6 +190,25 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     })
 
+// DELETE REQUEST TO DELETE USER
+    userInfo.addEventListener('click', (event) => {
+      if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
+        console.log(event.target)
+        var result = confirm("Are you sure you want to delete this User? Click ok to confirm.");
+        if (result) {
+          const token = localStorage.token
+          const userToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
+          fetch(`http://localhost:3000/api/v1/users/${userToDeleteId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json', //MIME type we're sending to the server
+              'Authorization': `Bearer ${token}`
+            }
+          }).then(window.location.reload(false))
+        }
+      }
+    })
+
 // INITIAL FETCH OF TASKS
   navBar.addEventListener('click', (event) => {
     event.preventDefault()
@@ -208,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
+     debugger
      const token = localStorage.token
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
@@ -285,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     taskInfo.addEventListener('click', (event) => {
       if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
         console.log(event.target)
-        var result = confirm("Want to delete?");
+        var result = confirm("Are you sure you want to delete this Task? Click ok to confirm.");
         if (result) {
           const token = localStorage.token
           const taskToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
