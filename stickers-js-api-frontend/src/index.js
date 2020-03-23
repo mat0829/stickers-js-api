@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.token)
+      localStorage.setItem("parentId", newUser.id)
       userInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -98,24 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
        })
     })
     .then((r) => r.json())
-    .then((newUserJSON) => {
-      const newUser = new User(newUserJSON)
-      localStorage.setItem("token", newUser.token)
-      const number = Math.floor((Math.random() * 100) + 1)
-      if (newUser.avatar == '') {
-        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing.)")
-        if (userChoice == 'Robot' || userChoice == 'robot') {
-          newUser.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-        } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          newUser.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-        } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          newUser.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-        } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          newUser.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-        } else {
-          newUser.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-        }
+    .then((returnUserJSON) => {
+      const placeholderAvatar = localStorage.avatar
+      if (returnUserJSON.user.avatar == '') {
+        returnUserJSON.user.avatar = placeholderAvatar
       }
+      const newUser = new User(returnUserJSON)
+      localStorage.setItem("token", newUser.token)
+      //localStorage.setItem("parentId", newUser.id)
       userInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })
@@ -155,9 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
         adultEditEmailInput.value = foundUser.email
         adultEditPasswordInput.value = foundUser.password
         adultEditAvatarInput.value = foundUser.avatar
-        /*if (foundUser.avatar == '') {
-          avatar = foundUser.avatar
-        }*/
         adultEditUserForm.dataset.id = foundUser.id //store the task id in the form so we can PATCH with that id later
       }
     })
@@ -185,6 +173,22 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then((r) => r.json())
       .then((updatedUserJSON) => {
+        const number = Math.floor((Math.random() * 100) + 1)
+        if (updatedUserJSON.avatar == '') {
+          userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
+          if (userChoice == 'Robot' || userChoice == 'robot') {
+            updatedUserJSON.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+          } else if (userChoice == 'Cat' || userChoice == 'cat') {
+            updatedUserJSON.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+          } else if (userChoice == 'Dog' || userChoice == 'dog') {
+            updatedUserJSON.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+          } else if (userChoice == 'Monster' || userChoice == 'monster') {
+            updatedUserJSON.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+          } else {
+            updatedUserJSON.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+          }
+          localStorage.setItem("avatar", updatedUserJSON.avatar)
+        }
         const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
         userInfo.innerHTML = updatedUser.renderUserProfile() //render the changes so the DOM is in sync with our data
       })
@@ -235,8 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     debugger
      const token = localStorage.token
+     const parentId = localStorage.parentId
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
        headers: {
@@ -249,9 +253,10 @@ document.addEventListener('DOMContentLoaded', () => {
          value: newTaskValueInput.value,
          image: newTaskImageInput.value,
          completed: completedTaskInput.checked,
-         taskGiverId: '1',
+         taskGiverId: parentId,
          taskReceiverId: '2'
        })
+       
      })
      .then((r) => r.json())
      .then((newTaskJSON) => {
