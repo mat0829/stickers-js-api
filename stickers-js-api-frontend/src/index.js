@@ -228,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
+        taskBar.innerHTML = ''
         taskDataJSON.forEach(/*function*/(task) => {
           const newTask = new Task(task)
           taskBar.innerHTML += newTask.renderSpan()
