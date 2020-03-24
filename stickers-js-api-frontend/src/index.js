@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
               'Content-Type': 'application/json', //MIME type we're sending to the server
               'Authorization': `Bearer ${token}`
             }
-          }).then(window.location.reload(false))
+          }).then(userInfo.innerHTML = '')
         }
       }
     })
