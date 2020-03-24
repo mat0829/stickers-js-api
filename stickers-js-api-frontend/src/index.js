@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c DOM is loaded", "color :purple")
 
+  const navBar = document.querySelector('#nav-bar')
+  const userInfo = document.querySelector('#user-info')
+
   const loginForm = document.querySelector('#user-login-form')
   const userLoginName = document.querySelector('#user-login-name')
   const userLoginPassword = document.querySelector('#user-login-password')
@@ -22,21 +25,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const childNewNameInput = document.querySelector('#child-new-user-name')
   const childNewEmailInput = document.querySelector('#child-new-user-email')
   const childNewPasswordInput = document.querySelector('#child-new-user-password')
-  const userInfo = document.querySelector('#user-info')
+
+  const childEditUserForm = document.querySelector('#child-edit-user-form')
+  const childEditAvatarInput = document.querySelector('#child-edit-user-avatar')
+  const childEditNameInput = document.querySelector('#child-edit-user-name')
+  const childEditEmailInput = document.querySelector('#child-edit-user-email')
+  const childEditPasswordInput = document.querySelector('#child-edit-user-password')
+
+  const taskBar = document.querySelector('#task-bar')
+  const taskInfo = document.querySelector('#task-info')
 
   const newTaskForm = document.querySelector('#new-task-form')
   const newTaskNameInput = document.querySelector('#new-task-name')
   const newTaskValueInput = document.querySelector('#new-task-value')
   const newTaskImageInput = document.querySelector('#new-task-image')
-  
-  const navBar = document.querySelector('#nav-bar')
-  const taskBar = document.querySelector('#task-bar')
-  const taskInfo = document.querySelector('#task-info')
-  const taskForm = document.querySelector('#task-form')
-  const taskNameInput = document.querySelector('#task-name-input')
-  const taskValueInput = document.querySelector('#task-value-input')
-  const taskImgInput = document.querySelector('#task-img-input')
-  const completedTaskInput = document.querySelector('#completed-task-input')
+
+  const editTaskForm = document.querySelector('#edit-task-form')
+  const editTaskName = document.querySelector('#edit-task-name')
+  const editTaskValue = document.querySelector('#edit-task-value')
+  const editTaskImg = document.querySelector('#edit-task-img')
+  const editTaskCompleted = document.querySelector('#edit-task-completed')
 
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
@@ -254,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
          name: newTaskNameInput.value,
          value: newTaskValueInput.value,
          image: newTaskImageInput.value,
-         completed: completedTaskInput.checked,
+         completed: editTaskCompleted.checked,
          taskGiverId: parentId,
          taskReceiverId: '2'
        })
@@ -282,16 +290,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const clickedTaskId = parseInt(event.target.dataset.id)
         const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
         // pre-fill the form data:
-        taskNameInput.value = foundTask.name
-        taskValueInput.value = foundTask.value
-        taskImgInput.value = foundTask.image
-        completedTaskInput.checked = foundTask.completed
-        taskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
+        editTaskName.value = foundTask.name
+        editTaskValue.value = foundTask.value
+        editTaskImg.value = foundTask.image
+        editTaskCompleted.checked = foundTask.completed
+        editTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
       }
     })
 
 // PATCH REQUEST TO UPDATE TASK
-    taskForm.addEventListener('submit', (event) => {
+    editTaskForm.addEventListener('submit', (event) => {
+      console.log(event)
       event.preventDefault()
       const token = localStorage.token
       const updateTaskId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
@@ -303,10 +312,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify({
           // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
-          name: taskNameInput.value,
-          value: taskValueInput.value,
-          image: taskImgInput.value,
-          completed: completedTaskInput.checked
+          name: editTaskName.value,
+          value: editTaskValue.value,
+          image: editTaskImg.value,
+          completed: editTaskCompleted.checked
         })
       })
       .then((r) => r.json())
@@ -330,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
               'Content-Type': 'application/json', //MIME type we're sending to the server
               'Authorization': `Bearer ${token}`
             }
-          }).then(window.location.reload(false))
+          }).then(window.location.reload(true))
         }
       }
     })

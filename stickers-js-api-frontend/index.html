@@ -24,14 +24,14 @@
     </nav><br>
   </div>
 
-  <div id="lotOfPages"></div>
+  <div id="lotOfPages">
+    <center>
+      <div id="user-info">
     
+      </div>
+    </center>
     <div class="view" id="adult-user-container">
       <center>
-        <div id="user-info">
-    
-        </div>
-
         <h1>Please Login:
         <form id="user-login-form">
           <input id="user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
@@ -61,6 +61,15 @@
 
     <div class="view hide" id="child-user-container">
       <center>
+        <form id="child-edit-user-form" method="PATCH">
+          <h1>Edit Child User:</h1>
+          <h3>Name: <input id="child-edit-user-name" type="text" name="name" autocomplete="off"></h3>
+          <h3>Email: <input id="child-edit-user-email" type="text" name="email" autocomplete="off"></h3>
+          <h3>Password: <input id="child-edit-user-password" type="password" name="password" placeholder="Enter old or new password:"></h3>
+          <h3>Avatar Image: <input id="child-edit-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
+          <input type="submit" value="Update User">
+        </form>
+
         <form id="child-new-user-form" method="POST">
           <h1>New Child User:</h1>
           <h3>Name: <input id="child-new-user-name" type="text" name="name" autocomplete="off"></h3>
@@ -77,15 +86,15 @@
         <h2>Current Tasks:</h2>
       </div>
 
-      <form id="task-form" method="post">
+      <form id="edit-task-form" method="post">
         <label for="taskName">Task Name: </label>
-        <input id="task-name-input" type="text" name="taskName" value="">
+        <input id="edit-task-name" type="text" name="taskName" value="">
         <label for="taskValue">Task Point Value: </label>
-        <input id="task-value-input" type="number" name="taskValue" value="">
+        <input id="edit-task-value" type="number" name="taskValue" value="">
         <label for="taskImage">Image URL: </label>
-        <input id="task-img-input" type="text" name="taskImage" value="">
+        <input id="edit-task-img" type="text" name="taskImage" value="">
         <label for="taskCompleted">Task Completed?</label>
-        <input id="completed-task-input" type="checkbox" name="taskCompleted" value="">
+        <input id="edit-task-completed" type="checkbox" name="taskCompleted" value="">
     
         <button type="submit" name="button">Submit Edited Task</button>
       </form>
@@ -115,9 +124,6 @@
     <div class="view hide" id="page4">
       
     </div>
-  </div>
-  
-  
   </div>
   <!-- <script type="text/javascript" src="src/index.js"></script> -->
   <!-- <script type="text/javascript" src="src/adapters/adapter.js"></script> -->
