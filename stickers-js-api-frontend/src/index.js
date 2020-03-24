@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
+        userInfo.innerHTML = ''
         userInfo.innerHTML += newUser.renderUserProfile()
       })
     }
