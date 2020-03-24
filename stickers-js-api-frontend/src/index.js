@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const newUser = new User(returnUserJSON)
       localStorage.setItem("token", newUser.token)
-      //localStorage.setItem("parentId", newUser.id)
+      localStorage.setItem("parentId", newUser.id)
       userInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })

@@ -9,21 +9,6 @@ body {
   max-height: 15vw;
 }
 
-#filter-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: black;
-}
-
-#completed-task-filter {
-  margin-top: 1vh;
-  width: 35vw;
-  font-size: 1em;
-  height: 5vh;
-  border-radius: 3em;
-}
-
 #task-bar {
   height: 15vh;
   background: yellow;
@@ -42,7 +27,7 @@ body {
   border: 1px solid blue;
 }
 
-#task-summary-container {
+#tasks-container {
   height: 75vh;
   text-align: center;
 }
