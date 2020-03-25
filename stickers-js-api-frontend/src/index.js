@@ -219,7 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${token}`
           }
         })
-        .then(userInfo.innerHTML = '')
         .then(window.location.reload(true))
       }
     }
@@ -240,9 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        debugger
+        taskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
-          taskBar.innerHTML = ''
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
             taskBar.innerHTML += newTask.renderSpan()
@@ -338,7 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
   taskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
-      debugger
       var result = confirm("Are you sure you want to delete this Task? Click ok to confirm.");
       if (result) {
         const token = localStorage.token
@@ -350,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${token}`
           }
         })
-        .then((tasksBtn).click())
+        .then(tasksBtn.click(tasksBtn.click()))
         .then(taskInfo.innerHTML = '')
       }
     }

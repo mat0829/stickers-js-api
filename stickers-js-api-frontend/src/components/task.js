@@ -29,14 +29,25 @@ class Task {
   }
 
   renderDetails() {
-    const isTaskCompletedString = this.completed ? 'true' : 'false'
-    return `<img src="${this.image}">
+    if (this.completed == true) {
+      const isTaskCompletedString = "(Task is complete!)"
+      return `<img src="${this.image}">
           <h2>${this.name}</h2>
           <h3>Worth ${this.value} Sticker Points!</h3>
-          <button>Task Completed? ${isTaskCompletedString}</button>
+          <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
           `
+    } else {
+      const isTaskCompletedString = "(Currently working on Task)"
+      return `<img src="${this.image}">
+          <h2>${this.name}</h2>
+          <h3>Worth ${this.value} Sticker Points!</h3>
+          <h2>${isTaskCompletedString}</h2>
+          <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
+          <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
+          `
+    }
   }
 }
 
