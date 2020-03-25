@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const taskBar = document.querySelector('#task-bar')
   const taskInfo = document.querySelector('#task-info')
+  const tasksBtn = document.querySelector('#tasksBtn')
 
   const newTaskForm = document.querySelector('#new-task-form')
   const newTaskNameInput = document.querySelector('#new-task-name')
@@ -41,10 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const newTaskImageInput = document.querySelector('#new-task-image')
 
   const editTaskForm = document.querySelector('#edit-task-form')
-  const editTaskName = document.querySelector('#edit-task-name')
-  const editTaskValue = document.querySelector('#edit-task-value')
-  const editTaskImg = document.querySelector('#edit-task-img')
-  const editTaskCompleted = document.querySelector('#edit-task-completed')
+  const editTaskNameInput = document.querySelector('#edit-task-name')
+  const editTaskValueInput = document.querySelector('#edit-task-value')
+  const editTaskImageInput = document.querySelector('#edit-task-image')
+  const editTaskCompletedInput = document.querySelector('#edit-task-completed')
 
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
@@ -237,11 +238,16 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        taskBar.innerHTML = ''
-        taskDataJSON.forEach(/*function*/(task) => {
-          const newTask = new Task(task)
-          taskBar.innerHTML += newTask.renderSpan()
-        })
+        debugger
+        if (taskDataJSON && taskDataJSON.length) {
+          taskBar.innerHTML = ''
+          taskDataJSON.forEach(/*function*/(task) => {
+            const newTask = new Task(task)
+            taskBar.innerHTML += newTask.renderSpan()
+          })
+        } else {
+          taskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
+        }
       })
     }
   })
@@ -262,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
          name: newTaskNameInput.value,
          value: newTaskValueInput.value,
          image: newTaskImageInput.value,
-         completed: editTaskCompleted.checked,
+         completed: editTaskCompletedInput.checked,
          taskGiverId: parentId,
          taskReceiverId: '2'
        })
@@ -271,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
      .then((r) => r.json())
      .then((newTaskJSON) => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
+       taskBar.innerHTML += newTask.renderSpan()
        taskInfo.innerHTML += newTask.renderDetails() //render the changes so the DOM is in sync with our data
      })
    })
@@ -290,10 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const clickedTaskId = parseInt(event.target.dataset.id)
         const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
         // pre-fill the form data:
-        editTaskName.value = foundTask.name
-        editTaskValue.value = foundTask.value
-        editTaskImg.value = foundTask.image
-        editTaskCompleted.checked = foundTask.completed
+        editTaskNameInput.value = foundTask.name
+        editTaskValueInput.value = foundTask.value
+        editTaskImageInput.value = foundTask.image
+        editTaskCompletedInput.checked = foundTask.completed
         editTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
       }
     })
@@ -312,10 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify({
           // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
-          name: editTaskName.value,
-          value: editTaskValue.value,
-          image: editTaskImg.value,
-          completed: editTaskCompleted.checked
+          name: editTaskNameInput.value,
+          value: editTaskValueInput.value,
+          image: editTaskImageInput.value,
+          completed: editTaskCompletedInput.checked
         })
       })
       .then((r) => r.json())
@@ -329,6 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     taskInfo.addEventListener('click', (event) => {
       if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
         console.log(event.target)
+        debugger
         var result = confirm("Are you sure you want to delete this Task? Click ok to confirm.");
         if (result) {
           const token = localStorage.token
@@ -339,7 +347,9 @@ document.addEventListener('DOMContentLoaded', () => {
               'Content-Type': 'application/json', //MIME type we're sending to the server
               'Authorization': `Bearer ${token}`
             }
-          }).then(window.location.reload(true))
+          })
+          .then((tasksBtn).click())
+          .then(taskInfo.innerHTML = '')
         }
       }
     })
