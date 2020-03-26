@@ -20,6 +20,7 @@ class User {
     this.token = userObj.jwt
     this.avatar = userObj.user.avatar
     this.children = userObj.user.children
+    this.tasks = userObj.user.parent_tasks
     User.allUsers.push(this)
   }
   
@@ -35,14 +36,27 @@ class User {
            `
   }
 
+  renderAdultUserProfile() {
+    return `<img src="${this.avatar}"><br>
+            <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
+            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
+            <li data-id="${this.id}">Name: (${this.name})</li><br>
+            <li data-id="${this.id}">Email: (${this.email})</li><br>
+            <li data-id="${this.id}">Avatar Url: (${this.avatar})</li><br>
+            <li data-id="${this.id}">Children: (${this.children})</li><br>
+            <li data-id="${this.id}">Tasks for Children: (${this.tasks})</li><br>
+            `
+  }
+
   renderUserProfile() {
     return `<img src="${this.avatar}"><br>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
             <li data-id="${this.id}">Name: (${this.name})</li><br>
             <li data-id="${this.id}">Email: (${this.email})</li><br>
-            <li data-id="${this.id}">Avatar Url: (${this.avatar})</li>
-            <li data-id="${this.id}">Children: (${this.children})</li>
+            <li data-id="${this.id}">Avatar Url: (${this.avatar})</li><br>
+            <li data-id="${this.id}">Children: (${this.children})</li><br>
+            <li data-id="${this.id}">Tasks for Children: (${this.tasks})</li><br>
             `
   }
 }

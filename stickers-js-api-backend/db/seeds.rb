@@ -20,13 +20,20 @@ parent_user = User.create!(
     avatar: 'https://previews.123rf.com/images/juliasart/juliasart1704/juliasart170400022/75406270-vector-girl-icon-woman-avatar-face-icon-cartoon-style-.jpg'
 )
 
+child_user = User.create!(
+  name: 'Wookie',
+  email: 'meow@email.com',
+  password: 'password',
+  avatar: 'https://previews.123rf.com/images/alexutemov/alexutemov1608/alexutemov160800980/61881092-cute-animal-cat-head-emotion-vector-avatar-cartoon-happy-cat-kitty-animal-emotion-expression-isolate.jpg'
+)
+
 
 Task.create!(
   name: "Get straight A's on your Report Card",
   value: '500',
   image: 'https://i.pinimg.com/originals/e6/5d/86/e65d86af554c7faabc16684669edfa76.png',
   taskGiverId: '1',
-  taskReceiverId: '2'
+  taskReceiverId: '4'
 )
 
 Task.create!(

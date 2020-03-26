@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const newUser = new User(userDataJSON)
         adultUserInfo.innerHTML = ''
-        adultUserInfo.innerHTML += newUser.renderUserProfile()
+        adultUserInfo.innerHTML += newUser.renderAdultUserProfile()
       })
     }
   })
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("avatar", updatedUserJSON.avatar)
       }
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
-      adultUserInfo.innerHTML = updatedUser.renderUserProfile() //render the changes so the DOM is in sync with our data
+      adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
     })
   })
 
