@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // FETCH ADULT USER PROFILE
   navBar.addEventListener('click', (event) => {
     event.preventDefault()
+    debugger
     if (event.target.id === 'userProfileBtn') {
       const token = localStorage.token
       fetch('http://localhost:3000/api/v1/profile', {

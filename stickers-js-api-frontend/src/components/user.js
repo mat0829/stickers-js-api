@@ -19,6 +19,7 @@ class User {
     this.password = userObj.user.password
     this.token = userObj.jwt
     this.avatar = userObj.user.avatar
+    this.children = userObj.user.children
     User.allUsers.push(this)
   }
   
@@ -41,6 +42,7 @@ class User {
             <li data-id="${this.id}">Name: (${this.name})</li><br>
             <li data-id="${this.id}">Email: (${this.email})</li><br>
             <li data-id="${this.id}">Avatar Url: (${this.avatar})</li>
+            <li data-id="${this.id}">Children: (${this.children})</li>
             `
   }
 }
