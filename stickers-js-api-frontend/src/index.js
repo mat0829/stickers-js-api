@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c DOM is loaded", "color :purple")
 
-  const navBar = document.querySelector('#nav-bar')
+  const adultNavBar = document.querySelector('#adult-nav-bar')
   const adultUserInfo = document.querySelector('#adult-user-info')
+  const childNavBar = document.querySelector('#child-nav-bar')
   const childUserInfo = document.querySelector('#child-user-info')
   
   const adultLoginForm = document.querySelector('#adult-user-login-form')
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 // FETCH ADULT USER PROFILE
-  navBar.addEventListener('click', (event) => {
+  adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     debugger
     if (event.target.id === 'userProfileBtn') {
@@ -260,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 // FETCH CHILD USER PROFILE
-  navBar.addEventListener('click', (event) => {
+  childNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'userProfileBtn') {
       const token = localStorage.token
@@ -408,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 // INITIAL FETCH OF TASKS
-  navBar.addEventListener('click', (event) => {
+  adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'tasksBtn') {
       const token = localStorage.token
