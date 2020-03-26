@@ -25,20 +25,19 @@
   </div>
 
   <div id="lotOfPages">
-    <center>
-      <div id="user-info">
-    
-      </div>
-
-      <h1>Please Login:
-      <form id="user-login-form">
-        <input id="user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
-        <input id="user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
-        <input type="submit" value="Login">
-      </form> or Sign up below:</h1>
-    </center>
-    <div class="view" id="adult-user-container" hidden>
+    <div class="view" id="adult-user-container">
       <center>
+        <div id="adult-user-info">
+    
+        </div>
+  
+        <h1>Please Login:
+        <form id="adult-user-login-form">
+          <input id="adult-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
+          <input id="adult-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
+          <input type="submit" value="Login">
+        </form> or Sign up below:</h1>
+
         <form id="adult-new-user-form" method="POST">
           <h1>New Adult User:</h1>
           <h3>Name: <input id="adult-new-user-name" type="text" name="name" autocomplete="off"></h3>
@@ -61,6 +60,17 @@
 
     <div class="view hide" id="child-user-container" hidden>
       <center>
+        <div id="child-user-info">
+    
+        </div>
+
+        <h1>Please Login:
+        <form id="child-user-login-form">
+          <input id="child-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
+          <input id="child-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
+          <input type="submit" value="Login">
+        </form> or Sign up below:</h1>
+
         <form id="child-new-user-form" method="POST">
           <h1>New Child User:</h1>
           <h3>Name: <input id="child-new-user-name" type="text" name="name" autocomplete="off"></h3>
@@ -81,7 +91,7 @@
       </center>
     </div>
         
-    <div class="view hide" id="tasks-container">
+    <div class="view hide" id="tasks-container" hidden>
       <h2>Current Tasks:</h2>
       <div id="task-bar">
         
