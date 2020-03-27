@@ -23,8 +23,11 @@
         <nav id="adult-nav-bar">
           <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
           <button id="tasksBtn" data-launch-view="page1">Tasks Page</button>
-          <button id="showPage2Btn" data-launch-view="page2">Create a new Task</button>
-          <button id="showPage3Btn" data-launch-view="page3">Stickers Page</button>
+          <button id="newTaskBtn" data-launch-view="page2">Create a new Task</button>
+          <!-- <button id="stickersBtn" data-launch-view="page3">Stickers Page</button> -->
+          <!-- <button id="prizesBtn" data-launch-view="page3">Prizes Page</button> -->
+          <!-- <button id="behaviorBtn" data-launch-view="page3">Behavior Page</button> -->
+          <button id="logoutBtn" data-launch-view="page3">Logout</button>
         </nav><br>
         
         <div id="adult-user-info">
@@ -38,7 +41,7 @@
           <input type="submit" value="Login">
         </form> or Sign up below:</h1>
 
-        <form id="adult-new-user-form" method="POST" hidden>
+        <form id="adult-new-user-form" method="POST">
           <h1>New Adult User:</h1>
           <h3>Name: <input id="adult-new-user-name" type="text" name="name" autocomplete="off"></h3>
           <h3>Email: <input id="adult-new-user-email" type="text" name="email" autocomplete="off"></h3>
@@ -47,7 +50,7 @@
           <input type="submit" value="Create User">
         </form>
 
-        <form id="adult-edit-user-form" method="PATCH" hidden>
+        <form id="adult-edit-user-form" method="PATCH">
           <h1>Edit Adult User:</h1>
           <h3>Name: <input id="adult-edit-user-name" type="text" name="name" autocomplete="off"></h3>
           <h3>Email: <input id="adult-edit-user-email" type="text" name="email" autocomplete="off"></h3>
@@ -58,7 +61,7 @@
       </center>
     </div>
 
-    <div class="view hide" id="child-user-container">
+    <div class="view hide" id="child-user-container" hidden>
       <center>
         <nav id="child-nav-bar" hidden>
           <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
@@ -72,7 +75,7 @@
         </div>
 
         <h1>Please Login:
-        <form id="child-user-login-form" hidden>
+        <form id="child-user-login-form">
           <input id="child-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
           <input id="child-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
           <input type="submit" value="Login">

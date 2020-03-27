@@ -82,6 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
+// ADULT USER LOGOUT
+  adultNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    debugger
+    if (event.target.id === 'logoutBtn') {
+      delete localStorage.token
+      window.location.reload(true)
+    }
+  })
+
 // FETCH ADULT USER PROFILE
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
@@ -445,8 +455,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     const childNamesArray = localStorage.getItem('childNames')
-     const childId = prompt(`Type in the id of the child the task is for: ${childNamesArray}` )
+     debugger
+     const storedChildNames = localStorage.getItem("childNames")
+     const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
      fetch(`http://localhost:3000/api/v1/tasks`, {
@@ -467,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
        
      })
      .then((r) => r.json())
+     .then(tasksBtn.click(tasksBtn.click()))
      .then((newTaskJSON) => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
        taskBar.innerHTML += newTask.renderSpan()
