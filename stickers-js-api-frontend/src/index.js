@@ -324,7 +324,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.token)
-      localStorage.setItem("childId", newUser.id)
+      const childNames = storedChildNames = JSON.parse(localStorage.getItem("childNames")) || []
+      const childObject = {name: `${newUser.name}`, id: newUser.id + ""}
+      childNames.push(childObject)
+      window.localStorage.setItem('childNames', JSON.stringify(childNames))
+      storedChildNames = JSON.parse(localStorage.getItem("childNames"))
+      console.log(storedChildNames)
       childUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -408,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-// INITIAL FETCH OF TASKS
+// INITIAL FETCH OF ADULT TASKS
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'tasksBtn') {
@@ -439,6 +444,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
+     const childNamesArray = localStorage.getItem('childNames')
+     const childId = prompt(`Type in the id of the child the task is for: ${childNamesArray}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
      fetch(`http://localhost:3000/api/v1/tasks`, {
@@ -454,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
          image: newTaskImageInput.value,
          completed: editTaskCompletedInput.checked,
          taskGiverId: parentId,
-         taskReceiverId: '2'
+         taskReceiverId: childId
        })
        
      })
@@ -534,6 +541,34 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(tasksBtn.click(tasksBtn.click()))
         .then(taskInfo.innerHTML = '')
       }
+    }
+  })
+
+// INITIAL FETCH OF CHILD TASKS
+  childNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'tasksBtn') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/tasks', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(taskDataJSON) => {
+        taskBar.innerHTML = ''
+        if (taskDataJSON && taskDataJSON.length) {
+          taskDataJSON.forEach(/*function*/(task) => {
+            const newTask = new Task(task)
+            taskBar.innerHTML += newTask.renderSpan()
+          })
+        } else {
+          taskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
+        }
+      })
     }
   })
 })

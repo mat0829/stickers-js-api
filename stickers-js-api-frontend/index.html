@@ -38,7 +38,7 @@
           <input type="submit" value="Login">
         </form> or Sign up below:</h1>
 
-        <form id="adult-new-user-form" method="POST">
+        <form id="adult-new-user-form" method="POST" hidden>
           <h1>New Adult User:</h1>
           <h3>Name: <input id="adult-new-user-name" type="text" name="name" autocomplete="off"></h3>
           <h3>Email: <input id="adult-new-user-email" type="text" name="email" autocomplete="off"></h3>
@@ -47,7 +47,7 @@
           <input type="submit" value="Create User">
         </form>
 
-        <form id="adult-edit-user-form" method="PATCH">
+        <form id="adult-edit-user-form" method="PATCH" hidden>
           <h1>Edit Adult User:</h1>
           <h3>Name: <input id="adult-edit-user-name" type="text" name="name" autocomplete="off"></h3>
           <h3>Email: <input id="adult-edit-user-email" type="text" name="email" autocomplete="off"></h3>
@@ -58,9 +58,9 @@
       </center>
     </div>
 
-    <div class="view hide" id="child-user-container" hidden>
+    <div class="view hide" id="child-user-container">
       <center>
-        <nav id="child-nav-bar">
+        <nav id="child-nav-bar" hidden>
           <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
           <button id="tasksBtn" data-launch-view="page1">Tasks Page</button>
           <button id="showPage2Btn" data-launch-view="page2">Create a new Task</button>
@@ -72,7 +72,7 @@
         </div>
 
         <h1>Please Login:
-        <form id="child-user-login-form">
+        <form id="child-user-login-form" hidden>
           <input id="child-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
           <input id="child-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
           <input type="submit" value="Login">
@@ -98,7 +98,7 @@
       </center>
     </div>
         
-    <div class="view hide" id="tasks-container" hidden>
+    <div class="view hide" id="tasks-container">
       <h2>Current Tasks:</h2>
       <div id="task-bar">
         
