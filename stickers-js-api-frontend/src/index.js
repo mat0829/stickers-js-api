@@ -324,7 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.token)
-      const childNames = storedChildNames = JSON.parse(localStorage.getItem("childNames")) || []
+      debugger
+      const childNames = JSON.parse(localStorage.getItem("childNames")) || []
       const childObject = {name: `${newUser.name}`, id: newUser.id + ""}
       childNames.push(childObject)
       window.localStorage.setItem('childNames', JSON.stringify(childNames))
