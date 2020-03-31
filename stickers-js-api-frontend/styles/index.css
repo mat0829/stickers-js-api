@@ -13,6 +13,10 @@ body {
   max-height: 10vw;
 }
 
+#adult-user-info {
+  align-items: center;
+}
+
 #adult-user-info img {
   max-width: 15vw;
   max-height: 15vw;
@@ -96,6 +100,7 @@ li {
   text-align: center;
   list-style: square;
   font-weight: bold;
+  margin: 0 0 8px 0;
 }
 
 .delete.delete {

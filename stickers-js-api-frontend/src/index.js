@@ -272,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CHILD USER LOGIN
   childLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -329,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newUser = new User(userDataJSON)
         showhideView('child-user-info')
         childUserInfo.innerHTML = ''
-        childUserInfo.innerHTML += newUser.renderUserProfile()
+        childUserInfo.innerHTML += newUser.renderChildUserProfile()
       })
     }
   })
@@ -440,7 +441,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("avatar", updatedUserJSON.avatar)
       }
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
-      childUserInfo.innerHTML = updatedUser.renderUserProfile() //render the changes so the DOM is in sync with our data
+      showhideViews('child-user-info', 'child-edit-user-form')
+      childUserInfo.innerHTML = updatedUser.renderChildUserProfile() //render the changes so the DOM is in sync with our data
     })
   })
 
