@@ -4,45 +4,6 @@ body {
   margin: 0;
 }
 
-#adult-user-info img {
-  max-width: 15vw;
-  max-height: 15vw;
-}
-
-#child-user-info img {
-  max-width: 15vw;
-  max-height: 15vw;
-}
-
-#task-bar {
-  height: 15vh;
-  background: yellow;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-#task-bar span {
-  height: 80%;
-  width: 8vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  border: 1px solid blue;
-}
-
-#tasks-container {
-  height: 75vh;
-  text-align: center;
-}
-
-#task-info {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-}
-
 #stickers-header {
   text-align: center;
 }
@@ -52,7 +13,80 @@ body {
   max-height: 10vw;
 }
 
-#task-info img {
+#adult-user-info img {
+  max-width: 15vw;
+  max-height: 15vw;
+}
+
+#adult-task-bar {
+  height: 15vh;
+  background: yellow;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#adult-task-bar span {
+  height: 80%;
+  width: 8vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid blue;
+}
+
+#adult-tasks-page {
+  height: 75vh;
+  text-align: center;
+}
+
+#adult-task-info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+#adult-task-info img {
+  max-width: 20vw;
+  max-height: 20vw;
+}
+
+#child-user-info img {
+  max-width: 15vw;
+  max-height: 15vw;
+}
+
+#child-task-bar {
+  height: 15vh;
+  background: yellow;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#child-task-bar span {
+  height: 80%;
+  width: 8vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid blue;
+}
+
+#child-tasks-page {
+  height: 75vh;
+  text-align: center;
+}
+
+#child-task-info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+#child-task-info img {
   max-width: 20vw;
   max-height: 20vw;
 }

@@ -40,11 +40,11 @@ class User {
     return `<img src="${this.avatar}"><br>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
-            <li data-id="${this.id}">Name: (${this.name})</li><br>
-            <li data-id="${this.id}">Email: (${this.email})</li><br>
-            <li data-id="${this.id}">Avatar Url: (${this.avatar})</li><br>
-            <li data-id="${this.id}">Children: (${this.children})</li><br>
-            <li data-id="${this.id}">Tasks for Children: (${this.tasks})</li><br>
+            <li data-id="${this.id}">Name: ( ${this.name} )</li><br>
+            <li data-id="${this.id}">Email: ( ${this.email} )</li><br>
+            <li data-id="${this.id}">Avatar Url: ( ${this.avatar} )</li><br>
+            <li data-id="${this.id}">Children: (${this.children} )</li><br>
+            <li data-id="${this.id}">Tasks for Children: (${this.tasks} )</li><br>
             `
   }
 

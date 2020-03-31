@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c DOM is loaded", "color :purple")
 
+  const indexNavBar = document.querySelector('#index-nav')
+
   const adultNavBar = document.querySelector('#adult-nav-bar')
   const adultUserInfo = document.querySelector('#adult-user-info')
   const childNavBar = document.querySelector('#child-nav-bar')
@@ -53,6 +55,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const editTaskImageInput = document.querySelector('#edit-task-image')
   const editTaskCompletedInput = document.querySelector('#edit-task-completed')
 
+  function showhideView(id) {
+    var e = document.getElementById(id);
+    e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+}
+
+  function showhideViews() {
+    for (var i = 0; i < arguments.length; i++) {
+        var e = document.getElementById(arguments[i]);
+        e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+    }
+  }
+
+// INDEX NAV BAR
+  indexNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'adultPageBtn') {
+      showhideViews("index-nav", "adult-user-container")
+    }
+    if (event.target.id === 'childPageBtn') {
+      showhideViews("index-nav", "child-user-container")
+    }
+  })
+
 // ADULT USER LOGIN
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -78,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUser = new User(returnUserJSON)
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("parentId", newUser.id)
+      showhideView('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })
@@ -85,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ADULT USER LOGOUT
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    debugger
     if (event.target.id === 'logoutBtn') {
       delete localStorage.token
       window.location.reload(true)
@@ -95,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // FETCH ADULT USER PROFILE
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    debugger
     if (event.target.id === 'userProfileBtn') {
       const token = localStorage.token
       fetch('http://localhost:3000/api/v1/profile', {
@@ -158,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("parentId", newUser.id)
+      showhideView('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -266,8 +291,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUser = new User(returnUserJSON)
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("childId", newUser.id)
+      showhideView('child-login-signup-container')
       childUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
+  })
+
+// CHILD USER LOGOUT
+  childNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'logoutBtn') {
+      delete localStorage.token
+      window.location.reload(true)
+    }
   })
 
 // FETCH CHILD USER PROFILE
@@ -334,13 +369,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.token)
-      debugger
       const childNames = JSON.parse(localStorage.getItem("childNames")) || []
       const childObject = {name: `${newUser.name}`, id: newUser.id + ""}
       childNames.push(childObject)
       window.localStorage.setItem('childNames', JSON.stringify(childNames))
       storedChildNames = JSON.parse(localStorage.getItem("childNames"))
       console.log(storedChildNames)
+      showhideView('child-login-signup-container')
       childUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -455,7 +490,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     debugger
      const storedChildNames = localStorage.getItem("childNames")
      const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
      const token = localStorage.token

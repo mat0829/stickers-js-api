@@ -18,12 +18,23 @@
   </div>
 
   <div id="lotOfPages">
-    <div class="view" id="adult-user-container">
+
+    <div id="index-nav" style="display: block">
       <center>
-        <nav id="adult-nav-bar">
+        <nav>
+          <button id="adultPageBtn">Parent's Page</button>
+          <button id="childPageBtn">Kid's Page</button>
+        </nav>
+      </center>
+    </div>
+
+
+    <div class="view" id="adult-user-container" style="display: none">
+      <center>
+        <nav id="adult-nav-bar" style="display: block">
           <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
           <button id="tasksBtn" data-launch-view="page1">Tasks Page</button>
-          <button id="newTaskBtn" data-launch-view="page2">Create a new Task</button>
+          <!-- <button id="createTaskBtn" data-launch-view="page2">Create a new Task</button> -->
           <!-- <button id="stickersBtn" data-launch-view="page3">Stickers Page</button> -->
           <!-- <button id="prizesBtn" data-launch-view="page3">Prizes Page</button> -->
           <!-- <button id="behaviorBtn" data-launch-view="page3">Behavior Page</button> -->
@@ -33,24 +44,26 @@
         <div id="adult-user-info">
     
         </div>
-  
-        <h1>Please Login:
-        <form id="adult-user-login-form">
-          <input id="adult-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
-          <input id="adult-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
-          <input type="submit" value="Login">
-        </form> or Sign up below:</h1>
+        
+        <div id="adult-login-signup-container" style="display: block">
+          <h1>Please Login:
+            <form id="adult-user-login-form">
+              <input id="adult-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
+              <input id="adult-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
+              <input type="submit" value="Login">
+            </form> or Sign up below:</h1>
+    
+            <form id="adult-new-user-form" method="POST">
+              <h1>New Adult User:</h1>
+              <h3>Name: <input id="adult-new-user-name" type="text" name="name" autocomplete="off"></h3>
+              <h3>Email: <input id="adult-new-user-email" type="text" name="email" autocomplete="off"></h3>
+              <h3>Password: <input id="adult-new-user-password" type="password" name="password"></h3>
+              <h3>Avatar Image: <input id="adult-new-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
+              <input type="submit" value="Create User">
+            </form>
+        </div>
 
-        <form id="adult-new-user-form" method="POST">
-          <h1>New Adult User:</h1>
-          <h3>Name: <input id="adult-new-user-name" type="text" name="name" autocomplete="off"></h3>
-          <h3>Email: <input id="adult-new-user-email" type="text" name="email" autocomplete="off"></h3>
-          <h3>Password: <input id="adult-new-user-password" type="password" name="password"></h3>
-          <h3>Avatar Image: <input id="adult-new-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
-          <input type="submit" value="Create User">
-        </form>
-
-        <form id="adult-edit-user-form" method="PATCH">
+        <form id="adult-edit-user-form" method="PATCH" style="display: none">
           <h1>Edit Adult User:</h1>
           <h3>Name: <input id="adult-edit-user-name" type="text" name="name" autocomplete="off"></h3>
           <h3>Email: <input id="adult-edit-user-email" type="text" name="email" autocomplete="off"></h3>
@@ -61,36 +74,39 @@
       </center>
     </div>
 
-    <div class="view hide" id="child-user-container" hidden>
+    <div class="view hide" id="child-user-container" style="display: none">
       <center>
-        <nav id="child-nav-bar" hidden>
+        <nav id="child-nav-bar">
           <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
           <button id="tasksBtn" data-launch-view="page1">Tasks Page</button>
-          <button id="showPage2Btn" data-launch-view="page2">Create a new Task</button>
-          <button id="showPage3Btn" data-launch-view="page3">Stickers Page</button>
+          <!-- <button id="showPage2Btn" data-launch-view="page2">Create a new Task</button> -->
+          <!-- <button id="showPage3Btn" data-launch-view="page3">Stickers Page</button> -->
+          <button id="logoutBtn" data-launch-view="page3">Logout</button>
         </nav><br>
 
         <div id="child-user-info">
     
         </div>
 
-        <h1>Please Login:
-        <form id="child-user-login-form">
-          <input id="child-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
-          <input id="child-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
-          <input type="submit" value="Login">
-        </form> or Sign up below:</h1>
+        <div id="child-login-signup-container" style="display: block">
+          <h1>Please Login:
+            <form id="child-user-login-form">
+              <input id="child-user-login-name" type="text" name="name" placeholder="Username:" autocomplete="off">
+              <input id="child-user-login-password" type="password" name="password" placeholder="Password:" autocomplete="off">
+              <input type="submit" value="Login">
+            </form> or Sign up below:</h1>
+    
+            <form id="child-new-user-form" method="POST">
+              <h1>New Child User:</h1>
+              <h3>Name: <input id="child-new-user-name" type="text" name="name" autocomplete="off"></h3>
+              <h3>Email: <input id="child-new-user-email" type="text" name="email" autocomplete="off"></h3>
+              <h3>Password: <input id="child-new-user-password" type="password" name="password"></h3>
+              <h3>Avatar Image: <input id="child-new-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
+              <input type="submit" value="Create User">
+            </form>
+        </div>
 
-        <form id="child-new-user-form" method="POST">
-          <h1>New Child User:</h1>
-          <h3>Name: <input id="child-new-user-name" type="text" name="name" autocomplete="off"></h3>
-          <h3>Email: <input id="child-new-user-email" type="text" name="email" autocomplete="off"></h3>
-          <h3>Password: <input id="child-new-user-password" type="password" name="password"></h3>
-          <h3>Avatar Image: <input id="child-new-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
-          <input type="submit" value="Create User">
-        </form>
-
-        <form id="child-edit-user-form" method="PATCH">
+        <form id="child-edit-user-form" method="PATCH" style="display: none">
           <h1>Edit Child User:</h1>
           <h3>Name: <input id="child-edit-user-name" type="text" name="name" autocomplete="off"></h3>
           <h3>Email: <input id="child-edit-user-email" type="text" name="email" autocomplete="off"></h3>
@@ -101,7 +117,7 @@
       </center>
     </div>
         
-    <div class="view hide" id="tasks-container">
+    <div class="view hide" id="tasks-container" style="display: none">
       <h2>Current Tasks:</h2>
       <div id="task-bar">
         
@@ -111,8 +127,30 @@
     
       </div>
 
+      <h1>Create a new Task:</h1>
+      <form id="new-task-form" method="POST" style="display: none">
+        <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" autocomplete="off"></h3>
+        <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" autocomplete="off"></h3>
+        <h3>Choose Task Sticker Value:</h3>
+        <select id="new-task-value" name="newTaskValue">
+          <option value="5">5 Sticker Points</option>
+          <option value="10">10 Sticker Points</option>
+          <option value="20">20 Sticker Points</option>
+          <option value="25">25 Sticker Points</option>
+          <option value="50">50 Sticker Points</option>
+          <option value="75">75 Sticker Points</option>
+          <option value="100">100 Sticker Points</option>
+          <option value="250">250 Sticker Points</option>
+          <option value="500">500 Sticker Points</option>
+          <option value="750">750 Sticker Points</option>
+          <option value="1000">1000 Sticker Points</option>
+        </select>
+          
+        <input type="submit" value="Create Task">
+      </form>
+
       <h1>Edit Task:</h1>
-      <form id="edit-task-form" method="POST">
+      <form id="edit-task-form" method="POST" style="display: none">
         <h3>Task Name: <input type="text" name="editTaskName" id="edit-task-name"></h3>
         <h3>Task Image URL: <input type="text" name="editTaskImage" id="edit-task-image"></h3>
         <h3>Choose Task Sticker Value:</h3>
@@ -133,28 +171,6 @@
         
         <input type="submit" value="Update Task">
       </form>
-
-      <h1>Create a new Task:</h1>
-      <form id="new-task-form" method="POST">
-        <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" autocomplete="off"></h3>
-        <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" autocomplete="off"></h3>
-        <h3>Choose Task Sticker Value:</h3>
-        <select id="new-task-value" name="newTaskValue">
-          <option value="5">5 Sticker Points</option>
-          <option value="10">10 Sticker Points</option>
-          <option value="20">20 Sticker Points</option>
-          <option value="25">25 Sticker Points</option>
-          <option value="50">50 Sticker Points</option>
-          <option value="75">75 Sticker Points</option>
-          <option value="100">100 Sticker Points</option>
-          <option value="250">250 Sticker Points</option>
-          <option value="500">500 Sticker Points</option>
-          <option value="750">750 Sticker Points</option>
-          <option value="1000">1000 Sticker Points</option>
-        </select>
-          
-        <input type="submit" value="Create Task">
-      </form><br>
 
     <div class="view hide" id="page4">
       
