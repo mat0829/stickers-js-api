@@ -498,6 +498,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+// SHOW/HIDE CREATE TASK FORM
+  adultNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'createTaskBtn') {
+      showhideView('new-task-form')
+    }
+  })
+
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
@@ -526,6 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
      .then(adultTasksBtn.click(adultTasksBtn.click()))
      .then((newTaskJSON) => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
+       showhideView('new-task-form')
        adultTaskBar.innerHTML += newTask.renderSpan()
        adultTaskInfo.innerHTML += newTask.renderDetails() //render the changes so the DOM is in sync with our data
      })
@@ -543,7 +552,6 @@ document.addEventListener('DOMContentLoaded', () => {
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
-      debugger
       const clickedTaskId = parseInt(event.target.dataset.id)
       const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
       // pre-fill the form data:
