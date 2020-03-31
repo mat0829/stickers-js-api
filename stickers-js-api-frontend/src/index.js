@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
+        showhideView('adult-user-info')
         adultUserInfo.innerHTML = ''
         adultUserInfo.innerHTML += newUser.renderAdultUserProfile()
       })
@@ -182,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("parentId", newUser.id)
-      showhideView('adult-login-signup-container')
+      showhideViews('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
   })
@@ -191,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      showhideViews('adult-user-info', 'adult-edit-user-form')
       const clickedUserId = parseInt(event.target.dataset.id)
       const foundUser = User.findUser(clickedUserId)
       // pre-fill the form data:
@@ -242,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("avatar", updatedUserJSON.avatar)
       }
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
+      showhideViews('adult-user-info', 'adult-edit-user-form')
       adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
     })
   })
@@ -324,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
+        showhideView('child-user-info')
         childUserInfo.innerHTML = ''
         childUserInfo.innerHTML += newUser.renderUserProfile()
       })
@@ -384,6 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      showhideViews('child-user-info', 'child-edit-user-form')
       const clickedUserId = parseInt(event.target.dataset.id)
       const foundUser = User.findUser(clickedUserId)
       // pre-fill the form data:
