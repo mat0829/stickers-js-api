@@ -23,7 +23,7 @@ body {
 }
 
 #adult-task-bar {
-  height: 15vh;
+  height: 20vh;
   background: yellow;
   display: flex;
   justify-content: space-around;
@@ -46,14 +46,15 @@ body {
 }
 
 #adult-task-info {
-  display: flex;
+  display: block;
   flex-flow: column;
   align-items: center;
+  padding-bottom: 25px;
 }
 
 #adult-task-info img {
-  max-width: 20vw;
-  max-height: 20vw;
+  max-width: 15vw;
+  max-height: 15vw;
 }
 
 #child-user-info img {

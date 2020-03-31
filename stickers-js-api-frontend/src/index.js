@@ -552,6 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      showhideViews('adult-task-info', 'adult-edit-task-form')
       const clickedTaskId = parseInt(event.target.dataset.id)
       const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
       // pre-fill the form data:
@@ -586,6 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((r) => r.json())
     .then((updatedTaskJSON) => {
       const updatedTask = Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
+      showhideView('adult-edit-task-form')
       adultTaskInfo.innerHTML = updatedTask.renderDetails() //render the changes so the DOM is in sync with our data
     })
   })

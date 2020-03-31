@@ -123,6 +123,29 @@
         <div id="adult-task-bar">
           
         </div>
+
+        <form id="adult-edit-task-form" method="POST" style="display: none">
+          <h1>Edit Task:</h1>
+          <h3>Task Name: <input type="text" name="adultEditTaskName" id="adult-edit-task-name"></h3>
+          <h3>Task Image URL: <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"></h3>
+          <h3>Choose Task Sticker Value:</h3>
+          <select id="adult-edit-task-value" name="editTaskValue">
+            <option value="5">5 Sticker Points</option>
+            <option value="10">10 Sticker Points</option>
+            <option value="20">20 Sticker Points</option>
+            <option value="25">25 Sticker Points</option>
+            <option value="50">50 Sticker Points</option>
+            <option value="75">75 Sticker Points</option>
+            <option value="100">100 Sticker Points</option>
+            <option value="250">250 Sticker Points</option>
+            <option value="500">500 Sticker Points</option>
+            <option value="750">750 Sticker Points</option>
+            <option value="1000">1000 Sticker Points</option>
+          </select>
+          <h3>Mark Task Completed?<input id="adult-edit-task-completed" type="checkbox" name="adultEditTaskCompleted" value=""></h3>
+          
+          <input type="submit" value="Update Task">
+        </form><br>
   
         <div id="adult-task-info">
       
@@ -150,29 +173,6 @@
             
           <input type="submit" value="Create Task">
         </form>
-  
-        <form id="adult-edit-task-form" method="POST" style="display: none">
-          <h1>Edit Task:</h1>
-          <h3>Task Name: <input type="text" name="adultEditTaskName" id="adult-edit-task-name"></h3>
-          <h3>Task Image URL: <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"></h3>
-          <h3>Choose Task Sticker Value:</h3>
-          <select id="adult-edit-task-value" name="editTaskValue">
-            <option value="5">5 Sticker Points</option>
-            <option value="10">10 Sticker Points</option>
-            <option value="20">20 Sticker Points</option>
-            <option value="25">25 Sticker Points</option>
-            <option value="50">50 Sticker Points</option>
-            <option value="75">75 Sticker Points</option>
-            <option value="100">100 Sticker Points</option>
-            <option value="250">250 Sticker Points</option>
-            <option value="500">500 Sticker Points</option>
-            <option value="750">750 Sticker Points</option>
-            <option value="1000">1000 Sticker Points</option>
-          </select>
-          <h3>Mark Task Completed?<input id="adult-edit-task-completed" type="checkbox" name="adultEditTaskCompleted" value=""></h3>
-          
-          <input type="submit" value="Update Task">
-        </form><br>
       </div>
     </div>
 
