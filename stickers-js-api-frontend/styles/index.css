@@ -40,7 +40,7 @@ body {
   border: 1px solid blue;
 }
 
-#adult-tasks-page {
+#adult-tasks-container {
   height: 75vh;
   text-align: center;
 }
@@ -79,7 +79,7 @@ body {
   border: 1px solid blue;
 }
 
-#child-tasks-page {
+#child-tasks-container {
   height: 75vh;
   text-align: center;
 }

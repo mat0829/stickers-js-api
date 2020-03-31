@@ -40,20 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const childEditEmailInput = document.querySelector('#child-edit-user-email')
   const childEditPasswordInput = document.querySelector('#child-edit-user-password')
 
-  const taskBar = document.querySelector('#task-bar')
-  const taskInfo = document.querySelector('#task-info')
-  const tasksBtn = document.querySelector('#tasksBtn')
+  const adultTaskBar = document.querySelector('#adult-task-bar')
+  const adultTaskInfo = document.querySelector('#adult-task-info')
+  const adultTasksBtn = document.querySelector('#adultTasksBtn')
 
   const newTaskForm = document.querySelector('#new-task-form')
   const newTaskNameInput = document.querySelector('#new-task-name')
   const newTaskValueInput = document.querySelector('#new-task-value')
   const newTaskImageInput = document.querySelector('#new-task-image')
 
-  const editTaskForm = document.querySelector('#edit-task-form')
-  const editTaskNameInput = document.querySelector('#edit-task-name')
-  const editTaskValueInput = document.querySelector('#edit-task-value')
-  const editTaskImageInput = document.querySelector('#edit-task-image')
-  const editTaskCompletedInput = document.querySelector('#edit-task-completed')
+  const adultEditTaskForm = document.querySelector('#adult-edit-task-form')
+  const adultEditTaskNameInput = document.querySelector('#adult-edit-task-name')
+  const adultEditTaskValueInput = document.querySelector('#adult-edit-task-value')
+  const adultEditTaskImageInput = document.querySelector('#adult-edit-task-image')
+  const adultEditTaskCompletedInput = document.querySelector('#adult-edit-task-completed')
+
+  const childTaskBar = document.querySelector('#child-task-bar')
+  const childTaskInfo = document.querySelector('#child-task-info')
+  const childTasksBtn = document.querySelector('#childTasksBtn')
 
   function showhideView(id) {
     var e = document.getElementById(id);
@@ -272,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CHILD USER LOGIN
   childLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -469,8 +472,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // INITIAL FETCH OF ADULT TASKS
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    if (event.target.id === 'tasksBtn') {
+    if (event.target.id === 'adultTasksBtn') {
       const token = localStorage.token
+      showhideView('tasks-container')
       fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
         headers: {
@@ -481,14 +485,14 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        taskBar.innerHTML = ''
+        adultTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
-            taskBar.innerHTML += newTask.renderSpan()
+            adultTaskBar.innerHTML += newTask.renderSpan()
           })
         } else {
-          taskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
+          adultTaskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
         }
       })
     }
@@ -512,46 +516,47 @@ document.addEventListener('DOMContentLoaded', () => {
          name: newTaskNameInput.value,
          value: newTaskValueInput.value,
          image: newTaskImageInput.value,
-         completed: editTaskCompletedInput.checked,
+         completed: adultEditTaskCompletedInput.checked,
          taskGiverId: parentId,
          taskReceiverId: childId
        })
        
      })
      .then((r) => r.json())
-     .then(tasksBtn.click(tasksBtn.click()))
+     .then(adultTasksBtn.click(adultTasksBtn.click()))
      .then((newTaskJSON) => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
-       taskBar.innerHTML += newTask.renderSpan()
-       taskInfo.innerHTML += newTask.renderDetails() //render the changes so the DOM is in sync with our data
+       adultTaskBar.innerHTML += newTask.renderSpan()
+       adultTaskInfo.innerHTML += newTask.renderDetails() //render the changes so the DOM is in sync with our data
      })
    })
 
 // RENDER DETAILS OF CLICKED TASK
-  taskBar.addEventListener('click', (event) => {
+  adultTaskBar.addEventListener('click', (event) => {
     console.log(event)
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
-    taskInfo.innerHTML = foundTask.renderDetails()
+    adultTaskInfo.innerHTML = foundTask.renderDetails()
   })
 
 // CLICK EDIT TASK + PRE-FILL FORM
-  taskInfo.addEventListener('click', (event) => {
+  adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      debugger
       const clickedTaskId = parseInt(event.target.dataset.id)
       const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
       // pre-fill the form data:
-      editTaskNameInput.value = foundTask.name
-      editTaskValueInput.value = foundTask.value
-      editTaskImageInput.value = foundTask.image
-      editTaskCompletedInput.checked = foundTask.completed
-      editTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
+      adultEditTaskNameInput.value = foundTask.name
+      adultEditTaskValueInput.value = foundTask.value
+      adultEditTaskImageInput.value = foundTask.image
+      adultEditTaskCompletedInput.checked = foundTask.completed
+      adultEditTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
     }
   })
 
 // PATCH REQUEST TO UPDATE TASK
-  editTaskForm.addEventListener('submit', (event) => {
+  adultEditTaskForm.addEventListener('submit', (event) => {
     console.log(event)
     event.preventDefault()
     const token = localStorage.token
@@ -564,21 +569,21 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify({
         // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
-        name: editTaskNameInput.value,
-        value: editTaskValueInput.value,
-        image: editTaskImageInput.value,
-        completed: editTaskCompletedInput.checked
+        name: adultEditTaskNameInput.value,
+        value: adultEditTaskValueInput.value,
+        image: adultEditTaskImageInput.value,
+        completed: adultEditTaskCompletedInput.checked
       })
     })
     .then((r) => r.json())
     .then((updatedTaskJSON) => {
       const updatedTask = Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
-      taskInfo.innerHTML = updatedTask.renderDetails() //render the changes so the DOM is in sync with our data
+      adultTaskInfo.innerHTML = updatedTask.renderDetails() //render the changes so the DOM is in sync with our data
     })
   })
 
 // DELETE REQUEST TO DELETE TASK
-  taskInfo.addEventListener('click', (event) => {
+  adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
       var result = confirm("Are you sure you want to delete this Task? Click ok to confirm.");
@@ -592,8 +597,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${token}`
           }
         })
-        .then(tasksBtn.click(tasksBtn.click()))
-        .then(taskInfo.innerHTML = '')
+        .then(adultTasksBtn.click(adultTasksBtn.click()))
+        .then(adultTaskInfo.innerHTML = '')
       }
     }
   })
@@ -601,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // INITIAL FETCH OF CHILD TASKS
   childNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    if (event.target.id === 'tasksBtn') {
+    if (event.target.id === 'adultTasksBtn') {
       const token = localStorage.token
       fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
@@ -613,14 +618,14 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        taskBar.innerHTML = ''
+        adultTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
-            taskBar.innerHTML += newTask.renderSpan()
+            adultTaskBar.innerHTML += newTask.renderSpan()
           })
         } else {
-          taskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
+          adultTaskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
         }
       })
     }
