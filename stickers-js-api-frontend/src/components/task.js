@@ -28,9 +28,9 @@ class Task {
     return `<span data-id="${this.id}">${this.name}</span>`
   }
 
-  renderDetails() {
+  renderAdultDetails() {
     if (this.completed == true) {
-      const isTaskCompletedString = `${this.child} completed: (${this.name})!`
+      const isTaskCompletedString = `${this.child} completed: "${this.name}"!`
       return `<h2>${this.name}</h2>
           <img src="${this.image}">
           <h4>~ Created by: ${this.parent}</h4>
@@ -40,7 +40,7 @@ class Task {
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
           `
     } else {
-      const isTaskCompletedString = `${this.child} is currently working on: (${this.name})`
+      const isTaskCompletedString = `${this.child} is currently working on: "${this.name}"`
       return `<h1>"${this.name}"</h1>
           <h3>~ Created by: ${this.parent}</h3>
           <img src="${this.image}">
@@ -48,6 +48,26 @@ class Task {
           <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
+          `
+    }
+  }
+
+  renderChildDetails() {
+    if (this.completed == true) {
+      const isTaskCompletedString = `You completed: "${this.name}"!`
+      return `<h2>${this.name}</h2>
+          <img src="${this.image}">
+          <h4>~ Created by: ${this.parent}</h4>
+          <h3>Worth ${this.value} Sticker Points!</h3>
+          <h2>${isTaskCompletedString}</h2>
+          `
+    } else {
+      const isTaskCompletedString = `You are currently working on: "${this.name}"`
+      return `<h1>"${this.name}"</h1>
+          <h3>~ Created by: ${this.parent}</h3>
+          <img src="${this.image}">
+          <h2>Worth ${this.value} Sticker Points!</h2>
+          <h2>${isTaskCompletedString}</h2>
           `
     }
   }

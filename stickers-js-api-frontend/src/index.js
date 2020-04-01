@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const childTaskBar = document.querySelector('#child-task-bar')
   const childTaskInfo = document.querySelector('#child-task-info')
-  const childTasksBtn = document.querySelector('#childTasksBtn')
 
   function showhideView(id) {
     var e = document.getElementById(id);
@@ -536,16 +535,16 @@ document.addEventListener('DOMContentLoaded', () => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
        showhideView('new-task-form')
        adultTaskBar.innerHTML += newTask.renderSpan()
-       adultTaskInfo.innerHTML += newTask.renderDetails() //render the changes so the DOM is in sync with our data
+       adultTaskInfo.innerHTML = newTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
      })
    })
 
-// RENDER DETAILS OF CLICKED TASK
+// RENDER DETAILS OF CLICKED ADULT TASK
   adultTaskBar.addEventListener('click', (event) => {
     console.log(event)
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
-    adultTaskInfo.innerHTML = foundTask.renderDetails()
+    adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
   })
 
 // CLICK EDIT TASK + PRE-FILL FORM
@@ -588,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((updatedTaskJSON) => {
       const updatedTask = Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
       showhideView('adult-edit-task-form')
-      adultTaskInfo.innerHTML = updatedTask.renderDetails() //render the changes so the DOM is in sync with our data
+      adultTaskInfo.innerHTML = updatedTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
     })
   })
 
@@ -616,7 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // INITIAL FETCH OF CHILD TASKS
   childNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    debugger
     if (event.target.id === 'childTasksBtn') {
       const token = localStorage.token
       showhideView('child-tasks-container')
@@ -641,5 +639,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       })
     }
+  })
+
+// RENDER DETAILS OF CLICKED CHILD TASK
+  childTaskBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedTaskId = parseInt(event.target.dataset.id)
+    const foundTask = Task.findTask(clickedTaskId)
+    childTaskInfo.innerHTML = foundTask.renderChildDetails()
   })
 })

@@ -14,7 +14,7 @@ body {
 }
 
 #adult-user-info {
-  align-items: center;
+  padding-bottom: 25px;
 }
 
 #adult-user-info img {
@@ -57,6 +57,10 @@ body {
   max-height: 15vw;
 }
 
+#child-user-info {
+  padding-bottom: 25px;
+}
+
 #child-user-info img {
   max-width: 15vw;
   max-height: 15vw;
@@ -86,14 +90,15 @@ body {
 }
 
 #child-task-info {
-  display: flex;
+  display: block;
   flex-flow: column;
   align-items: center;
+  padding-bottom: 25px;
 }
 
 #child-task-info img {
-  max-width: 20vw;
-  max-height: 20vw;
+  max-width: 15vw;
+  max-height: 15vw;
 }
 
 li {

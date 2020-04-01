@@ -102,11 +102,7 @@
             
             <input type="submit" value="Update Task">
           </form><br>
-    
-          <div id="adult-task-info">
-        
-          </div>
-          
+
           <form id="new-task-form" method="POST" style="display: none">
             <h1>Create a new Task:</h1>
             <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" autocomplete="off"></h3>
@@ -128,6 +124,11 @@
               
             <input type="submit" value="Create Task">
           </form>
+    
+          <div id="adult-task-info">
+        
+          </div>
+          
         </div>
       </div>
     </div>
@@ -137,7 +138,6 @@
         <nav id="child-nav-bar">
           <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
           <button id="childTasksBtn" data-launch-view="page1">Tasks Page</button>
-          <!-- <button id="showPage2Btn" data-launch-view="page2">Create a new Task</button> -->
           <!-- <button id="showPage3Btn" data-launch-view="page3">Stickers Page</button> -->
           <button id="logoutBtn" data-launch-view="page3">Logout</button>
         </nav><br>
@@ -180,13 +180,6 @@
           <div id="child-task-bar">
             
           </div>
-  
-          <form id="child-edit-task-form" method="POST" style="display: none">
-            <h1>Edit Task:</h1>
-            <h3>Mark Task Completed?<input id="child-edit-task-completed" type="checkbox" name="childEditTaskCompleted" value=""></h3>
-            
-            <input type="submit" value="Update Task">
-          </form><br>
     
           <div id="child-task-info">
         
@@ -195,13 +188,12 @@
         </div>
       </div>
     </div>
-    
-    
 
     <div class="view hide" id="page4" style="display: none">
       
     </div>
   </div>
+
   <!-- <script type="text/javascript" src="src/index.js"></script> -->
   <!-- <script type="text/javascript" src="src/adapters/adapter.js"></script> -->
   <script type="text/javascript" src="src/components/user.js"></script>
