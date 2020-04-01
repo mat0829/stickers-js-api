@@ -63,7 +63,7 @@ body {
 }
 
 #child-task-bar {
-  height: 15vh;
+  height: 20vh;
   background: yellow;
   display: flex;
   justify-content: space-around;

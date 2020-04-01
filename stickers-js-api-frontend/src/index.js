@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'adultTasksBtn') {
       const token = localStorage.token
-      showhideView('tasks-container')
+      showhideView('adult-tasks-container')
       fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
         headers: {
@@ -616,8 +616,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // INITIAL FETCH OF CHILD TASKS
   childNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    if (event.target.id === 'adultTasksBtn') {
+    debugger
+    if (event.target.id === 'childTasksBtn') {
       const token = localStorage.token
+      showhideView('child-tasks-container')
       fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
         headers: {
@@ -628,14 +630,14 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        adultTaskBar.innerHTML = ''
+        childTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
-            adultTaskBar.innerHTML += newTask.renderSpan()
+            childTaskBar.innerHTML += newTask.renderSpan()
           })
         } else {
-          adultTaskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
+          childTaskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
         }
       })
     }
