@@ -70,13 +70,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function adultLoggedIn() {
+    if (localStorage.loggedIn == 'true') {
+      e = document.getElementById('adult-login-signup-container')
+      e.style.display = 'none'
+    }
+  }
+
+  function childLoggedIn() {
+    if (localStorage.loggedIn == 'true') {
+      e = document.getElementById('child-login-signup-container')
+      e.style.display = 'none'
+    }
+  }
+
 // INDEX NAV BAR
   indexNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'adultPageBtn') {
+      adultLoggedIn()
       showhideViews("index-nav", "adult-user-container")
     }
     if (event.target.id === 'childPageBtn') {
+      childLoggedIn()
       showhideViews("index-nav", "child-user-container")
     }
   })
@@ -84,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ADULT USER LOGIN
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -106,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUser = new User(returnUserJSON)
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("parentId", newUser.id)
+      localStorage.setItem("loggedIn", newUser.logged_in)
       showhideView('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
@@ -116,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'logoutBtn') {
       delete localStorage.token
+      delete localStorage.loggedIn
       window.location.reload(true)
     }
   })
@@ -186,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUser = new User(newUserJSON)
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("parentId", newUser.id)
+      localStorage.setItem("loggedIn", newUser.logged_in)
       showhideViews('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
@@ -195,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      debugger
       showhideViews('adult-user-info', 'adult-edit-user-form')
       const clickedUserId = parseInt(event.target.dataset.id)
       const foundUser = User.findUser(clickedUserId)
@@ -267,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${token}`
           }
         })
+        .then(delete localStorage.token, delete localStorage.loggedIn)
         .then(window.location.reload(true))
       }
     }
@@ -297,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUser = new User(returnUserJSON)
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("childId", newUser.id)
+      localStorage.setItem("loggedIn", newUser.logged_in)
       showhideView('child-login-signup-container')
       childUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
@@ -307,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'logoutBtn') {
       delete localStorage.token
+      delete localStorage.loggedIn
       window.location.reload(true)
     }
   })
@@ -382,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.localStorage.setItem('childNames', JSON.stringify(childNames))
       storedChildNames = JSON.parse(localStorage.getItem("childNames"))
       console.log(storedChildNames)
+      localStorage.setItem("loggedIn", newUser.logged_in)
       showhideView('child-login-signup-container')
       childUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
     })
@@ -463,6 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${token}`
           }
         })
+        .then(delete localStorage.token, delete localStorage.loggedIn)
         .then(window.location.reload(true))
       }
     }
@@ -482,6 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Authorization': `Bearer ${token}`
         }
       })
+      .then(adultTaskBar.scrollIntoView())
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
         adultTaskBar.innerHTML = ''
@@ -501,7 +528,8 @@ document.addEventListener('DOMContentLoaded', () => {
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'createTaskBtn') {
-      showhideView('new-task-form')
+      showhideViews('adult-tasks-container', 'new-task-form')
+      newTaskForm.scrollIntoView()
     }
   })
 
@@ -545,6 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
     adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
+    adultTaskInfo.scrollIntoView()
   })
 
 // CLICK EDIT TASK + PRE-FILL FORM
@@ -626,6 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Authorization': `Bearer ${token}`
         }
       })
+      .then(childTaskBar.scrollIntoView())
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
         childTaskBar.innerHTML = ''
@@ -647,5 +677,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
     childTaskInfo.innerHTML = foundTask.renderChildDetails()
+    childTaskInfo.scrollIntoView()
   })
 })

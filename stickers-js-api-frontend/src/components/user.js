@@ -14,6 +14,7 @@ class User {
 
   constructor(userObj) {
     this.id = userObj.user.id
+    this.logged_in = userObj.user.logged_in
     this.name = userObj.user.name
     this.email = userObj.user.email
     this.password = userObj.user.password
