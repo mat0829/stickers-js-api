@@ -70,6 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function hideView(id) {
+    var e = document.getElementById(id);
+    e.style.display = 'none'
+  }
+
+  function hideViews() {
+    for (var i = 0; i < arguments.length; i++) {
+        var e = document.getElementById(arguments[i]);
+        e.style.display = 'none'
+    }
+  }
+
+  function showView(id) {
+    var e = document.getElementById(id);
+    e.style.display = 'block'
+  }
+
   function adultLoggedIn() {
     if (localStorage.loggedIn == 'true') {
       e = document.getElementById('adult-login-signup-container')
@@ -511,6 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(adultTaskBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
+        hideView('new-task-form')
         adultTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
@@ -531,13 +549,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.id === 'createTaskBtn') {
       element = document.getElementById('adult-tasks-container')
       if (element.style.display == 'block' && newTaskForm.style.display == 'block') {
-        showhideViews('adult-tasks-container', 'new-task-form')
+        hideViews('adult-tasks-container', 'new-task-form')
       } else {
+        hideView('adult-task-info')
+        adultTaskInfo.style.display = 'none'
         if (element.style.display == 'none') {
-          showhideView('adult-tasks-container')
+          showView('adult-tasks-container')
         }
         if (newTaskForm.style.display == 'none') {
-          showhideView('new-task-form')
+          showView('new-task-form')
         }
         newTaskForm.scrollIntoView({behavior: "smooth"})
       }
