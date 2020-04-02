@@ -106,18 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'adultPageBtn') {
       adultLoggedIn()
-      showhideViews("index-nav", "adult-user-container")
+      hideView('index-nav')
+      showView("adult-user-container")
     }
     if (event.target.id === 'childPageBtn') {
       childLoggedIn()
-      showhideViews("index-nav", "child-user-container")
+      hideView("index-nav")
+      showView("child-user-container")
     }
   })
 
 // ADULT USER LOGIN
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -141,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("parentId", newUser.id)
       localStorage.setItem("loggedIn", newUser.logged_in)
-      showhideView('adult-login-signup-container')
+      hideView('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })
@@ -178,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showhideView('adult-user-info')
         adultUserInfo.innerHTML = ''
         adultUserInfo.innerHTML += newUser.renderAdultUserProfile()
+        adultUserInfo.scrollIntoView({behavior: "smooth"})
       })
     }
   })
@@ -223,8 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("parentId", newUser.id)
       localStorage.setItem("loggedIn", newUser.logged_in)
-      showhideViews('adult-login-signup-container')
+      hideViews('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
+      adultUserInfo.scrollIntoView({behavior: "smooth"})
     })
   })
 
@@ -232,8 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
   adultUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
-      debugger
-      showhideViews('adult-user-info', 'adult-edit-user-form')
+      hideView('adult-user-info')
+      showView('adult-edit-user-form')
       const clickedUserId = parseInt(event.target.dataset.id)
       const foundUser = User.findUser(clickedUserId)
       // pre-fill the form data:
@@ -285,8 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("avatar", updatedUserJSON.avatar)
       }
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
-      showhideViews('adult-user-info', 'adult-edit-user-form')
+      hideView('adult-edit-user-form')
+      showView('adult-user-info')
       adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
+      adultUserInfo.scrollIntoView({behavior: "smooth"})
     })
   })
 
@@ -337,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("token", newUser.token)
       localStorage.setItem("childId", newUser.id)
       localStorage.setItem("loggedIn", newUser.logged_in)
-      showhideView('child-login-signup-container')
+      hideView('child-login-signup-container')
       childUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })
@@ -374,6 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showhideView('child-user-info')
         childUserInfo.innerHTML = ''
         childUserInfo.innerHTML += newUser.renderChildUserProfile()
+        childUserInfo.scrollIntoView({behavior: "smooth"})
       })
     }
   })
@@ -424,8 +430,9 @@ document.addEventListener('DOMContentLoaded', () => {
       storedChildNames = JSON.parse(localStorage.getItem("childNames"))
       console.log(storedChildNames)
       localStorage.setItem("loggedIn", newUser.logged_in)
-      showhideView('child-login-signup-container')
+      hideView('child-login-signup-container')
       childUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
+      childUserInfo.scrollIntoView({behavior: "smooth"})
     })
   })
 
@@ -433,7 +440,8 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
-      showhideViews('child-user-info', 'child-edit-user-form')
+      hideView('child-user-info')
+      showView('child-edit-user-form')
       const clickedUserId = parseInt(event.target.dataset.id)
       const foundUser = User.findUser(clickedUserId)
       // pre-fill the form data:
@@ -485,8 +493,10 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("avatar", updatedUserJSON.avatar)
       }
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
-      showhideViews('child-user-info', 'child-edit-user-form')
+      hideView('child-edit-user-form')
+      showView('child-user-info')
       childUserInfo.innerHTML = updatedUser.renderChildUserProfile() //render the changes so the DOM is in sync with our data
+      childUserInfo.scrollIntoView({behavior: "smooth"})
     })
   })
 
@@ -545,14 +555,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // SHOW/HIDE CREATE TASK FORM
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    debugger
     if (event.target.id === 'createTaskBtn') {
       element = document.getElementById('adult-tasks-container')
       if (element.style.display == 'block' && newTaskForm.style.display == 'block') {
         hideViews('adult-tasks-container', 'new-task-form')
       } else {
         hideView('adult-task-info')
-        adultTaskInfo.style.display = 'none'
         if (element.style.display == 'none') {
           showView('adult-tasks-container')
         }
@@ -592,18 +600,20 @@ document.addEventListener('DOMContentLoaded', () => {
      .then(adultTasksBtn.click(adultTasksBtn.click()))
      .then((newTaskJSON) => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
-       showhideView('new-task-form')
+       hideView('new-task-form')
+       showView('adult-task-info')
        adultTaskBar.innerHTML += newTask.renderSpan()
        adultTaskInfo.innerHTML = newTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
+       adultTaskInfo.scrollIntoView({behavior: "smooth"})
      })
    })
 
 // RENDER DETAILS OF CLICKED ADULT TASK
   adultTaskBar.addEventListener('click', (event) => {
     console.log(event)
-    debugger
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
+    showView('adult-task-info')
     adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
     adultTaskInfo.scrollIntoView({behavior: 'smooth'})
   })
@@ -650,6 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const updatedTask = Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
       showhideView('adult-edit-task-form')
       adultTaskInfo.innerHTML = updatedTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
+      adultTaskInfo.scrollIntoView({behavior: "smooth"})
     })
   })
 
