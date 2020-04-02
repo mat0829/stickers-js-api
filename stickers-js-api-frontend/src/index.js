@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showhideView(id) {
     var e = document.getElementById(id);
     e.style.display = (e.style.display == 'block') ? 'none' : 'block';
-}
+  }
 
   function showhideViews() {
     for (var i = 0; i < arguments.length; i++) {
@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Authorization': `Bearer ${token}`
         }
       })
-      .then(adultTaskBar.scrollIntoView())
+      .then(adultTaskBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
         adultTaskBar.innerHTML = ''
@@ -527,9 +527,20 @@ document.addEventListener('DOMContentLoaded', () => {
 // SHOW/HIDE CREATE TASK FORM
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
+    debugger
     if (event.target.id === 'createTaskBtn') {
-      showhideViews('adult-tasks-container', 'new-task-form')
-      newTaskForm.scrollIntoView()
+      element = document.getElementById('adult-tasks-container')
+      if (element.style.display == 'block' && newTaskForm.style.display == 'block') {
+        showhideViews('adult-tasks-container', 'new-task-form')
+      } else {
+        if (element.style.display == 'none') {
+          showhideView('adult-tasks-container')
+        }
+        if (newTaskForm.style.display == 'none') {
+          showhideView('new-task-form')
+        }
+        newTaskForm.scrollIntoView({behavior: "smooth"})
+      }
     }
   })
 
@@ -570,16 +581,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // RENDER DETAILS OF CLICKED ADULT TASK
   adultTaskBar.addEventListener('click', (event) => {
     console.log(event)
+    debugger
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
     adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
-    adultTaskInfo.scrollIntoView()
+    adultTaskInfo.scrollIntoView({behavior: 'smooth'})
   })
 
 // CLICK EDIT TASK + PRE-FILL FORM
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      adultUserForm.scrollIntoView({behavior: "smooth"})
       showhideViews('adult-task-info', 'adult-edit-task-form')
       const clickedTaskId = parseInt(event.target.dataset.id)
       const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
@@ -655,7 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Authorization': `Bearer ${token}`
         }
       })
-      .then(childTaskBar.scrollIntoView())
+      .then(childTaskBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
         childTaskBar.innerHTML = ''
@@ -677,6 +690,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
     childTaskInfo.innerHTML = foundTask.renderChildDetails()
-    childTaskInfo.scrollIntoView()
+    childTaskInfo.scrollIntoView({behavior: "smooth"})
   })
 })
