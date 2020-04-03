@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  validates :name, :image, presence: true
+
   # The user creating the task
   belongs_to :parent_user, foreign_key: :taskGiverId, class_name: "User"
 

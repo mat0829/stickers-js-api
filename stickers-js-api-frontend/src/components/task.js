@@ -15,6 +15,7 @@ class Task {
 
   constructor(taskObj) {
     this.id = taskObj.id
+    this.errors = taskObj.errors
     this.name = taskObj.name
     this.value = taskObj.value
     this.completed = taskObj.completed
@@ -29,6 +30,14 @@ class Task {
   }
 
   renderAdultDetails() {
+    if (this.errors !== undefined) {
+      for (let i = 0; i < this.errors.length; i++) {
+        alert(this.errors[i])
+      }
+      return `<h2>${this.errors}</h2>
+          <button class="createTaskForm" data-id="${this.id}">Return to New Task Form</button>
+          `
+    }
     if (this.completed == true) {
       const isTaskCompletedString = `${this.child} completed: "${this.name}"!`
       return `<h2>${this.name}</h2>

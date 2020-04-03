@@ -63,13 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     e.style.display = (e.style.display == 'block') ? 'none' : 'block';
   }
 
-  function showhideViews() {
-    for (let i = 0; i < arguments.length; i++) {
-        let e = document.getElementById(arguments[i]);
-        e.style.display = (e.style.display == 'block') ? 'none' : 'block';
-    }
-  }
-
   function hideView(id) {
     const element = document.getElementById(id);
     element.style.display = 'none'
@@ -607,6 +600,14 @@ document.addEventListener('DOMContentLoaded', () => {
        adultTaskInfo.scrollIntoView({behavior: "smooth"})
      })
    })
+
+// RETURN TO CREATE TASK FORM
+  adultTaskInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'createTaskForm') {
+      const element = document.getElementById('createTaskBtn')
+      element.click()
+    }
+  })
 
 // RENDER DETAILS OF CLICKED ADULT TASK
   adultTaskBar.addEventListener('click', (event) => {

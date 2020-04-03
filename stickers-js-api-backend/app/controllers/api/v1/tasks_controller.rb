@@ -16,8 +16,11 @@ class Api::V1::TasksController < ApplicationController
 
   def create
     @task = current_user.parent_tasks.build(task_params)
-    @task.save
+    if @task.save
       render json: @task, status: 200
+    else
+      render json: { :errors => @task.errors.full_messages }, status: :unprocessable_entity
+    end
   end
   
   def update
