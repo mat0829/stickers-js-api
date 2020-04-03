@@ -59,45 +59,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const childTaskInfo = document.querySelector('#child-task-info')
 
   function showhideView(id) {
-    var e = document.getElementById(id);
+    const e = document.getElementById(id);
     e.style.display = (e.style.display == 'block') ? 'none' : 'block';
   }
 
   function showhideViews() {
-    for (var i = 0; i < arguments.length; i++) {
-        var e = document.getElementById(arguments[i]);
+    for (let i = 0; i < arguments.length; i++) {
+        let e = document.getElementById(arguments[i]);
         e.style.display = (e.style.display == 'block') ? 'none' : 'block';
     }
   }
 
   function hideView(id) {
-    var e = document.getElementById(id);
-    e.style.display = 'none'
+    const element = document.getElementById(id);
+    element.style.display = 'none'
   }
 
   function hideViews() {
-    for (var i = 0; i < arguments.length; i++) {
-        var e = document.getElementById(arguments[i]);
-        e.style.display = 'none'
+    for (let i = 0; i < arguments.length; i++) {
+        let element = document.getElementById(arguments[i]);
+        element.style.display = 'none'
     }
   }
 
   function showView(id) {
-    var e = document.getElementById(id);
-    e.style.display = 'block'
+    const element = document.getElementById(id);
+    element.style.display = 'block'
   }
 
   function adultLoggedIn() {
     if (localStorage.loggedIn == 'true') {
-      e = document.getElementById('adult-login-signup-container')
-      e.style.display = 'none'
+      element = document.getElementById('adult-login-signup-container')
+      element.style.display = 'none'
     }
   }
 
   function childLoggedIn() {
     if (localStorage.loggedIn == 'true') {
-      e = document.getElementById('child-login-signup-container')
-      e.style.display = 'none'
+      element = document.getElementById('child-login-signup-container')
+      element.style.display = 'none'
     }
   }
 
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
-      var result = confirm("Are you sure you want to delete this User? Click ok to confirm.")
+      const result = confirm("Are you sure you want to delete this User? Click ok to confirm.")
       if (result) {
         const token = localStorage.token
         const userToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
@@ -504,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
-      var result = confirm("Are you sure you want to delete this User? Click ok to confirm.")
+      const result = confirm("Are you sure you want to delete this User? Click ok to confirm.")
       if (result) {
         const token = localStorage.token
         const userToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'createTaskBtn') {
-      element = document.getElementById('adult-tasks-container')
+      const element = document.getElementById('adult-tasks-container')
       if (element.style.display == 'block' && newTaskForm.style.display == 'block') {
         hideViews('adult-tasks-container', 'new-task-form')
       } else {
@@ -623,7 +623,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
       adultUserForm.scrollIntoView({behavior: "smooth"})
-      showhideViews('adult-task-info', 'adult-edit-task-form')
+      hideView('adult-task-info')
+      showView('adult-edit-task-form')
       const clickedTaskId = parseInt(event.target.dataset.id)
       const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
       // pre-fill the form data:
@@ -658,7 +659,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((r) => r.json())
     .then((updatedTaskJSON) => {
       const updatedTask = Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
-      showhideView('adult-edit-task-form')
+      hideView('adult-edit-task-form')
+      showView('adult-task-info')
       adultTaskInfo.innerHTML = updatedTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
       adultTaskInfo.scrollIntoView({behavior: "smooth"})
     })
@@ -668,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
-      var result = confirm("Are you sure you want to delete this Task? Click ok to confirm.");
+      const result = confirm("Are you sure you want to delete this Task? Click ok to confirm.");
       if (result) {
         const token = localStorage.token
         const taskToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
@@ -682,6 +684,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(adultTasksBtn.click(adultTasksBtn.click()))
         .then(adultTaskInfo.innerHTML = '')
       }
+    }
+  })
+
+// SCROLL TO TOP OF ADULT PAGE
+  adultTaskInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'top') {
+      const element = document.getElementById('stickers-header')
+      element.scrollIntoView({behavior: "smooth"})
     }
   })
 
@@ -722,5 +732,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const foundTask = Task.findTask(clickedTaskId)
     childTaskInfo.innerHTML = foundTask.renderChildDetails()
     childTaskInfo.scrollIntoView({behavior: "smooth"})
+  })
+
+  // SCROLL TO TOP OF CHILD PAGE
+  childTaskInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'top') {
+      const element = document.getElementById('stickers-header')
+      element.scrollIntoView({behavior: "smooth"})
+    }
   })
 })

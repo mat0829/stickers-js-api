@@ -38,6 +38,7 @@ class Task {
           <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
+          <button class="top" data-id="${this.id}">Top of Page</button>
           `
     } else {
       const isTaskCompletedString = `${this.child} is currently working on: "${this.name}"`
@@ -47,7 +48,8 @@ class Task {
           <h2>Worth ${this.value} Sticker Points!</h2>
           <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
-          <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
+          <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
+          <button class="top" data-id="${this.id}">Top of Page</button>
           `
     }
   }
@@ -60,6 +62,7 @@ class Task {
           <h4>~ Created by: ${this.parent}</h4>
           <h3>Worth ${this.value} Sticker Points!</h3>
           <h2>${isTaskCompletedString}</h2>
+          <button class="top" data-id="${this.id}">Top of Page</button>
           `
     } else {
       const isTaskCompletedString = `You are currently working on: "${this.name}"`
@@ -68,6 +71,7 @@ class Task {
           <img src="${this.image}">
           <h2>Worth ${this.value} Sticker Points!</h2>
           <h2>${isTaskCompletedString}</h2>
+          <button class="top" data-id="${this.id}">Top of Page</button>
           `
     }
   }
