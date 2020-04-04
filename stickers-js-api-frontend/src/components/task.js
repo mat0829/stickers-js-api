@@ -31,12 +31,23 @@ class Task {
 
   renderAdultDetails() {
     if (this.errors !== undefined) {
-      for (let i = 0; i < this.errors.length; i++) {
-        alert(this.errors[i])
-      }
-      return `<h2>${this.errors}</h2>
-          <button class="createTaskForm" data-id="${this.id}">Return to New Task Form</button>
+      
+      if (this.errors.length == 3) {
+        return `<h2 style="color:red">${this.errors[0]}</h2>
+                <h2 style="color:red">${this.errors[1]}</h2>
+                <h2 style="color:red">${this.errors[2]}</h2>
+          <button class="createTaskForm" data-id="${this.id}">Back to Create a new Task</button>
           `
+      } else if (this.errors.length == 2) {
+        return `<h2 style="color:red">${this.errors[0]}</h2>
+                <h2 style="color:red">${this.errors[1]}</h2>
+          <button class="createTaskForm" data-id="${this.id}">Back to Create a new Task</button>
+          `
+      } else {
+        return `<h2 style="color:red">${this.errors}</h2>
+          <button class="createTaskForm" data-id="${this.id}">Back to Create a new Task</button>
+          `
+      }
     }
     if (this.completed == true) {
       const isTaskCompletedString = `${this.child} completed: "${this.name}"!`
