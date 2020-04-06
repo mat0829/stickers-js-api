@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -204,35 +203,34 @@ document.addEventListener('DOMContentLoaded', () => {
         adultUserInfo.innerHTML += newUser.renderAdultUserErrors()
       } else {
         const number = Math.floor((Math.random() * 100) + 1)
-      if (newUserJSON.user.avatar == '') {
-        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-        if (userChoice == 'Robot' || userChoice == 'robot') {
-          newUserJSON.user.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-        } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          newUserJSON.user.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-        } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          newUserJSON.user.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-        } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          newUserJSON.user.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-        } else {
-          newUserJSON.user.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+        if (newUserJSON.user.avatar == '') {
+          userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
+            if (userChoice == 'Robot' || userChoice == 'robot') {
+              newUserJSON.user.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+            } else if (userChoice == 'Cat' || userChoice == 'cat') {
+              newUserJSON.user.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+            } else if (userChoice == 'Dog' || userChoice == 'dog') {
+              newUserJSON.user.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+            } else if (userChoice == 'Monster' || userChoice == 'monster') {
+              newUserJSON.user.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+            } else {
+              newUserJSON.user.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+            }
+          localStorage.setItem("avatar", newUserJSON.user.avatar)
         }
-        localStorage.setItem("avatar", newUserJSON.user.avatar)
-      }
-      const newUser = new User(newUserJSON)
-      localStorage.setItem("token", newUser.token)
-      localStorage.setItem("parentId", newUser.id)
-      localStorage.setItem("loggedIn", newUser.logged_in)
-      hideViews('adult-login-signup-container')
-      adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
-      adultUserInfo.scrollIntoView({behavior: "smooth"})
+        const newUser = new User(newUserJSON)
+        localStorage.setItem("token", newUser.token)
+        localStorage.setItem("parentId", newUser.id)
+        localStorage.setItem("loggedIn", newUser.logged_in)
+        hideViews('adult-login-signup-container')
+        adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
+        adultUserInfo.scrollIntoView({behavior: "smooth"})
       }
     })
   })
 
 // RETURN TO CREATE ADULT USER FORM
   adultUserInfo.addEventListener('click', (event) => {
-    debugger
     if (event.target.className === 'createAdultUserForm') {
       adultUserInfo.innerHTML = ''
     }
@@ -281,17 +279,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const number = Math.floor((Math.random() * 100) + 1)
       if (updatedUserJSON.avatar == '') {
         userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-        if (userChoice == 'Robot' || userChoice == 'robot') {
-          updatedUserJSON.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-        } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          updatedUserJSON.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-        } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          updatedUserJSON.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-        } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          updatedUserJSON.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-        } else {
-          updatedUserJSON.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-        }
+          if (userChoice == 'Robot' || userChoice == 'robot') {
+            updatedUserJSON.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+          } else if (userChoice == 'Cat' || userChoice == 'cat') {
+            updatedUserJSON.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+          } else if (userChoice == 'Dog' || userChoice == 'dog') {
+            updatedUserJSON.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+          } else if (userChoice == 'Monster' || userChoice == 'monster') {
+            updatedUserJSON.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+          } else {
+            updatedUserJSON.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+          }
         localStorage.setItem("avatar", updatedUserJSON.avatar)
       }
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
@@ -394,6 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW CHILD USER
   childUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -412,35 +411,48 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((newUserJSON) => {
-      const number = Math.floor((Math.random() * 100) + 1)
-      if (newUserJSON.user.avatar == '') {
-        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-        if (userChoice == 'Robot' || userChoice == 'robot') {
-          newUserJSON.user.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-        } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          newUserJSON.user.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-        } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          newUserJSON.user.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-        } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          newUserJSON.user.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-        } else {
-          newUserJSON.user.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+      if (newUserJSON.errors !== undefined) {
+        const newUser = new User(newUserJSON)
+        childUserInfo.innerHTML += newUser.renderChildUserErrors()
+      } else {
+        const number = Math.floor((Math.random() * 100) + 1)
+        if (newUserJSON.user.avatar == '') {
+          userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
+            if (userChoice == 'Robot' || userChoice == 'robot') {
+              newUserJSON.user.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+            } else if (userChoice == 'Cat' || userChoice == 'cat') {
+              newUserJSON.user.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+            } else if (userChoice == 'Dog' || userChoice == 'dog') {
+              newUserJSON.user.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+            } else if (userChoice == 'Monster' || userChoice == 'monster') {
+              newUserJSON.user.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+            } else {
+              newUserJSON.user.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+            }
+          localStorage.setItem("avatar", newUserJSON.user.avatar)
         }
-        localStorage.setItem("avatar", newUserJSON.user.avatar)
+        const newUser = new User(newUserJSON)
+        localStorage.setItem("token", newUser.token)
+        const childNames = JSON.parse(localStorage.getItem("childNames")) || []
+        const childObject = {name: `${newUser.name}`, id: newUser.id + ""}
+        childNames.push(childObject)
+        window.localStorage.setItem('childNames', JSON.stringify(childNames))
+        storedChildNames = JSON.parse(localStorage.getItem("childNames"))
+        console.log(storedChildNames)
+        localStorage.setItem("loggedIn", newUser.logged_in)
+        hideView('child-login-signup-container')
+        childUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
+        childUserInfo.scrollIntoView({behavior: "smooth"})
       }
-      const newUser = new User(newUserJSON)
-      localStorage.setItem("token", newUser.token)
-      const childNames = JSON.parse(localStorage.getItem("childNames")) || []
-      const childObject = {name: `${newUser.name}`, id: newUser.id + ""}
-      childNames.push(childObject)
-      window.localStorage.setItem('childNames', JSON.stringify(childNames))
-      storedChildNames = JSON.parse(localStorage.getItem("childNames"))
-      console.log(storedChildNames)
-      localStorage.setItem("loggedIn", newUser.logged_in)
-      hideView('child-login-signup-container')
-      childUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
-      childUserInfo.scrollIntoView({behavior: "smooth"})
     })
+  })
+
+// RETURN TO CREATE ADULT CHILD FORM
+  childUserInfo.addEventListener('click', (event) => {
+    debugger
+    if (event.target.className === 'createChildUserForm') {
+      childUserInfo.innerHTML = ''
+    }
   })
 
 // CLICK EDIT CHILD USER + PRE-FILL FORM
@@ -486,17 +498,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const number = Math.floor((Math.random() * 100) + 1)
       if (updatedUserJSON.avatar == '') {
         userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-        if (userChoice == 'Robot' || userChoice == 'robot') {
-          updatedUserJSON.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-        } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          updatedUserJSON.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-        } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          updatedUserJSON.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-        } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          updatedUserJSON.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-        } else {
-          updatedUserJSON.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-        }
+          if (userChoice == 'Robot' || userChoice == 'robot') {
+            updatedUserJSON.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+          } else if (userChoice == 'Cat' || userChoice == 'cat') {
+            updatedUserJSON.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+          } else if (userChoice == 'Dog' || userChoice == 'dog') {
+            updatedUserJSON.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+          } else if (userChoice == 'Monster' || userChoice == 'monster') {
+            updatedUserJSON.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+          } else {
+            updatedUserJSON.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+          }
         localStorage.setItem("avatar", updatedUserJSON.avatar)
       }
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
