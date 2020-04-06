@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ADULT USER LOGIN
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -130,8 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((returnUserJSON) => {
       if (returnUserJSON.message !== undefined) {
         const newUser = new User(returnUserJSON)
-        adultUserInfo.innerHTML = ''
-        adultUserInfo.innerHTML += newUser.renderLoginErrors()
+        adultUserInfo.innerHTML = newUser.renderLoginErrors()
       } else {
         const placeholderAvatar = localStorage.avatar
         if (returnUserJSON.user.avatar == '') {
@@ -142,8 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("parentId", newUser.id)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('adult-login-signup-container')
-        adultUserInfo.innerHTML = ''
-        adultUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
+        adultUserInfo.innerHTML = newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
       }
     })
   })
@@ -178,8 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const newUser = new User(userDataJSON)
         showhideView('adult-user-info')
-        adultUserInfo.innerHTML = ''
-        adultUserInfo.innerHTML += newUser.renderAdultUserProfile()
+        adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
         adultUserInfo.scrollIntoView({behavior: "smooth"})
       })
     }
@@ -188,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -209,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((newUserJSON) => {
       if (newUserJSON.errors !== undefined) {
         const newUser = new User(newUserJSON)
-        adultUserInfo.innerHTML = ''
-        adultUserInfo.innerHTML += newUser.renderAdultUserErrors()
+        hideView('adult-login-signup-container')
+        adultUserInfo.innerHTML = newUser.renderAdultUserErrors()
       } else {
         const number = Math.floor((Math.random() * 100) + 1)
         if (newUserJSON.user.avatar == '') {
@@ -232,9 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("token", newUser.token)
         localStorage.setItem("parentId", newUser.id)
         localStorage.setItem("loggedIn", newUser.logged_in)
-        hideViews('adult-login-signup-container')
-        adultUserInfo.innerHTML = ''
-        adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
+        hideView('adult-login-signup-container')
+        adultUserInfo.innerHTML = newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
         adultUserInfo.scrollIntoView({behavior: "smooth"})
       }
     })
@@ -244,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'createAdultUserForm') {
       adultUserInfo.innerHTML = ''
+      showView('adult-login-signup-container')
     }
   })
 
@@ -350,16 +345,21 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((returnUserJSON) => {
-      const placeholderAvatar = localStorage.avatar
-      if (returnUserJSON.user.avatar == '') {
-        returnUserJSON.user.avatar = placeholderAvatar
+      if (returnUserJSON.message !== undefined) {
+        const newUser = new User(returnUserJSON)
+        childUserInfo.innerHTML = newUser.renderLoginErrors()
+      } else {
+        const placeholderAvatar = localStorage.avatar
+        if (returnUserJSON.user.avatar == '') {
+          returnUserJSON.user.avatar = placeholderAvatar
+        }
+        const newUser = new User(returnUserJSON)
+        localStorage.setItem("token", newUser.token)
+        localStorage.setItem("childId", newUser.id)
+        localStorage.setItem("loggedIn", newUser.logged_in)
+        hideView('child-login-signup-container')
+        childUserInfo.innerHTML = newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
       }
-      const newUser = new User(returnUserJSON)
-      localStorage.setItem("token", newUser.token)
-      localStorage.setItem("childId", newUser.id)
-      localStorage.setItem("loggedIn", newUser.logged_in)
-      hideView('child-login-signup-container')
-      childUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })
 
@@ -393,8 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const newUser = new User(userDataJSON)
         showhideView('child-user-info')
-        childUserInfo.innerHTML = ''
-        childUserInfo.innerHTML += newUser.renderChildUserProfile()
+        childUserInfo.innerHTML = newUser.renderChildUserProfile()
         childUserInfo.scrollIntoView({behavior: "smooth"})
       })
     }
@@ -423,7 +422,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((newUserJSON) => {
       if (newUserJSON.errors !== undefined) {
         const newUser = new User(newUserJSON)
-        childUserInfo.innerHTML += newUser.renderChildUserErrors()
+        hideView('child-login-signup-container')
+        childUserInfo.innerHTML = newUser.renderChildUserErrors()
       } else {
         const number = Math.floor((Math.random() * 100) + 1)
         if (newUserJSON.user.avatar == '') {
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(storedChildNames)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('child-login-signup-container')
-        childUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
+        childUserInfo.innerHTML = newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
         childUserInfo.scrollIntoView({behavior: "smooth"})
       }
     })
@@ -461,6 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'createChildUserForm') {
       childUserInfo.innerHTML = ''
+      showView('child-login-signup-container')
     }
   })
 
