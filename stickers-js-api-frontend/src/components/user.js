@@ -13,7 +13,11 @@ class User {
   }
 
   constructor(userObj) {
-    if (userObj.errors == undefined) {
+    if (userObj.errors !== undefined) {
+      this.errors = userObj.errors
+    } else if (userObj.message !== undefined) {
+      this.message = userObj.message
+    } else {
       this.id = userObj.user.id
       this.logged_in = userObj.user.logged_in
       this.name = userObj.user.name
@@ -25,9 +29,11 @@ class User {
       this.parentTasks = userObj.user.parent_tasks
       this.childTasks = userObj.user.child_tasks
       User.allUsers.push(this)
-    } else {
-      this.errors = userObj.errors
     }
+  }
+
+  renderLoginErrors() {
+    return `<h2 style="color:red">${this.message}</h2>`
   }
   
   renderAdultUserErrors() {

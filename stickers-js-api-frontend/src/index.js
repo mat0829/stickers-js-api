@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ADULT USER LOGIN
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -127,16 +128,23 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((returnUserJSON) => {
-      const placeholderAvatar = localStorage.avatar
-      if (returnUserJSON.user.avatar == '') {
-        returnUserJSON.user.avatar = placeholderAvatar
+      if (returnUserJSON.message !== undefined) {
+        const newUser = new User(returnUserJSON)
+        adultUserInfo.innerHTML = ''
+        adultUserInfo.innerHTML += newUser.renderLoginErrors()
+      } else {
+        const placeholderAvatar = localStorage.avatar
+        if (returnUserJSON.user.avatar == '') {
+          returnUserJSON.user.avatar = placeholderAvatar
+        }
+        const newUser = new User(returnUserJSON)
+        localStorage.setItem("token", newUser.token)
+        localStorage.setItem("parentId", newUser.id)
+        localStorage.setItem("loggedIn", newUser.logged_in)
+        hideView('adult-login-signup-container')
+        adultUserInfo.innerHTML = ''
+        adultUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
       }
-      const newUser = new User(returnUserJSON)
-      localStorage.setItem("token", newUser.token)
-      localStorage.setItem("parentId", newUser.id)
-      localStorage.setItem("loggedIn", newUser.logged_in)
-      hideView('adult-login-signup-container')
-      adultUserInfo.innerHTML += newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
     })
   })
 
@@ -180,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -200,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((newUserJSON) => {
       if (newUserJSON.errors !== undefined) {
         const newUser = new User(newUserJSON)
+        adultUserInfo.innerHTML = ''
         adultUserInfo.innerHTML += newUser.renderAdultUserErrors()
       } else {
         const number = Math.floor((Math.random() * 100) + 1)
@@ -223,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("parentId", newUser.id)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideViews('adult-login-signup-container')
+        adultUserInfo.innerHTML = ''
         adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
         adultUserInfo.scrollIntoView({behavior: "smooth"})
       }
@@ -392,7 +403,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW CHILD USER
   childUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -449,7 +459,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // RETURN TO CREATE ADULT CHILD FORM
   childUserInfo.addEventListener('click', (event) => {
-    debugger
     if (event.target.className === 'createChildUserForm') {
       childUserInfo.innerHTML = ''
     }

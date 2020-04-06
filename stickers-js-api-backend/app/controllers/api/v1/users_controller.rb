@@ -17,7 +17,6 @@ class Api::V1::UsersController < ApplicationController
       render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
     else
       render json: { :errors => @user.errors.full_messages }, status: :not_acceptable
-      #render json: { error: 'failed to create user' }, status: :not_acceptable
     end
   end
   
@@ -25,7 +24,8 @@ class Api::V1::UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user, status: 200
     else
-      render json: @user.errors, status: :unprocessable_entity
+      #render json: @user.errors, status: :unprocessable_entity
+      render json: { :errors => @user.errors.full_messages }, status: :not_acceptable
     end
   end
 
