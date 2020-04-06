@@ -13,19 +13,52 @@ class User {
   }
 
   constructor(userObj) {
-    this.id = userObj.user.id
-    this.logged_in = userObj.user.logged_in
-    this.name = userObj.user.name
-    this.email = userObj.user.email
-    this.password = userObj.user.password
-    this.token = userObj.jwt
-    this.avatar = userObj.user.avatar
-    this.children = userObj.user.children
-    this.parentTasks = userObj.user.parent_tasks
-    this.childTasks = userObj.user.child_tasks
-    User.allUsers.push(this)
+    if (userObj.errors == undefined) {
+      this.id = userObj.user.id
+      this.logged_in = userObj.user.logged_in
+      this.name = userObj.user.name
+      this.email = userObj.user.email
+      this.password = userObj.user.password
+      this.token = userObj.jwt
+      this.avatar = userObj.user.avatar
+      this.children = userObj.user.children
+      this.parentTasks = userObj.user.parent_tasks
+      this.childTasks = userObj.user.child_tasks
+      User.allUsers.push(this)
+    } else {
+      this.errors = userObj.errors
+    }
   }
   
+  renderAdultUserErrors() {
+    if (this.errors !== undefined) {
+      
+      if (this.errors.length == 4) {
+        return `<h2 style="color:red">${this.errors[0]}</h2>
+                <h2 style="color:red">${this.errors[1]}</h2>
+                <h2 style="color:red">${this.errors[2]}</h2>
+                <h2 style="color:red">${this.errors[3]}</h2>
+          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
+          `
+      } else if (this.errors.length == 3) {
+        return `<h2 style="color:red">${this.errors[0]}</h2>
+                <h2 style="color:red">${this.errors[1]}</h2>
+                <h2 style="color:red">${this.errors[2]}</h2>
+          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
+          `
+      } else if (this.errors.length == 2) {
+        return `<h2 style="color:red">${this.errors[0]}</h2>
+                <h2 style="color:red">${this.errors[1]}</h2>
+          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
+          `
+      } else {
+        return `<h2 style="color:red">${this.errors}</h2>
+          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
+          `
+      }
+    }
+  }
+
   renderWelcomeUser() {
     return `<h1 data-id="${this.id}"> Welcome to Stickers ${this.name}!</h1>
             <img src="${this.avatar}">

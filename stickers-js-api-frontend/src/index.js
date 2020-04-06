@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -198,7 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((newUserJSON) => {
-      const number = Math.floor((Math.random() * 100) + 1)
+      if (newUserJSON.errors !== undefined) {
+        const newUser = new User(newUserJSON)
+        adultUserInfo.innerHTML += newUser.renderAdultUserErrors()
+      } else {
+        const number = Math.floor((Math.random() * 100) + 1)
       if (newUserJSON.user.avatar == '') {
         userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
         if (userChoice == 'Robot' || userChoice == 'robot') {
@@ -221,7 +226,16 @@ document.addEventListener('DOMContentLoaded', () => {
       hideViews('adult-login-signup-container')
       adultUserInfo.innerHTML += newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
       adultUserInfo.scrollIntoView({behavior: "smooth"})
+      }
     })
+  })
+
+// RETURN TO CREATE ADULT USER FORM
+  adultUserInfo.addEventListener('click', (event) => {
+    debugger
+    if (event.target.className === 'createAdultUserForm') {
+      adultUserInfo.innerHTML = ''
+    }
   })
 
 // CLICK EDIT ADULT USER + PRE-FILL FORM
