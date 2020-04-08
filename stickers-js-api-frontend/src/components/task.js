@@ -22,6 +22,7 @@ class Task {
     this.image = taskObj.image
     this.parent = taskObj.parent
     this.child = taskObj.child
+    this.stickerImage = taskObj.stickerImage
     Task.allTasks.push(this)
   }
 
@@ -64,8 +65,10 @@ class Task {
       const isTaskCompletedString = `${this.child} is currently working on: "${this.name}"`
       return `<h1>"${this.name}"</h1>
           <h3>~ Created by: ${this.parent}</h3>
-          <img src="${this.image}">
-          <h2>Worth ${this.value} Sticker Points!</h2>
+          <img src="${this.image}"><br>
+          <h2>Sticker Reward:</h2>
+          <img src="${this.stickerImage}" width='100px' height='100px'>
+          <h2>Value: ${this.value} Points!</h2>
           <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>

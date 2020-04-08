@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_21_001041) do
+ActiveRecord::Schema.define(version: 2020_04_07_174418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "stickers", force: :cascade do |t|
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_stickers", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "sticker_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "name"
@@ -22,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_001041) do
     t.string "image"
     t.integer "taskGiverId"
     t.integer "taskReceiverId"
+    t.string "stickerImage"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

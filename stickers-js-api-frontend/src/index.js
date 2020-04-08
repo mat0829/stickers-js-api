@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultTaskBar = document.querySelector('#adult-task-bar')
   const adultTaskInfo = document.querySelector('#adult-task-info')
   const adultTasksBtn = document.querySelector('#adultTasksBtn')
+  const adultStickerBar = document.querySelector('#adult-sticker-bar')
+  const adultStickerInfo = document.querySelector('#adult-sticker-info')
 
   const newTaskForm = document.querySelector('#new-task-form')
   const newTaskNameInput = document.querySelector('#new-task-name')
@@ -585,6 +587,25 @@ document.addEventListener('DOMContentLoaded', () => {
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'createTaskBtn') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(adultStickerBar.scrollIntoView({behavior: "smooth"}))
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(stickerDataJSON) => {
+        showView('adult-sticker-bar')
+        adultStickerBar.innerHTML = ''
+        stickerDataJSON.forEach(/*function*/(sticker) => {
+          const newSticker = new Sticker(sticker)
+          adultStickerBar.innerHTML += newSticker.renderStickerCollection()
+        })
+      })
       const element = document.getElementById('adult-tasks-container')
       if (element.style.display == 'block' && newTaskForm.style.display == 'block') {
         hideViews('adult-tasks-container', 'new-task-form')
@@ -601,13 +622,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+// RENDER DETAILS OF CLICKED ADULT STICKER
+  adultStickerBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedStickerId = parseInt(event.target.dataset.id)
+    const foundSticker = Sticker.findSticker(clickedStickerId)
+    localStorage.setItem("sticker", foundSticker)
+    showView('adult-sticker-info')
+    adultStickerInfo.innerHTML = foundSticker.renderStickerDetails()
+    adultStickerInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
+     debugger
      const storedChildNames = localStorage.getItem("childNames")
      const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
+     const sticker = localStorage.sticker
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
        headers: {

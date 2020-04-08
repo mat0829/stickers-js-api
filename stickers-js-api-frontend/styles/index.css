@@ -22,6 +22,11 @@ body {
   max-height: 15vw;
 }
 
+#adult-tasks-container {
+  height: 75vh;
+  text-align: center;
+}
+
 #adult-task-bar {
   height: 20vh;
   background: yellow;
@@ -40,11 +45,6 @@ body {
   border: 1px solid blue;
 }
 
-#adult-tasks-container {
-  height: 75vh;
-  text-align: center;
-}
-
 #adult-task-info {
   display: block;
   flex-flow: column;
@@ -55,6 +55,29 @@ body {
 #adult-task-info img {
   max-width: 15vw;
   max-height: 15vw;
+}
+
+#adult-sticker-bar {
+  /*height: 55vh;*/
+  background: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#adult-sticker-bar img {
+  width:  50px;
+  height: 50px;
+}
+
+#adult-sticker-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#adult-sticker-info img {
+  max-width: 100px;
+  max-height: 100px;
 }
 
 #child-user-info {

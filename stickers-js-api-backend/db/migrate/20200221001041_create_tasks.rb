@@ -7,6 +7,7 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.string :image
       t.integer :taskGiverId
       t.integer :taskReceiverId
+      t.string :stickerImage
 
       t.timestamps
     end

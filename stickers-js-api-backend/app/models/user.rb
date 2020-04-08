@@ -1,9 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  validates :name, :email, :password, presence: true
-  validates :name, uniqueness: true
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
-
+  
   # Will return an array of tasks from the parent_user instance
   has_many :parent_tasks, foreign_key: :taskGiverId, class_name: "Task"
   
@@ -12,4 +9,10 @@ class User < ApplicationRecord
 
   # Will return an array of children who have tasks through the parent_user instance
   has_many :children, through: :parent_tasks, source: :child_user
+
+  has_many :stickers, through: :parent_tasks
+  
+  validates :name, :email, :password, presence: true
+  validates :name, uniqueness: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 end

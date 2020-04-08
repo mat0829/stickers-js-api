@@ -1,4 +1,3 @@
-
 parent_user = User.create!(
   name: 'Mat',
   email: 'parent@email.com',
@@ -27,13 +26,13 @@ child_user = User.create!(
   avatar: 'https://previews.123rf.com/images/alexutemov/alexutemov1608/alexutemov160800980/61881092-cute-animal-cat-head-emotion-vector-avatar-cartoon-happy-cat-kitty-animal-emotion-expression-isolate.jpg'
 )
 
-
 Task.create!(
   name: "Get straight A's on your Report Card",
   value: '500',
   image: 'https://i.pinimg.com/originals/e6/5d/86/e65d86af554c7faabc16684669edfa76.png',
   taskGiverId: '1',
-  taskReceiverId: '4'
+  taskReceiverId: '4',
+  stickerImage: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'
 )
 
 Task.create!(
@@ -41,7 +40,8 @@ Task.create!(
   value: '20',
   image: 'https://c.stocksy.com/a/24x700/z9/1895342.jpg?1575844750',
   taskGiverId: '1',
-  taskReceiverId: '2'
+  taskReceiverId: '2',
+  stickerImage: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'
 )
 
 Task.create!(
@@ -49,11 +49,23 @@ Task.create!(
   value: '5',
   image: 'https://www.theinternetpetvet.com/wp-content/uploads/2014/09/dog-cat-feeding.jpg',
   taskGiverId: '3',
-  taskReceiverId: '2'
+  taskReceiverId: '2',
+  stickerImage: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'
 )
+
+10.times do 
+  Sticker.create!([{ image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'}, 
+    { image: 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/3215981/original/great-job-1024x978/accept-a-tip-for-exceptional-service.jpg' }, 
+    { image: 'http://files.ctctcdn.com/b1220ad5001/ed4ccebb-ac8c-4819-8465-ce711d50eb71.jpg?a=1123800181382'},
+    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'},
+    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'},
+    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'},
+    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'}])
+end
 
 system "clear"  
   puts "After seeding the database: "
   puts " - There are #{User.count} Users."
   puts " - There are #{Task.count} Tasks."
+  puts " - There are #{Sticker.count} Stickers."
   puts ""
