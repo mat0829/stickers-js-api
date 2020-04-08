@@ -10,6 +10,7 @@ class Task {
     taskToUpdate.value = updatedTaskData.value
     taskToUpdate.image = updatedTaskData.image
     taskToUpdate.completed = updatedTaskData.completed
+    taskToUpdate.stickerImage = updatedTaskData.stickerImage
     return taskToUpdate //return the updated task instance for method chaining; taskToUpdate.renderDetails() etc
   }
 
@@ -55,7 +56,9 @@ class Task {
       return `<h2>${this.name}</h2>
           <img src="${this.image}">
           <h4>~ Created by: ${this.parent}</h4>
-          <h3>Worth ${this.value} Sticker Points!</h3>
+          <h2>Sticker Reward:</h2>
+          <img src="${this.stickerImage}" width='100px' height='100px'>
+          <h2>Value: ${this.value} Points!</h2>
           <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
@@ -83,7 +86,9 @@ class Task {
       return `<h2>${this.name}</h2>
           <img src="${this.image}">
           <h4>~ Created by: ${this.parent}</h4>
-          <h3>Worth ${this.value} Sticker Points!</h3>
+          <h2>Sticker Reward:</h2>
+          <img src="${this.stickerImage}" width='100px' height='100px'>
+          <h2>Value: ${this.value} Points!</h2>
           <h2>${isTaskCompletedString}</h2>
           <button class="top" data-id="${this.id}">Top of Page</button>
           `
@@ -92,7 +97,9 @@ class Task {
       return `<h1>"${this.name}"</h1>
           <h3>~ Created by: ${this.parent}</h3>
           <img src="${this.image}">
-          <h2>Worth ${this.value} Sticker Points!</h2>
+          <h2>Sticker Reward:</h2>
+          <img src="${this.stickerImage}" width='100px' height='100px'>
+          <h2>Value: ${this.value} Points!</h2>
           <h2>${isTaskCompletedString}</h2>
           <button class="top" data-id="${this.id}">Top of Page</button>
           `

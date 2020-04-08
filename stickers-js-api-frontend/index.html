@@ -69,6 +69,7 @@
           <h3>Email: <input id="adult-edit-user-email" type="text" name="email" autocomplete="off"></h3>
           <h3>Password: <input id="adult-edit-user-password" type="password" name="password" placeholder="Enter old or new password:"></h3>
           <h3>Avatar Image: <input id="adult-edit-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
+          
           <input type="submit" value="Update User">
         </form>
       </center>
@@ -84,6 +85,18 @@
             <h1>Edit Task:</h1>
             <h3>Task Name: <input type="text" name="adultEditTaskName" id="adult-edit-task-name"></h3>
             <h3>Task Image URL: <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"></h3>
+            <h1>Click on a Sticker to Change Task's Sticker:</h1>
+
+            <div id="stickers-container">
+              <div id="adult-edit-sticker-bar">
+            
+              </div><br>
+    
+              <div id="adult-edit-sticker-info">
+            
+              </div>
+            </div>
+            
             <h3>Choose Task Sticker Value:</h3>
             <select id="adult-edit-task-value" name="editTaskValue">
               <option value="5">5 Sticker Points</option>
@@ -101,7 +114,7 @@
             <h3>Mark Task Completed?<input id="adult-edit-task-completed" type="checkbox" name="adultEditTaskCompleted" value=""></h3>
             
             <input type="submit" value="Update Task">
-          </form><br>
+          </form>
 
           <form id="new-task-form" method="POST" style="display: none">
             <h1>Create a new Task:</h1>
@@ -111,7 +124,7 @@
             <h1>Click on a Task Sticker:</h1>
             <div id="adult-sticker-bar">
             
-            </div>
+            </div><br>
   
             <div id="adult-sticker-info">
           

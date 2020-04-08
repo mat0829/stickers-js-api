@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultEditTaskValueInput = document.querySelector('#adult-edit-task-value')
   const adultEditTaskImageInput = document.querySelector('#adult-edit-task-image')
   const adultEditTaskCompletedInput = document.querySelector('#adult-edit-task-completed')
+  const adultEditStickerBar = document.querySelector('#adult-edit-sticker-bar')
+  const adultEditStickerInfo = document.querySelector('#adult-edit-sticker-info')
 
   const childTaskBar = document.querySelector('#child-task-bar')
   const childTaskInfo = document.querySelector('#child-task-info')
@@ -627,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(event)
     const clickedStickerId = parseInt(event.target.dataset.id)
     const foundSticker = Sticker.findSticker(clickedStickerId)
-    localStorage.setItem("sticker", foundSticker)
+    localStorage.setItem("sticker", foundSticker.image)
     showView('adult-sticker-info')
     adultStickerInfo.innerHTML = foundSticker.renderStickerDetails()
     adultStickerInfo.scrollIntoView({behavior: 'smooth'})
@@ -636,7 +638,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     debugger
      const storedChildNames = localStorage.getItem("childNames")
      const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
      const token = localStorage.token
@@ -655,7 +656,8 @@ document.addEventListener('DOMContentLoaded', () => {
          image: newTaskImageInput.value,
          completed: adultEditTaskCompletedInput.checked,
          taskGiverId: parentId,
-         taskReceiverId: childId
+         taskReceiverId: childId,
+         stickerImage: sticker
        })
        
      })
@@ -689,10 +691,41 @@ document.addEventListener('DOMContentLoaded', () => {
     adultTaskInfo.scrollIntoView({behavior: 'smooth'})
   })
 
+// RENDER DETAILS OF CLICKED ADULT STICKER EDIT FORM
+  adultEditStickerBar.addEventListener('click', (event) => {
+    console.log(event)
+    debugger
+    const clickedStickerId = parseInt(event.target.dataset.id)
+    const foundSticker = Sticker.findSticker(clickedStickerId)
+    localStorage.setItem("sticker", foundSticker.image)
+    showView('adult-edit-sticker-info')
+    adultEditStickerInfo.innerHTML = foundSticker.renderStickerDetails()
+    adultEditStickerInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
 // CLICK EDIT TASK + PRE-FILL FORM
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(adultEditStickerBar.scrollIntoView({behavior: "smooth"}))
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(stickerDataJSON) => {
+        showView('adult-edit-sticker-bar')
+        adultEditStickerBar.innerHTML = ''
+        stickerDataJSON.forEach(/*function*/(sticker) => {
+          const newSticker = new Sticker(sticker)
+          adultEditStickerBar.innerHTML += newSticker.renderStickerCollection()
+        })
+      })
       adultUserForm.scrollIntoView({behavior: "smooth"})
       hideView('adult-task-info')
       showView('adult-edit-task-form')
@@ -712,6 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(event)
     event.preventDefault()
     const token = localStorage.token
+    const sticker = localStorage.sticker
     const updateTaskId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
     fetch(`http://localhost:3000/api/v1/tasks/${updateTaskId}`, {
       method: 'PATCH',
@@ -724,7 +758,8 @@ document.addEventListener('DOMContentLoaded', () => {
         name: adultEditTaskNameInput.value,
         value: adultEditTaskValueInput.value,
         image: adultEditTaskImageInput.value,
-        completed: adultEditTaskCompletedInput.checked
+        completed: adultEditTaskCompletedInput.checked,
+        stickerImage: sticker
       })
     })
     .then((r) => r.json())
