@@ -53,15 +53,44 @@ Task.create!(
   stickerImage: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'
 )
 
-10.times do 
-  Sticker.create!([{ image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'}, 
-    { image: 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/3215981/original/great-job-1024x978/accept-a-tip-for-exceptional-service.jpg' }, 
-    { image: 'http://files.ctctcdn.com/b1220ad5001/ed4ccebb-ac8c-4819-8465-ce711d50eb71.jpg?a=1123800181382'},
-    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'},
-    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'},
-    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'},
-    { image: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'}])
-end
+
+Sticker.create!([{ image: 'https://i.imgur.com/NvN2Njw.jpg'}, 
+  { image: 'https://i.imgur.com/E724FDn.jpg'}, 
+  { image: 'https://i.imgur.com/JMELk8q.jpg'},
+  { image: 'https://i.imgur.com/zZeKExN.jpg'},
+  { image: 'https://i.imgur.com/ZTFAbko.jpg'},
+  { image: 'https://i.imgur.com/U6Jun0U.jpg'},
+  { image: 'https://i.imgur.com/2YEbXew.jpg'},
+  { image: 'https://i.imgur.com/zXQvSoc.jpg'},
+  { image: 'https://i.imgur.com/MoVJB8h.jpg'},
+  { image: 'https://i.imgur.com/LebLlnW.jpg'},
+  { image: 'https://i.imgur.com/DHMeLzz.jpg'},
+  { image: 'https://i.imgur.com/GxehdUk.jpg'},
+  { image: 'https://i.imgur.com/5Ei0RmY.jpg'},
+  { image: 'https://i.imgur.com/2IJTUve.jpg'},
+  { image: 'https://i.imgur.com/BlhkTR1.jpg'},
+  { image: 'https://i.imgur.com/5zWcg98.jpg'},
+  { image: 'https://i.imgur.com/kTH8oXW.jpg'},
+  { image: 'https://i.imgur.com/r3ZmdAZ.jpg'},
+  { image: 'https://i.imgur.com/3uqPJlg.jpg'},
+  { image: 'https://i.imgur.com/zzpiZVU.jpg'},
+  { image: 'https://i.imgur.com/iaaJ9T7.jpg'},
+  { image: 'https://i.imgur.com/onEYPdc.jpg'},
+  { image: 'https://i.imgur.com/QINuBBI.jpg'},
+  { image: 'https://i.imgur.com/23r1JNd.jpg'},
+  { image: 'https://i.imgur.com/pAOtsA4.jpg'},
+  { image: 'https://i.imgur.com/uWA1yft.jpg'},
+  { image: 'https://i.imgur.com/va7Oyyd.jpg'},
+  { image: 'https://i.imgur.com/F86CLbA.jpg'},
+  { image: 'https://i.imgur.com/TALmCnA.jpg'},
+  { image: 'https://i.imgur.com/eK1vJw7.jpg'},
+  { image: 'https://i.imgur.com/yOZoLMn.jpg'},
+  { image: 'https://i.imgur.com/PMxMdrm.jpg'},
+  { image: 'https://i.imgur.com/w3JPRi8.jpg'},
+  { image: 'https://i.imgur.com/NZiBD88.jpg'},
+  { image: 'https://i.imgur.com/2jAjFDU.jpg'}])
+
+  #{ image: ''}
 
 system "clear"  
   puts "After seeding the database: "
