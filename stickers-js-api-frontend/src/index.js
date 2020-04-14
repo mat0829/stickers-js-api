@@ -630,6 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedStickerId = parseInt(event.target.dataset.id)
     const foundSticker = Sticker.findSticker(clickedStickerId)
     localStorage.setItem("sticker", foundSticker.image)
+    hideView('adult-sticker-bar')
     showView('adult-sticker-info')
     adultStickerInfo.innerHTML = foundSticker.renderStickerDetails()
     adultStickerInfo.scrollIntoView({behavior: 'smooth'})
@@ -677,6 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultStickerInfo.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.className === 'topOfStickers') {
+      showView('adult-sticker-bar')
       adultStickerBar.scrollIntoView({behavior: 'smooth'})
     }
   })

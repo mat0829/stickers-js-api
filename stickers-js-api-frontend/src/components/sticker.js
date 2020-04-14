@@ -22,7 +22,7 @@ class Sticker {
 
   renderStickerDetails() {
     return `<img src="${this.image}"><br>
-            <button class="topOfStickers" data-id="${this.id}">Top of Stickers</button>
+            <button class="topOfStickers" data-id="${this.id}">Select a Different Sticker</button>
           `
   }
 }
