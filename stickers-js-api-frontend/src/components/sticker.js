@@ -21,7 +21,8 @@ class Sticker {
   }
 
   renderStickerDetails() {
-    return `<img src="${this.image}">
+    return `<img src="${this.image}"><br>
+            <button class="topOfStickers" data-id="${this.id}">Top of Stickers</button>
           `
   }
 }

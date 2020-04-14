@@ -673,6 +673,14 @@ document.addEventListener('DOMContentLoaded', () => {
      })
    })
 
+// RETURN TO TOP OF STICKERS
+  adultStickerInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfStickers') {
+      adultStickerBar.scrollIntoView({behavior: 'smooth'})
+    }
+  })
+
 // RETURN TO CREATE TASK FORM
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'createTaskForm') {
