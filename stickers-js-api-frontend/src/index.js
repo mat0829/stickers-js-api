@@ -630,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedStickerId = parseInt(event.target.dataset.id)
     const foundSticker = Sticker.findSticker(clickedStickerId)
     localStorage.setItem("sticker", foundSticker.image)
-    setTimeout(() => { hideView('adult-sticker-bar') }, 1500)
+    setTimeout(() => { hideView('adult-sticker-bar-container') }, 1500)
     showView('adult-sticker-info')
     adultStickerInfo.innerHTML = foundSticker.renderStickerDetails()
     adultStickerInfo.scrollIntoView({behavior: 'smooth'})
@@ -678,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultStickerInfo.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.className === 'topOfStickers') {
-      showView('adult-sticker-bar')
+      showView('adult-sticker-bar-container')
       adultStickerBar.scrollIntoView({behavior: 'smooth'})
     }
   })
@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedStickerId = parseInt(event.target.dataset.id)
     const foundSticker = Sticker.findSticker(clickedStickerId)
     localStorage.setItem("sticker", foundSticker.image)
-    setTimeout(() => { hideView('adult-edit-sticker-bar') }, 1500)
+    setTimeout(() => { hideView('adult-edit-sticker-bar-container') }, 1500)
     showView('adult-edit-sticker-info')
     adultEditStickerInfo.innerHTML = foundSticker.renderStickerDetails()
     adultEditStickerInfo.scrollIntoView({behavior: 'smooth'})
@@ -754,7 +754,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultEditStickerInfo.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.className === 'topOfStickers') {
-      showView('adult-edit-sticker-bar')
+      showView('adult-edit-sticker-bar-container')
       adultEditStickerBar.scrollIntoView({behavior: 'smooth'})
     }
   })
