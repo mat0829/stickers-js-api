@@ -673,7 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
      })
    })
 
-// RETURN TO TOP OF STICKERS
+// RETURN TO TOP OF NEW STICKERS
   adultStickerInfo.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.className === 'topOfStickers') {
@@ -702,7 +702,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // RENDER DETAILS OF CLICKED ADULT STICKER EDIT FORM
   adultEditStickerBar.addEventListener('click', (event) => {
     console.log(event)
-    debugger
     const clickedStickerId = parseInt(event.target.dataset.id)
     const foundSticker = Sticker.findSticker(clickedStickerId)
     localStorage.setItem("sticker", foundSticker.image)
@@ -745,6 +744,14 @@ document.addEventListener('DOMContentLoaded', () => {
       adultEditTaskImageInput.value = foundTask.image
       adultEditTaskCompletedInput.checked = foundTask.completed
       adultEditTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
+    }
+  })
+
+// RETURN TO TOP OF EDIT STICKERS
+  adultEditStickerInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfStickers') {
+      adultEditStickerBar.scrollIntoView({behavior: 'smooth'})
     }
   })
 
