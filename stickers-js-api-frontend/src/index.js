@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        hideViews('adult-edit-user-form')
+        hideViews('adult-edit-user-form', 'adult-tasks-container')
         showhideView('adult-user-info')
         adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
         adultUserInfo.scrollIntoView({behavior: "smooth"})
@@ -790,7 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hideView('adult-edit-task-form')
       showView('adult-task-info')
       adultTaskInfo.innerHTML = updatedTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
-      adultTaskInfo.scrollIntoView({behavior: "smooth"})
+      setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
     })
   })
 
@@ -841,6 +841,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(childTaskBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
+        hideViews('child-user-info', 'child-edit-user-form')
         childTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
@@ -860,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
     childTaskInfo.innerHTML = foundTask.renderChildDetails()
-    childTaskInfo.scrollIntoView({behavior: "smooth"})
+    setTimeout(() => { childTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
   })
 
   // SCROLL TO TOP OF CHILD PAGE
