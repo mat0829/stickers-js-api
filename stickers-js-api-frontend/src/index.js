@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        hideView('child-tasks-container')
+        hideView('child-edit-user-form', 'child-tasks-container')
         showView('child-user-info')
         childUserInfo.innerHTML = ''
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
