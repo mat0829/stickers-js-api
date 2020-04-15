@@ -98,6 +98,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function avatarCreationIfEmpty(jsonUserData) {
+    const number = Math.floor((Math.random() * 100) + 1)
+    if (jsonUserData.avatar == '') {
+      userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
+        if (userChoice == 'Robot' || userChoice == 'robot') {
+          jsonUserData.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
+        } else if (userChoice == 'Cat' || userChoice == 'cat') {
+          jsonUserData.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+        } else if (userChoice == 'Dog' || userChoice == 'dog') {
+          jsonUserData.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+        } else if (userChoice == 'Monster' || userChoice == 'monster') {
+          jsonUserData.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+        } else {
+          jsonUserData.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+        }
+      localStorage.setItem("avatar", jsonUserData.avatar)
+    }
+  }
+
 // INDEX NAV BAR
   indexNavBar.addEventListener('click', (event) => {
     event.preventDefault()
@@ -179,7 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const newUser = new User(userDataJSON)
         hideViews('adult-edit-user-form', 'adult-tasks-container')
-        showhideView('adult-user-info')
+        showView('adult-user-info')
+        adultUserInfo.innerHTML = ''
         adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
         adultUserInfo.scrollIntoView({behavior: "smooth"})
       })
@@ -212,27 +232,13 @@ document.addEventListener('DOMContentLoaded', () => {
         hideView('adult-login-signup-container')
         adultUserInfo.innerHTML = newUser.renderAdultUserErrors()
       } else {
-        const number = Math.floor((Math.random() * 100) + 1)
-        if (newUserJSON.user.avatar == '') {
-          userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-            if (userChoice == 'Robot' || userChoice == 'robot') {
-              newUserJSON.user.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-            } else if (userChoice == 'Cat' || userChoice == 'cat') {
-              newUserJSON.user.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-            } else if (userChoice == 'Dog' || userChoice == 'dog') {
-              newUserJSON.user.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-            } else if (userChoice == 'Monster' || userChoice == 'monster') {
-              newUserJSON.user.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-            } else {
-              newUserJSON.user.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-            }
-          localStorage.setItem("avatar", newUserJSON.user.avatar)
-        }
+        avatarCreationIfEmpty(newUserJSON.user)
         const newUser = new User(newUserJSON)
         localStorage.setItem("token", newUser.token)
         localStorage.setItem("parentId", newUser.id)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('adult-login-signup-container')
+        showView('adult-user-info')
         adultUserInfo.innerHTML = newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
         adultUserInfo.scrollIntoView({behavior: "smooth"})
       }
@@ -287,22 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedUserJSON) => {
-      const number = Math.floor((Math.random() * 100) + 1)
-      if (updatedUserJSON.avatar == '') {
-        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-          if (userChoice == 'Robot' || userChoice == 'robot') {
-            updatedUserJSON.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-          } else if (userChoice == 'Cat' || userChoice == 'cat') {
-            updatedUserJSON.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-          } else if (userChoice == 'Dog' || userChoice == 'dog') {
-            updatedUserJSON.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-          } else if (userChoice == 'Monster' || userChoice == 'monster') {
-            updatedUserJSON.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-          } else {
-            updatedUserJSON.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-          }
-        localStorage.setItem("avatar", updatedUserJSON.avatar)
-      }
+      avatarCreationIfEmpty(updatedUserJSON)
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
       hideView('adult-edit-user-form')
       showView('adult-user-info')
@@ -327,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
         .then(delete localStorage.token, delete localStorage.loggedIn)
+        .then(alert(`User Successfully Deleted`))
         .then(window.location.reload(true))
       }
     }
@@ -397,7 +389,9 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        showhideView('child-user-info')
+        hideView('child-tasks-container')
+        showView('child-user-info')
+        childUserInfo.innerHTML = ''
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
         childUserInfo.scrollIntoView({behavior: "smooth"})
       })
@@ -430,22 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hideView('child-login-signup-container')
         childUserInfo.innerHTML = newUser.renderChildUserErrors()
       } else {
-        const number = Math.floor((Math.random() * 100) + 1)
-        if (newUserJSON.user.avatar == '') {
-          userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-            if (userChoice == 'Robot' || userChoice == 'robot') {
-              newUserJSON.user.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-            } else if (userChoice == 'Cat' || userChoice == 'cat') {
-              newUserJSON.user.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-            } else if (userChoice == 'Dog' || userChoice == 'dog') {
-              newUserJSON.user.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-            } else if (userChoice == 'Monster' || userChoice == 'monster') {
-              newUserJSON.user.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-            } else {
-              newUserJSON.user.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-            }
-          localStorage.setItem("avatar", newUserJSON.user.avatar)
-        }
+        avatarCreationIfEmpty(newUserJSON.user)
         const newUser = new User(newUserJSON)
         localStorage.setItem("token", newUser.token)
         const childNames = JSON.parse(localStorage.getItem("childNames")) || []
@@ -456,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(storedChildNames)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('child-login-signup-container')
+        showView('child-user-info')
         childUserInfo.innerHTML = newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
         childUserInfo.scrollIntoView({behavior: "smooth"})
       }
@@ -510,22 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedUserJSON) => {
-      const number = Math.floor((Math.random() * 100) + 1)
-      if (updatedUserJSON.avatar == '') {
-        userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
-          if (userChoice == 'Robot' || userChoice == 'robot') {
-            updatedUserJSON.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
-          } else if (userChoice == 'Cat' || userChoice == 'cat') {
-            updatedUserJSON.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
-          } else if (userChoice == 'Dog' || userChoice == 'dog') {
-            updatedUserJSON.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
-          } else if (userChoice == 'Monster' || userChoice == 'monster') {
-            updatedUserJSON.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
-          } else {
-            updatedUserJSON.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
-          }
-        localStorage.setItem("avatar", updatedUserJSON.avatar)
-      }
+      avatarCreationIfEmpty(updatedUserJSON)
       const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
       hideView('child-edit-user-form')
       showView('child-user-info')
@@ -550,6 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
         .then(delete localStorage.token, delete localStorage.loggedIn)
+        .then(alert(`User Successfully Deleted`))
         .then(window.location.reload(true))
       }
     }
@@ -671,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
        showView('adult-task-info')
        adultTaskBar.innerHTML += newTask.renderSpan()
        adultTaskInfo.innerHTML = newTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
-       adultTaskInfo.scrollIntoView({behavior: "smooth"})
+       setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
      })
    })
 
@@ -695,10 +661,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // RENDER DETAILS OF CLICKED ADULT TASK
   adultTaskBar.addEventListener('click', (event) => {
     console.log(event)
-    debugger
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
-    hideView('adult-edit-task-form')
+    hideViews('adult-edit-task-form', 'new-task-form')
     showView('adult-task-info')
     adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
     setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
@@ -799,7 +764,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
       const result = confirm("Are you sure you want to delete this Task? Click ok to confirm.")
-      debugger
       if (result) {
         const token = localStorage.token
         const taskToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
@@ -810,6 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${token}`
           }
         })
+        .then(alert(`Task Successfully Deleted`))
         .then(setTimeout(() => { adultTasksBtn.click(adultTasksBtn.click()) }, 1000))
         .then(adultTaskInfo.innerHTML = '')
       }
