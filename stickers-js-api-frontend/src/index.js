@@ -178,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
+        hideViews('adult-edit-user-form')
         showhideView('adult-user-info')
         adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
         adultUserInfo.scrollIntoView({behavior: "smooth"})
@@ -568,10 +569,9 @@ document.addEventListener('DOMContentLoaded', () => {
           'Authorization': `Bearer ${token}`
         }
       })
-      .then(adultTaskBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        hideView('new-task-form')
+        hideViews('new-task-form', 'adult-edit-task-form', 'adult-user-info', 'adult-edit-user-form')
         adultTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
@@ -581,6 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           adultTaskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
         }
+        adultTaskBar.scrollIntoView({behavior: "smooth"})
       })
     }
   })
@@ -612,14 +613,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (element.style.display == 'block' && newTaskForm.style.display == 'block') {
         hideViews('adult-tasks-container', 'new-task-form')
       } else {
-        hideView('adult-task-info')
+        hideViews('adult-task-info', 'adult-user-info', 'adult-edit-task-form', 'adult-edit-user-form')
         if (element.style.display == 'none') {
           showView('adult-tasks-container')
         }
         if (newTaskForm.style.display == 'none') {
           showView('new-task-form')
         }
-        newTaskForm.scrollIntoView({behavior: "smooth"})
+        setTimeout(() => { newTaskForm.scrollIntoView({behavior: "smooth"}) }, 500)
       }
     }
   })
@@ -694,11 +695,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // RENDER DETAILS OF CLICKED ADULT TASK
   adultTaskBar.addEventListener('click', (event) => {
     console.log(event)
+    debugger
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
+    hideView('adult-edit-task-form')
     showView('adult-task-info')
     adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
-    adultTaskInfo.scrollIntoView({behavior: 'smooth'})
+    setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
   })
 
 // RENDER DETAILS OF CLICKED ADULT STICKER EDIT FORM
@@ -736,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
           adultEditStickerBar.innerHTML += newSticker.renderStickerCollection()
         })
       })
-      adultUserForm.scrollIntoView({behavior: "smooth"})
+      setTimeout(() => { adultEditTaskForm.scrollIntoView({behavior: "smooth"}) }, 1000)
       hideView('adult-task-info')
       showView('adult-edit-task-form')
       const clickedTaskId = parseInt(event.target.dataset.id)
@@ -795,7 +798,8 @@ document.addEventListener('DOMContentLoaded', () => {
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
-      const result = confirm("Are you sure you want to delete this Task? Click ok to confirm.");
+      const result = confirm("Are you sure you want to delete this Task? Click ok to confirm.")
+      debugger
       if (result) {
         const token = localStorage.token
         const taskToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
@@ -806,7 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${token}`
           }
         })
-        .then(adultTasksBtn.click(adultTasksBtn.click()))
+        .then(setTimeout(() => { adultTasksBtn.click(adultTasksBtn.click()) }, 1000))
         .then(adultTaskInfo.innerHTML = '')
       }
     }
