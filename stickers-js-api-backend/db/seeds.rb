@@ -53,6 +53,8 @@ Task.create!(
   stickerImage: 'https://i.pinimg.com/736x/b5/62/7b/b5627bd17db63bf4821bb14f976101e8.jpg'
 )
 
+TaskImage.create!(imageUrl: 'http://clipart-library.com/data_images/423864.png')
+
 
 Sticker.create!([{ image: 'https://i.imgur.com/VEt4BPW.png'},
   { image: 'https://i.imgur.com/z9orHTZ.jpg'},
@@ -229,5 +231,6 @@ system "clear"
   puts "After seeding the database: "
   puts " - There are #{User.count} Users."
   puts " - There are #{Task.count} Tasks."
+  puts " - There are #{TaskImage.count} Task Images."
   puts " - There are #{Sticker.count} Stickers."
   puts ""

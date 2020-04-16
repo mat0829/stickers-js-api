@@ -9,8 +9,6 @@ class User < ApplicationRecord
 
   # Will return an array of children who have tasks through the parent_user instance
   has_many :children, through: :parent_tasks, source: :child_user
-
-  has_many :stickers, through: :parent_tasks
   
   validates :name, :email, :password, presence: true
   validates :name, uniqueness: true

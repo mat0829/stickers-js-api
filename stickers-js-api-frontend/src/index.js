@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultTaskBar = document.querySelector('#adult-task-bar')
   const adultTaskInfo = document.querySelector('#adult-task-info')
   const adultTasksBtn = document.querySelector('#adultTasksBtn')
+  const adultTaskImageBar = document.querySelector('#adult-task-image-bar')
+  const adultTaskImageInfo = document.querySelector('#adult-task-image-info')
   const adultStickerBar = document.querySelector('#adult-sticker-bar')
   const adultStickerInfo = document.querySelector('#adult-sticker-info')
 
@@ -56,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultEditTaskValueInput = document.querySelector('#adult-edit-task-value')
   const adultEditTaskImageInput = document.querySelector('#adult-edit-task-image')
   const adultEditTaskCompletedInput = document.querySelector('#adult-edit-task-completed')
+  const adultEditTaskImageBar = document.querySelector('#adult-edit-task-image-bar')
+  const adultEditTaskImageInfo = document.querySelector('#adult-edit-task-image-info')
   const adultEditStickerBar = document.querySelector('#adult-edit-sticker-bar')
   const adultEditStickerInfo = document.querySelector('#adult-edit-sticker-info')
 
@@ -389,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        hideView('child-edit-user-form', 'child-tasks-container')
+        hideViews('child-edit-user-form', 'child-tasks-container')
         showView('child-user-info')
         childUserInfo.innerHTML = ''
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
@@ -557,6 +561,24 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'createTaskBtn') {
       const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(adultTaskImageBar.scrollIntoView({behavior: "smooth"}))
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(taskImageDataJSON) => {
+        showView('adult-task-image-bar')
+        adultTaskImageBar.innerHTML = ''
+        taskImageDataJSON.forEach(/*function*/(taskImage) => {
+          const newTaskImage = new TaskImage(taskImage)
+          adultTaskImageBar.innerHTML += newTaskImage.renderTaskImageCollection()
+        })
+      })
       fetch('http://localhost:3000/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
         method: 'GET',
         headers: {
@@ -591,6 +613,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+// RENDER DETAILS OF CLICKED ADULT TASK IMAGE
+  adultTaskImageBar.addEventListener('click', (event) => {
+    console.log(event)
+    debugger
+    const clickedTaskImageId = parseInt(event.target.dataset.id)
+    const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
+    localStorage.setItem("taskImage", foundTaskImage.imageUrl)
+    setTimeout(() => { hideView('adult-task-image-bar-container') }, 1500)
+    showView('adult-task-image-info')
+    adultTaskImageInfo.innerHTML = foundTaskImage.renderTaskImageDetails()
+    adultTaskImageInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
 // RENDER DETAILS OF CLICKED ADULT STICKER
   adultStickerBar.addEventListener('click', (event) => {
     console.log(event)
@@ -606,11 +641,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
+     debugger
      const storedChildNames = localStorage.getItem("childNames")
      const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
      const sticker = localStorage.sticker
+     const taskImage = localStorage.taskImage
+     if (newTaskImageInput.value == '') {
+       newTaskImageInput.value = taskImage
+     }
      fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
        headers: {

@@ -57,6 +57,28 @@ body {
   max-height: 15vw;
 }
 
+#adult-task-image-bar {
+  background: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#adult-task-image-bar img {
+  width:  75px;
+  height: 75px;
+}
+
+#adult-task-image-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#adult-task-image-info img {
+  max-width: 150px;
+  max-height: 150px;
+}
+
 #adult-sticker-bar {
   background: black;
   display: flex;

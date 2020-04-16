@@ -86,6 +86,17 @@
             <h3>Task Name: <input type="text" name="adultEditTaskName" id="adult-edit-task-name"></h3>
             <h3>Task Image URL: <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"></h3>
 
+            <div id="adult-edit-task-image-bar-container">
+              <h1>Click on a Image to Change Your Task's Image:</h1>
+              <div id="adult-edit-task-image-bar">
+            
+              </div><br>
+            </div>
+
+            <div id="adult-edit-task-image-info">
+            
+            </div>
+
             <div id="adult-edit-sticker-bar-container">
               <h1>Click on a Sticker to Change Your Task's Sticker:</h1>
               <div id="adult-edit-sticker-bar">
@@ -118,8 +129,19 @@
 
           <form id="new-task-form" method="POST" style="display: none">
             <h1>Create a new Task:</h1>
-            <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" autocomplete="off"></h3>
-            <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" autocomplete="off"></h3>
+            <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" placeholder="Name Your Task Here" autocomplete="off"></h3>
+            <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
+
+            <div id="adult-task-image-bar-container">
+              <h1>Click on a Task Image:</h1>
+              <div id="adult-task-image-bar">
+            
+              </div><br>
+            </div>
+
+            <div id="adult-task-image-info">
+          
+            </div>
 
             <div id="adult-sticker-bar-container">
               <h1>Click on a Task Sticker:</h1>
@@ -223,6 +245,7 @@
   <!-- <script type="text/javascript" src="src/adapters/adapter.js"></script> -->
   <script type="text/javascript" src="src/components/user.js"></script>
   <script type="text/javascript" src="src/components/task.js"></script>
+  <script type="text/javascript" src="src/components/taskImage.js"></script>
   <script type="text/javascript" src="src/components/sticker.js"></script>
   <script type="text/javascript" src="src/index.js"></script>
 </body>
