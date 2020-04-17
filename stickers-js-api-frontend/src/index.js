@@ -102,6 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function checkAge() {
+    debugger
+    const result = prompt("Please Enter Your Age and Click Ok.")
+    if (result == parseInt(result, 10)) {
+      if (result <= 10) {
+        alert('Please ask a Parent or Guardian to help you fill this out.')
+      } else {
+        alert('If you have trouble filling this out ask a Parent or Guardian to help you.')
+      }
+    } else {
+      alert("Please Enter a Number for Your Age. Not a Word.")
+      checkAge()
+    }
+  }
+
   function avatarCreationIfEmpty(jsonUserData) {
     const number = Math.floor((Math.random() * 100) + 1)
     if (jsonUserData.avatar == '') {
@@ -133,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
       childLoggedIn()
       hideView("index-nav")
       showView("child-user-container")
+      setTimeout(() => { checkAge() }, 500)
     }
   })
 
