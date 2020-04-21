@@ -66,11 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const childTaskBar = document.querySelector('#child-task-bar')
   const childTaskInfo = document.querySelector('#child-task-info')
 
-  function showhideView(id) {
-    const e = document.getElementById(id);
-    e.style.display = (e.style.display == 'block') ? 'none' : 'block';
-  }
-
   function hideView(id) {
     const element = document.getElementById(id);
     element.style.display = 'none'
@@ -88,6 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
     element.style.display = 'block'
   }
 
+  function showViews() {
+    for (let i = 0; i < arguments.length; i++) {
+        let element = document.getElementById(arguments[i]);
+        element.style.display = 'block'
+    }
+  }
+
   function adultLoggedIn() {
     if (localStorage.loggedIn == 'true') {
       element = document.getElementById('adult-login-signup-container')
@@ -103,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkAge() {
-    debugger
     const result = prompt("Please Enter Your Age and Click Ok.")
     if (result == parseInt(result, 10)) {
       if (result <= 10) {
@@ -546,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'adultTasksBtn') {
       const token = localStorage.token
-      showhideView('adult-tasks-container')
+      showView('adult-tasks-container')
       fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
         headers: {
@@ -614,25 +615,20 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       })
       const element = document.getElementById('adult-tasks-container')
-      if (element.style.display == 'block' && newTaskForm.style.display == 'block') {
-        hideViews('adult-tasks-container', 'new-task-form')
-      } else {
-        hideViews('adult-task-info', 'adult-user-info', 'adult-edit-task-form', 'adult-edit-user-form')
-        if (element.style.display == 'none') {
-          showView('adult-tasks-container')
-        }
-        if (newTaskForm.style.display == 'none') {
-          showView('new-task-form')
-        }
-        setTimeout(() => { newTaskForm.scrollIntoView({behavior: "smooth"}) }, 500)
+      hideViews('adult-task-info', 'adult-user-info', 'adult-edit-task-form', 'adult-edit-user-form')
+      if (element.style.display == 'none') {
+        showView('adult-tasks-container')
       }
+      if (newTaskForm.style.display == 'none') {
+        showView('new-task-form')
+      }
+      setTimeout(() => { newTaskForm.scrollIntoView({behavior: "smooth"}) }, 500)
     }
   })
 
 // RENDER DETAILS OF CLICKED ADULT TASK IMAGE
   adultTaskImageBar.addEventListener('click', (event) => {
     console.log(event)
-    debugger
     const clickedTaskImageId = parseInt(event.target.dataset.id)
     const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
     localStorage.setItem("taskImage", foundTaskImage.imageUrl)
@@ -689,6 +685,8 @@ document.addEventListener('DOMContentLoaded', () => {
      .then((newTaskJSON) => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
        hideView('new-task-form')
+       newTaskForm.reset()
+       delete localStorage.taskImage
        showView('adult-task-info')
        adultTaskBar.innerHTML += newTask.renderSpan()
        adultTaskInfo.innerHTML = newTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
@@ -733,19 +731,19 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
   })
 
-// RENDER DETAILS OF CLICKED ADULT TASK IMAGE EDIT FORM
+// RENDER DETAILS OF CLICKED ADULT EDIT TASK IMAGE
   adultEditTaskImageBar.addEventListener('click', (event) => {
     console.log(event)
     const clickedTaskImageId = parseInt(event.target.dataset.id)
     const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
-    localStorage.setItem("taskImage", foundTaskImage.imageUrl)
+    localStorage.setItem("editedTaskImage", foundTaskImage.imageUrl)
     setTimeout(() => { hideView('adult-edit-task-image-bar-container') }, 1500)
     showView('adult-edit-task-image-info')
     adultEditTaskImageInfo.innerHTML = foundTaskImage.renderTaskImageDetails()
     adultEditTaskImageInfo.scrollIntoView({behavior: 'smooth'})
   })
 
-// RENDER DETAILS OF CLICKED ADULT STICKER EDIT FORM
+// RENDER DETAILS OF CLICKED ADULT EDIT STICKER
   adultEditStickerBar.addEventListener('click', (event) => {
     console.log(event)
     const clickedStickerId = parseInt(event.target.dataset.id)
@@ -761,6 +759,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
+      debugger
       const token = localStorage.token
       fetch('http://localhost:3000/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
         method: 'GET',
@@ -799,8 +798,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       })
       setTimeout(() => { adultEditTaskForm.scrollIntoView({behavior: "smooth"}) }, 1000)
-      hideView('adult-task-info')
-      showView('adult-edit-task-form')
+      hideViews('adult-task-info', 'adult-edit-task-image-info', 'adult-edit-sticker-info')
+      showViews('adult-edit-task-form', 'adult-edit-task-image-bar-container', 'adult-edit-sticker-bar-container')
       const clickedTaskId = parseInt(event.target.dataset.id)
       const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
       // pre-fill the form data:
@@ -836,6 +835,10 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     const token = localStorage.token
     const sticker = localStorage.sticker
+    const editedTaskImage = localStorage.editedTaskImage
+    if (editedTaskImage !== undefined) {
+      adultEditTaskImageInput.value = editedTaskImage
+    }
     const updateTaskId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
     fetch(`http://localhost:3000/api/v1/tasks/${updateTaskId}`, {
       method: 'PATCH',
@@ -856,6 +859,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((updatedTaskJSON) => {
       const updatedTask = Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
       hideView('adult-edit-task-form')
+      adultEditTaskForm.reset()
+      delete localStorage.editedTaskImage
       showView('adult-task-info')
       adultTaskInfo.innerHTML = updatedTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
       setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
@@ -897,7 +902,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'childTasksBtn') {
       const token = localStorage.token
-      showhideView('child-tasks-container')
+      showView('child-tasks-container')
       fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
         headers: {
