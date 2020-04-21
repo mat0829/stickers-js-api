@@ -657,7 +657,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     debugger
      const storedChildNames = localStorage.getItem("childNames")
      const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
      const token = localStorage.token
@@ -697,6 +696,15 @@ document.addEventListener('DOMContentLoaded', () => {
      })
    })
 
+// RETURN TO TOP OF NEW TASK IMAGES
+  adultTaskImageInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfTaskImages') {
+      showView('adult-task-image-bar-container')
+      adultTaskImageBar.scrollIntoView({behavior: 'smooth'})
+    }
+  })
+
 // RETURN TO TOP OF NEW STICKERS
   adultStickerInfo.addEventListener('click', (event) => {
     event.preventDefault()
@@ -725,6 +733,18 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
   })
 
+// RENDER DETAILS OF CLICKED ADULT TASK IMAGE EDIT FORM
+  adultEditTaskImageBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedTaskImageId = parseInt(event.target.dataset.id)
+    const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
+    localStorage.setItem("taskImage", foundTaskImage.imageUrl)
+    setTimeout(() => { hideView('adult-edit-task-image-bar-container') }, 1500)
+    showView('adult-edit-task-image-info')
+    adultEditTaskImageInfo.innerHTML = foundTaskImage.renderTaskImageDetails()
+    adultEditTaskImageInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
 // RENDER DETAILS OF CLICKED ADULT STICKER EDIT FORM
   adultEditStickerBar.addEventListener('click', (event) => {
     console.log(event)
@@ -742,6 +762,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
       const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(adultTaskImageBar.scrollIntoView({behavior: "smooth"}))
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(taskImageDataJSON) => {
+        showView('adult-edit-task-image-bar')
+        adultEditTaskImageBar.innerHTML = ''
+        taskImageDataJSON.forEach(/*function*/(taskImage) => {
+          const newTaskImage = new TaskImage(taskImage)
+          adultEditTaskImageBar.innerHTML += newTaskImage.renderTaskImageCollection()
+        })
+      })
       fetch('http://localhost:3000/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
         method: 'GET',
         headers: {
@@ -771,6 +809,15 @@ document.addEventListener('DOMContentLoaded', () => {
       adultEditTaskImageInput.value = foundTask.image
       adultEditTaskCompletedInput.checked = foundTask.completed
       adultEditTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
+    }
+  })
+
+// RETURN TO TOP OF EDIT TASK IMAGES
+  adultEditTaskImageInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfTaskImages') {
+      showView('adult-edit-task-image-bar-container')
+      adultEditTaskImageBar.scrollIntoView({behavior: 'smooth'})
     }
   })
 

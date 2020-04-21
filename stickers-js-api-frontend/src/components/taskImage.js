@@ -22,7 +22,7 @@ class TaskImage {
 
   renderTaskImageDetails() {
     return `<img src="${this.imageUrl}"><br>
-            <button class="topOfTaskImages" data-id="${this.id}">Select a Different TaskImage</button>
+            <button class="topOfTaskImages" data-id="${this.id}">Select a Different Task Image</button>
           `
   }
 }

@@ -65,7 +65,7 @@ body {
 }
 
 #adult-task-image-bar img {
-  width:  75px;
+  width:  150px;
   height: 75px;
 }
 
@@ -75,8 +75,30 @@ body {
 }
 
 #adult-task-image-info img {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 250px;
+  max-height: 125px;
+}
+
+#adult-edit-task-image-bar {
+  background: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#adult-edit-task-image-bar img {
+  width:  150px;
+  height: 75px;
+}
+
+#adult-edit-task-image-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#adult-edit-task-image-info img {
+  max-width: 250px;
+  max-height: 125px;
 }
 
 #adult-sticker-bar {
@@ -97,8 +119,8 @@ body {
 }
 
 #adult-sticker-info img {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 125px;
+  max-height: 125px;
 }
 
 #adult-edit-sticker-bar {
@@ -119,8 +141,8 @@ body {
 }
 
 #adult-edit-sticker-info img {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 125px;
+  max-height: 125px;
 }
 
 #child-user-info {
