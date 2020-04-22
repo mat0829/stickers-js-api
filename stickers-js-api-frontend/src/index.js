@@ -104,6 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function logOut() {
+    if (event.target.id === 'logoutBtn') {
+      delete localStorage.token
+      delete localStorage.loggedIn
+      window.location.reload(true)
+    }
+  }
+
   function checkAge() {
     const result = prompt("Please Enter Your Age and Click Ok.")
     if (result == parseInt(result, 10)) {
@@ -134,6 +142,25 @@ document.addEventListener('DOMContentLoaded', () => {
           jsonUserData.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
         }
       localStorage.setItem("avatar", jsonUserData.avatar)
+    }
+  }
+
+  function renderEditUserErrors(userData, userType) {
+    if (userData.errors.length == 3) {
+      return `<h2 style="color:red">${userData.errors[0]}</h2>
+              <h2 style="color:red">${userData.errors[1]}</h2>
+              <h2 style="color:red">${userData.errors[2]}</h2>
+        <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
+        `
+    } else if (userData.errors.length == 2) {
+      return `<h2 style="color:red">${userData.errors[0]}</h2>
+              <h2 style="color:red">${userData.errors[1]}</h2>
+        <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
+        `
+    } else {
+      return `<h2 style="color:red">${userData.errors}</h2>
+        <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
+        `
     }
   }
 
@@ -192,11 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ADULT USER LOGOUT
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    if (event.target.id === 'logoutBtn') {
-      delete localStorage.token
-      delete localStorage.loggedIn
-      window.location.reload(true)
-    }
+    logOut()
   })
 
 // FETCH ADULT USER PROFILE
@@ -317,8 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (updatedUserJSON.errors !== undefined) {
         hideView('adult-edit-user-form')
         showView('adult-user-info')
-        adultUserInfo.innerHTML = `<h2 style="color:red">${updatedUserJSON.errors}</h2>
-        <button class="editAdultUserForm" data-id="${this.id}">Back to Edit Adult User</button>`
+        const errors = renderEditUserErrors(updatedUserJSON, 'Adult')
+        adultUserInfo.innerHTML = errors
       } else {
         avatarCreationIfEmpty(updatedUserJSON)
         const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
@@ -399,11 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CHILD USER LOGOUT
   childNavBar.addEventListener('click', (event) => {
     event.preventDefault()
-    if (event.target.id === 'logoutBtn') {
-      delete localStorage.token
-      delete localStorage.loggedIn
-      window.location.reload(true)
-    }
+    logOut()
   })
 
 // FETCH CHILD USER PROFILE
@@ -526,11 +545,12 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedUserJSON) => {
+      debugger
       if (updatedUserJSON.errors !== undefined) {
         hideView('child-edit-user-form')
         showView('child-user-info')
-        childUserInfo.innerHTML = `<h2 style="color:red">${updatedUserJSON.errors}</h2>
-        <button class="editChildUserForm" data-id="${this.id}">Back to Edit Child User</button>`
+        const errors = renderEditUserErrors(updatedUserJSON, 'Child')
+        childUserInfo.innerHTML = errors
       } else {
         avatarCreationIfEmpty(updatedUserJSON)
         const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
