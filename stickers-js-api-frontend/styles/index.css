@@ -5,12 +5,13 @@ body {
 }
 
 #stickers-header {
+  padding: 10px;
   text-align: center;
 }
 
 #stickers-header img {
-  max-width: 10vw;
-  max-height: 10vw;
+  max-width: 30vw;
+  max-height: 30vw;
 }
 
 #adult-user-info {
