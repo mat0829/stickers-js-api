@@ -24,7 +24,6 @@ class Api::V1::UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user, status: 200
     else
-      #render json: @user.errors, status: :unprocessable_entity
       render json: { :errors => @user.errors.full_messages }, status: :not_acceptable
     end
   end

@@ -314,13 +314,28 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedUserJSON) => {
-      avatarCreationIfEmpty(updatedUserJSON)
-      const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
-      hideView('adult-edit-user-form')
-      showView('adult-user-info')
-      adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
-      adultUserInfo.scrollIntoView({behavior: "smooth"})
+      if (updatedUserJSON.errors !== undefined) {
+        hideView('adult-edit-user-form')
+        showView('adult-user-info')
+        adultUserInfo.innerHTML = `<h2 style="color:red">${updatedUserJSON.errors}</h2>
+        <button class="editAdultUserForm" data-id="${this.id}">Back to Edit Adult User</button>`
+      } else {
+        avatarCreationIfEmpty(updatedUserJSON)
+        const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
+        hideView('adult-edit-user-form')
+        showView('adult-user-info')
+        adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
+        adultUserInfo.scrollIntoView({behavior: "smooth"})
+      }
     })
+  })
+
+// RETURN TO EDIT ADULT USER FORM
+  adultUserInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'editAdultUserForm') {
+      adultUserInfo.innerHTML = ''
+      showView('adult-edit-user-form')
+    }
   })
 
 // DELETE REQUEST TO DELETE ADULT USER
@@ -511,13 +526,28 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedUserJSON) => {
-      avatarCreationIfEmpty(updatedUserJSON)
-      const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
-      hideView('child-edit-user-form')
-      showView('child-user-info')
-      childUserInfo.innerHTML = updatedUser.renderChildUserProfile() //render the changes so the DOM is in sync with our data
-      childUserInfo.scrollIntoView({behavior: "smooth"})
+      if (updatedUserJSON.errors !== undefined) {
+        hideView('child-edit-user-form')
+        showView('child-user-info')
+        childUserInfo.innerHTML = `<h2 style="color:red">${updatedUserJSON.errors}</h2>
+        <button class="editChildUserForm" data-id="${this.id}">Back to Edit Child User</button>`
+      } else {
+        avatarCreationIfEmpty(updatedUserJSON)
+        const updatedUser = User.updateUser(updatedUserJSON) //delegate updating tasks to the Task class
+        hideView('child-edit-user-form')
+        showView('child-user-info')
+        childUserInfo.innerHTML = updatedUser.renderChildUserProfile() //render the changes so the DOM is in sync with our data
+        childUserInfo.scrollIntoView({behavior: "smooth"})
+      }
     })
+  })
+
+// RETURN TO EDIT CHILD USER FORM
+  childUserInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'editChildUserForm') {
+      childUserInfo.innerHTML = ''
+      showView('child-edit-user-form')
+    }
   })
 
 // DELETE REQUEST TO DELETE CHILD USER
@@ -759,7 +789,6 @@ document.addEventListener('DOMContentLoaded', () => {
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
       console.log(event.target)
-      debugger
       const token = localStorage.token
       fetch('http://localhost:3000/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
         method: 'GET',
