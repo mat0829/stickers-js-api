@@ -36,57 +36,29 @@ class User {
     return `<h2 style="color:red">${this.message}</h2>`
   }
   
-  renderAdultUserErrors() {
+  renderUserErrors(userType) {
     if (this.errors !== undefined) {
       if (this.errors.length == 4) {
         return `<h2 style="color:red">${this.errors[0]}</h2>
                 <h2 style="color:red">${this.errors[1]}</h2>
                 <h2 style="color:red">${this.errors[2]}</h2>
                 <h2 style="color:red">${this.errors[3]}</h2>
-          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
+          <button class="create${userType}UserForm">Back to Create a new User</button>
           `
       } else if (this.errors.length == 3) {
         return `<h2 style="color:red">${this.errors[0]}</h2>
                 <h2 style="color:red">${this.errors[1]}</h2>
                 <h2 style="color:red">${this.errors[2]}</h2>
-          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
+          <button class="create${userType}UserForm">Back to Create a new User</button>
           `
       } else if (this.errors.length == 2) {
         return `<h2 style="color:red">${this.errors[0]}</h2>
                 <h2 style="color:red">${this.errors[1]}</h2>
-          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
+          <button class="create${userType}UserForm">Back to Create a new User</button>
           `
       } else {
         return `<h2 style="color:red">${this.errors}</h2>
-          <button class="createAdultUserForm" data-id="${this.id}">Back to Create a new User</button>
-          `
-      }
-    }
-  }
-
-  renderChildUserErrors() {
-    if (this.errors !== undefined) {
-      if (this.errors.length == 4) {
-        return `<h2 style="color:red">${this.errors[0]}</h2>
-                <h2 style="color:red">${this.errors[1]}</h2>
-                <h2 style="color:red">${this.errors[2]}</h2>
-                <h2 style="color:red">${this.errors[3]}</h2>
-          <button class="createChildUserForm" data-id="${this.id}">Back to Create a new User</button>
-          `
-      } else if (this.errors.length == 3) {
-        return `<h2 style="color:red">${this.errors[0]}</h2>
-                <h2 style="color:red">${this.errors[1]}</h2>
-                <h2 style="color:red">${this.errors[2]}</h2>
-          <button class="createChildUserForm" data-id="${this.id}">Back to Create a new User</button>
-          `
-      } else if (this.errors.length == 2) {
-        return `<h2 style="color:red">${this.errors[0]}</h2>
-                <h2 style="color:red">${this.errors[1]}</h2>
-          <button class="createChildUserForm" data-id="${this.id}">Back to Create a new User</button>
-          `
-      } else {
-        return `<h2 style="color:red">${this.errors}</h2>
-          <button class="createChildUserForm" data-id="${this.id}">Back to Create a new User</button>
+          <button class="create${userType}UserForm">Back to Create a new User</button>
           `
       }
     }

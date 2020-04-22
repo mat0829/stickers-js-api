@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (newUserJSON.errors !== undefined) {
         const newUser = new User(newUserJSON)
         hideView('adult-login-signup-container')
-        adultUserInfo.innerHTML = newUser.renderAdultUserErrors()
+        adultUserInfo.innerHTML = newUser.renderUserErrors('Adult')
       } else {
         avatarCreationIfEmpty(newUserJSON.user)
         const newUser = new User(newUserJSON)
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (newUserJSON.errors !== undefined) {
         const newUser = new User(newUserJSON)
         hideView('child-login-signup-container')
-        childUserInfo.innerHTML = newUser.renderChildUserErrors()
+        childUserInfo.innerHTML = newUser.renderUserErrors('Child')
       } else {
         avatarCreationIfEmpty(newUserJSON.user)
         const newUser = new User(newUserJSON)
