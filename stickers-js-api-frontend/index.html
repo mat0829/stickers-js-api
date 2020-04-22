@@ -21,8 +21,8 @@
     <div id="index-nav" style="display: block">
       <center>
         <nav>
-          <button id="adultPageBtn">Parent's Page</button>
-          <button id="childPageBtn">Kid's Page</button>
+          <button class="adultPageBtn" id="adultPageBtn">Parent's Page</button>
+          <button class="childPageBtn" id="childPageBtn">Kid's Page</button>
         </nav>
       </center>
     </div>
@@ -31,13 +31,13 @@
     <div class="view" id="adult-user-container" style="display: none">
       <center>
         <nav id="adult-nav-bar" style="display: block">
-          <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
-          <button id="adultTasksBtn" data-launch-view="page1">Tasks Page</button>
-          <button id="createTaskBtn" data-launch-view="page2">Create a New Task</button>
+          <button class="userProfileBtn" id="userProfileBtn" data-launch-view="page1">User Profile</button>
+          <button class="adultTasksBtn" id="adultTasksBtn" data-launch-view="page1">Tasks Page</button>
+          <button class="createTaskBtn" id="createTaskBtn" data-launch-view="page2">Create a New Task</button>
           <!-- <button id="stickersBtn" data-launch-view="page3">Stickers Page</button> -->
           <!-- <button id="prizesBtn" data-launch-view="page3">Prizes Page</button> -->
           <!-- <button id="behaviorBtn" data-launch-view="page3">Behavior Page</button> -->
-          <button id="logoutBtn" data-launch-view="page3">Logout</button>
+          <button class="logoutBtn" id="logoutBtn" data-launch-view="page3">Logout</button>
         </nav><br>
         
         <div id="adult-user-info">
@@ -181,10 +181,10 @@
     <div class="view hide" id="child-user-container" style="display: none">
       <center>
         <nav id="child-nav-bar">
-          <button id="userProfileBtn" data-launch-view="page1">User Profile</button>
-          <button id="childTasksBtn" data-launch-view="page1">Tasks Page</button>
-          <!-- <button id="showPage3Btn" data-launch-view="page3">Stickers Page</button> -->
-          <button id="logoutBtn" data-launch-view="page3">Logout</button>
+          <button class="userProfileBtn" id="userProfileBtn" data-launch-view="page1">User Profile</button>
+          <button class="childTasksBtn" id="childTasksBtn" data-launch-view="page1">Tasks Page</button>
+          <button class="stickersPageBtn" id="stickersPageBtn" data-launch-view="page3">Stickers Page</button>
+          <button class="logoutBtn" id="logoutBtn" data-launch-view="page3">Logout</button>
         </nav><br>
 
         <div id="child-user-info">

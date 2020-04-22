@@ -198,8 +198,48 @@ li {
   margin: 0 0 8px 0;
 }
 
+.adultPageBtn {
+  color: black;
+  background-image: linear-gradient(to right, red , yellow);
+}
+
+.childPageBtn {
+  color: black;
+  background-image: linear-gradient(to right, yellow , lime);
+}
+
 .delete.delete {
   color: red;
+}
+
+.userProfileBtn {
+  color: white;
+  background-image: linear-gradient(to right, orange , purple);
+}
+
+.adultTasksBtn {
+  color: white;
+  background-image: linear-gradient(to right, purple , blue);
+}
+
+.childTasksBtn {
+  color: white;
+  background-image: linear-gradient(to right, purple , blue);
+}
+
+.createTaskBtn {
+  color: white;
+  background-image: linear-gradient(to right, blue , red);
+}
+
+.stickersPageBtn {
+  color: white;
+  background-image: linear-gradient(to right, blue , red);
+}
+
+.logoutBtn {
+  color: white;
+  background-image: linear-gradient(to right, red , yellow);
 }
 
 .topOfStickers {
