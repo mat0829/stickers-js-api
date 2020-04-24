@@ -34,11 +34,11 @@ class Api::V1::StickersController < ApplicationController
 
   private
 
-    def set_sticker
-      @sticker = current_user.stickers.find(params[:id])
-    end
+  def set_sticker
+    @sticker = current_user.stickers.find(params[:id])
+  end
 
-    def sticker_params
-      params.require(:sticker).permit(:image, :value) #:stickers_count
-    end
+  def sticker_params
+    params.require(:sticker).permit(:image, :value) #:stickers_count
+  end
 end

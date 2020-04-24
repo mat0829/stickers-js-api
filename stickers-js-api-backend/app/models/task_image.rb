@@ -1,2 +1,3 @@
 class TaskImage < ApplicationRecord
+    
 end

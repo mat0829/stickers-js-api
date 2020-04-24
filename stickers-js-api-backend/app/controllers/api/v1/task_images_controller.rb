@@ -34,11 +34,11 @@ class Api::V1::TaskImagesController < ApplicationController
 
   private
 
-    def set_task_image
-      @task_image = current_user.task_images.find(params[:id])
-    end
+  def set_task_image
+    @task_image = current_user.task_images.find(params[:id])
+  end
 
-    def task_image_params
-      params.require(:task_image).permit(:imageUrl)
-    end
+  def task_image_params
+    params.require(:task_image).permit(:imageUrl)
+  end
 end

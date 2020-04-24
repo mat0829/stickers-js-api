@@ -1,0 +1,3 @@
+class PrizeImage < ApplicationRecord
+    
+end

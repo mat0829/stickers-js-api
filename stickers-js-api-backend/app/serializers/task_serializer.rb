@@ -1,11 +1,11 @@
 class TaskSerializer < ActiveModel::Serializer
-  attributes :id, :name, :value, :completed, :image, :taskGiverId, :taskReceiverId, :stickerImage, :parent, :child
+  attributes :id, :name, :value, :completed, :image, :taskGiverId, :taskReceiverId, :stickerImage, :taskParent, :taskChild
   
-  def parent
-    self.object.parent_user.name
+  def taskParent
+    self.object.task_parent.name
   end
 
-  def child
-    self.object.child_user.name
+  def taskChild
+    self.object.task_child.name
   end
 end

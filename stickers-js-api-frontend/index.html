@@ -31,13 +31,12 @@
     <div class="view" id="adult-user-container" style="display: none">
       <center>
         <nav id="adult-nav-bar" style="display: block">
-          <button class="userProfileBtn" id="userProfileBtn" data-launch-view="page1">User Profile</button>
-          <button class="adultTasksBtn" id="adultTasksBtn" data-launch-view="page1">Tasks Page</button>
-          <button class="createTaskBtn" id="createTaskBtn" data-launch-view="page2">Create a New Task</button>
-          <!-- <button id="stickersBtn" data-launch-view="page3">Stickers Page</button> -->
-          <!-- <button id="prizesBtn" data-launch-view="page3">Prizes Page</button> -->
-          <!-- <button id="behaviorBtn" data-launch-view="page3">Behavior Page</button> -->
-          <button class="logoutBtn" id="logoutBtn" data-launch-view="page3">Logout</button>
+          <button class="userProfileBtn" id="userProfileBtn">User Profile</button>
+          <button class="adultTasksBtn" id="adultTasksBtn">Tasks Page</button>
+          <button class="createTaskBtn" id="createTaskBtn">Create a New Task</button>
+          <button class="adultPrizesBtn" id="adultPrizesBtn">Prizes Page</button>
+          <button class="addPrizeBtn" id="addPrizeBtn">Add a New Prize</button>
+          <button class="logoutBtn" id="logoutBtn">Logout</button>
         </nav><br>
         
         <div id="adult-user-info">
@@ -176,15 +175,101 @@
           
         </div>
       </div>
+
+      <div id="adult-prizes-container" style="display: none">
+      
+        <div class="view hide" id="adult-prizes">
+          <h2>Prizes:</h2>
+          <div id="adult-prize-bar">
+            
+          </div>
+  
+          <form id="adult-edit-prize-form" method="POST" style="display: none">
+            <h1>Edit Prize:</h1>
+            <h3>Prize Name: <input type="text" name="adultEditPrizeName" id="adult-edit-prize-name"></h3>
+            <h3>Prize Image URL: <input type="text" name="adultEditPrizeImage" id="adult-edit-prize-image"></h3>
+
+            <div id="adult-edit-prize-image-bar-container">
+              <h1>Click on a Image to Choose a New Prize Image:</h1>
+              <div id="adult-edit-prize-image-bar">
+            
+              </div><br>
+            </div>
+
+            <div id="adult-edit-prize-image-info">
+            
+            </div>
+            
+            <h3>Choose Prize Cost:</h3>
+            <select id="adult-edit-prize-cost" name="editPrizeCost">
+              <option value="5">5 Sticker Points</option>
+              <option value="10">10 Sticker Points</option>
+              <option value="20">20 Sticker Points</option>
+              <option value="25">25 Sticker Points</option>
+              <option value="50">50 Sticker Points</option>
+              <option value="75">75 Sticker Points</option>
+              <option value="100">100 Sticker Points</option>
+              <option value="250">250 Sticker Points</option>
+              <option value="500">500 Sticker Points</option>
+              <option value="750">750 Sticker Points</option>
+              <option value="1000">1000 Sticker Points</option>
+            </select>
+            <h3>Mark Prize Purchased?<input id="adult-edit-prize-purchased" type="checkbox" name="adultEditPrizePurchased" value=""></h3>
+            
+            <input type="submit" value="Update Prize">
+          </form>
+
+          <form id="new-prize-form" method="POST" style="display: none">
+            <h1>Create a new Prize:</h1>
+            <h3>Prize Name: <input type="text" name="newPrizeName" id="new-prize-name" placeholder="Name Your Prize Here" autocomplete="off"></h3>
+            <h3>Prize Image URL: <input type="text" name="newPrizeImage" id="new-prize-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
+
+            <div id="adult-prize-image-bar-container">
+              <h1>Click on to Choose a Prize Image:</h1>
+              <div id="adult-prize-image-bar">
+            
+              </div><br>
+            </div>
+
+            <div id="adult-prize-image-info">
+          
+            </div><br>
+
+            <h3>Choose Prize Cost:</h3>
+            <select id="new-prize-cost" name="newPrizeCost">
+              <option value="5">5 Sticker Points</option>
+              <option value="10">10 Sticker Points</option>
+              <option value="20">20 Sticker Points</option>
+              <option value="25">25 Sticker Points</option>
+              <option value="50">50 Sticker Points</option>
+              <option value="75">75 Sticker Points</option>
+              <option value="100">100 Sticker Points</option>
+              <option value="250">250 Sticker Points</option>
+              <option value="500">500 Sticker Points</option>
+              <option value="750">750 Sticker Points</option>
+              <option value="1000">1000 Sticker Points</option>
+            </select>
+              
+            <input type="submit" value="Create Prize">
+          </form><br>
+    
+          <div id="adult-prize-info">
+        
+          </div>
+          
+        </div>
+      </div>
+
     </div>
 
     <div class="view hide" id="child-user-container" style="display: none">
       <center>
         <nav id="child-nav-bar">
-          <button class="userProfileBtn" id="userProfileBtn" data-launch-view="page1">User Profile</button>
-          <button class="childTasksBtn" id="childTasksBtn" data-launch-view="page1">Tasks Page</button>
-          <button class="stickersPageBtn" id="stickersPageBtn" data-launch-view="page3">Stickers Page</button>
-          <button class="logoutBtn" id="logoutBtn" data-launch-view="page3">Logout</button>
+          <button class="userProfileBtn" id="userProfileBtn">User Profile</button>
+          <button class="childTasksBtn" id="childTasksBtn">Tasks Page</button>
+          <button class="stickersPageBtn" id="stickersPageBtn">Stickers Page</button>
+          <button class="childPrizesBtn" id="childPrizesBtn">Prizes Page</button>
+          <button class="logoutBtn" id="logoutBtn">Logout</button>
         </nav><br>
 
         <div id="child-user-info">
@@ -233,16 +318,32 @@
   
         </div>
       </div>
+
+      <div id="child-prizes-container" style="display: none">
+        <div class="view hide" id="child-prizes">
+          <h2>Prizes:</h2>
+          <div id="child-prize-bar">
+            
+          </div>
+    
+          <div id="child-prize-info">
+        
+          </div>
+  
+        </div>
+      </div>
+
     </div>
 
   </div>
 
-  <!-- <script type="text/javascript" src="src/index.js"></script> -->
   <!-- <script type="text/javascript" src="src/adapters/adapter.js"></script> -->
   <script type="text/javascript" src="src/components/user.js"></script>
   <script type="text/javascript" src="src/components/task.js"></script>
   <script type="text/javascript" src="src/components/taskImage.js"></script>
   <script type="text/javascript" src="src/components/sticker.js"></script>
+  <script type="text/javascript" src="src/components/prize.js"></script>
+  <script type="text/javascript" src="src/components/prizeImage.js"></script>
   <script type="text/javascript" src="src/index.js"></script>
 </body>
 

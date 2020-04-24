@@ -4,6 +4,7 @@ body {
   margin: 0;
 }
 
+/* HEADER */
 #stickers-header {
   padding: 10px;
   text-align: center;
@@ -14,6 +15,16 @@ body {
   max-height: 30vw;
 }
 
+/* GENERAL */
+li {
+  font-size: 25px;
+  text-align: center;
+  list-style: square;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+
+/* ADULT USER */
 #adult-user-info {
   padding-bottom: 25px;
 }
@@ -23,6 +34,7 @@ body {
   max-height: 15vw;
 }
 
+/* ADULT TASKS */
 #adult-tasks-container {
   height: 75vh;
   text-align: center;
@@ -58,6 +70,7 @@ body {
   max-height: 15vw;
 }
 
+/* ADULT TASK IMAGES */
 #adult-task-image-bar {
   background: black;
   display: flex;
@@ -102,6 +115,7 @@ body {
   max-height: 125px;
 }
 
+/* ADULT STICKERS */
 #adult-sticker-bar {
   background: black;
   display: flex;
@@ -146,6 +160,81 @@ body {
   max-height: 125px;
 }
 
+/* ADULT PRIZES */
+#adult-prizes-container {
+  height: 75vh;
+  text-align: center;
+}
+
+#adult-prize-bar {
+  height: 20vh;
+  background: yellow;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#adult-prize-bar img {
+  width:  75px;
+  height: 75px;
+}
+
+#adult-prize-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#adult-prize-info img {
+  max-width: 125px;
+  max-height: 125px;
+}
+
+/* ADULT PRIZE IMAGES */
+#adult-prize-image-bar {
+  background: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#adult-prize-image-bar img {
+  width:  150px;
+  height: 75px;
+}
+
+#adult-prize-image-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#adult-prize-image-info img {
+  max-width: 250px;
+  max-height: 125px;
+}
+
+#adult-edit-prize-image-bar {
+  background: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#adult-edit-prize-image-bar img {
+  width:  75px;
+  height: 75px;
+}
+
+#adult-edit-prize-image-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#adult-edit-prize-image-info img {
+  max-width: 250px;
+  max-height: 125px;
+}
+
+/* CHILD USER */
 #child-user-info {
   padding-bottom: 25px;
 }
@@ -155,6 +244,7 @@ body {
   max-height: 15vw;
 }
 
+/* CHILD TASKS */
 #child-task-bar {
   height: 20vh;
   background: yellow;
@@ -190,58 +280,68 @@ body {
   max-height: 15vw;
 }
 
-li {
-  font-size: 25px;
-  text-align: center;
-  list-style: square;
-  font-weight: bold;
-  margin: 0 0 8px 0;
-}
-
+/* ADULT PAGE NAV BUTTONS */
 .adultPageBtn {
   color: black;
-  background-image: linear-gradient(to right, red , yellow);
-}
-
-.childPageBtn {
-  color: black;
-  background-image: linear-gradient(to right, yellow , lime);
-}
-
-.delete.delete {
-  color: red;
+  background-image: linear-gradient(to right, red, yellow);
 }
 
 .userProfileBtn {
   color: white;
-  background-image: linear-gradient(to right, orange , purple);
+  background-image: linear-gradient(to right, orange, purple);
 }
 
 .adultTasksBtn {
   color: white;
-  background-image: linear-gradient(to right, purple , blue);
-}
-
-.childTasksBtn {
-  color: white;
-  background-image: linear-gradient(to right, purple , blue);
+  background-image: linear-gradient(to right, purple, blue);
 }
 
 .createTaskBtn {
   color: white;
-  background-image: linear-gradient(to right, blue , red);
-}
-
-.stickersPageBtn {
-  color: white;
-  background-image: linear-gradient(to right, blue , red);
-}
-
-.logoutBtn {
-  color: white;
-  background-image: linear-gradient(to right, red , yellow);
+  background-image: linear-gradient(to right, blue, red);
 }
 
 .topOfStickers {
   color: blue;
+}
+
+.adultPrizesBtn {
+  color: white;
+  background-image: linear-gradient(to right, red, rgb(250, 120, 142));
+}
+
+.addPrizeBtn {
+  color: white;
+  background-image: linear-gradient(to right, rgb(250, 120, 142), gold);
+}
+
+/* CHILD PAGE NAV BUTTONS */
+.childPageBtn {
+  color: black;
+  background-image: linear-gradient(to right, gold, lime);
+}
+
+.childTasksBtn {
+  color: white;
+  background-image: linear-gradient(to right, purple, blue);
+}
+
+.stickersPageBtn {
+  color: white;
+  background-image: linear-gradient(to right, blue, red);
+}
+
+.childPrizesBtn {
+  color: white;
+  background-image: linear-gradient(to right, red, gold);
+}
+
+.logoutBtn {
+  color: white;
+  background-image: linear-gradient(to right, gold, green);
+}
+
+/* BUTTONS */
+.delete.delete { 
+  color: red;
 }

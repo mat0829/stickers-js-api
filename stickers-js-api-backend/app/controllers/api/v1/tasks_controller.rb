@@ -38,11 +38,11 @@ class Api::V1::TasksController < ApplicationController
 
   private
 
-    def set_task
-      @task = current_user.parent_tasks.find(params[:id])
-    end
+  def set_task
+    @task = current_user.parent_tasks.find(params[:id])
+  end
 
-    def task_params
-      params.require(:task).permit(:name, :value, :completed, :image, :taskGiverId, :taskReceiverId, :stickerImage)
-    end
+  def task_params
+    params.require(:task).permit(:name, :value, :completed, :image, :taskGiverId, :taskReceiverId, :stickerImage)
+  end
 end

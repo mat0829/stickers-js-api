@@ -1,25 +1,25 @@
-parent_user = User.create!(
+task_parent = User.create!(
   name: 'Mat',
   email: 'parent@email.com',
   password: 'password',
   avatar: 'https://images.vexels.com/media/users/3/145908/preview2/52eabf633ca6414e60a7677b0b917d92-male-avatar-maker.jpg'
 )
 
-child_user = User.create!(
+task_child = User.create!(
   name: 'Meeyu',
   email: 'meow@email.com',
   password: 'password',
   avatar: 'https://previews.123rf.com/images/lar01joka/lar01joka1806/lar01joka180600036/102460124-isolated-cute-cat-avatar.jpg'
 )
 
-parent_user = User.create!(
+task_parent = User.create!(
     name: 'Lirit',
     email: 'child@example.com',
     password: 'password',
     avatar: 'https://previews.123rf.com/images/juliasart/juliasart1704/juliasart170400022/75406270-vector-girl-icon-woman-avatar-face-icon-cartoon-style-.jpg'
 )
 
-child_user = User.create!(
+task_child = User.create!(
   name: 'Wookie',
   email: 'meow@email.com',
   password: 'password',
@@ -390,10 +390,23 @@ Sticker.create!([
 
   #{ image: ''}
 
+Prize.create!(
+  name: 'Riches!',
+  cost: '50',
+  image: 'https://i.imgur.com/m7rDijx.jpg',
+  prizeGiverId: '1',
+  prizeReceiverId: '2'
+)
+
+PrizeImage.create!([
+  { imageUrl: 'https://i.imgur.com/m7rDijx.jpg'}])
+
 system "clear"  
   puts "After seeding the database: "
   puts " - There are #{User.count} Users."
   puts " - There are #{Task.count} Tasks."
   puts " - There are #{TaskImage.count} Task Images."
   puts " - There are #{Sticker.count} Stickers."
+  puts " - There are #{Prize.count} Prizes."
+  puts " - There are #{PrizeImage.count} Prize Images."
   puts ""

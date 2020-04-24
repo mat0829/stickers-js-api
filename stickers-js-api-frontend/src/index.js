@@ -48,6 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultStickerBar = document.querySelector('#adult-sticker-bar')
   const adultStickerInfo = document.querySelector('#adult-sticker-info')
 
+  const adultPrizeBar = document.querySelector('#adult-prize-bar')
+  const adultPrizeInfo = document.querySelector('#adult-prize-info')
+  const adultPrizesBtn = document.querySelector('#adultPrizesBtn')
+  const adultPrizeImageBar = document.querySelector('#adult-prize-image-bar')
+  const adultPrizeImageInfo = document.querySelector('#adult-prize-image-info')
+
   const newTaskForm = document.querySelector('#new-task-form')
   const newTaskNameInput = document.querySelector('#new-task-name')
   const newTaskValueInput = document.querySelector('#new-task-value')
@@ -63,8 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultEditStickerBar = document.querySelector('#adult-edit-sticker-bar')
   const adultEditStickerInfo = document.querySelector('#adult-edit-sticker-info')
 
+  const newPrizeForm = document.querySelector('#new-prize-form')
+  const newPrizeNameInput = document.querySelector('#new-prize-name')
+  const newPrizeCostInput = document.querySelector('#new-prize-cost')
+  const newPrizeImageInput = document.querySelector('#new-prize-image')
+
+  const adultEditPrizeForm = document.querySelector('#adult-edit-prize-form')
+  const adultEditPrizeNameInput = document.querySelector('#adult-edit-prize-name')
+  const adultEditPrizeCostInput = document.querySelector('#adult-edit-prize-cost')
+  const adultEditPrizeImageInput = document.querySelector('#adult-edit-prize-image')
+  const adultEditPrizePurchasedInput = document.querySelector('#adult-edit-prize-purchased')
+  const adultEditPrizeImageBar = document.querySelector('#adult-edit-prize-image-bar')
+  const adultEditPrizeImageInfo = document.querySelector('#adult-edit-prize-image-info')
+
   const childTaskBar = document.querySelector('#child-task-bar')
   const childTaskInfo = document.querySelector('#child-task-info')
+
+  const childPrizeBar = document.querySelector('#child-prize-bar')
+  const childPrizeInfo = document.querySelector('#child-prize-info')
 
   function hideView(id) {
     const element = document.getElementById(id);
@@ -241,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        hideViews('adult-edit-user-form', 'adult-tasks-container')
+        hideViews('adult-edit-user-form', 'adult-tasks-container', 'adult-prizes-container')
         showView('adult-user-info')
         adultUserInfo.innerHTML = ''
         adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
@@ -444,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        hideViews('child-edit-user-form', 'child-tasks-container')
+        hideViews('child-edit-user-form', 'child-tasks-container','child-prizes-container',)
         showView('child-user-info')
         childUserInfo.innerHTML = ''
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
@@ -545,7 +567,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedUserJSON) => {
-      debugger
       if (updatedUserJSON.errors !== undefined) {
         hideView('child-edit-user-form')
         showView('child-user-info')
@@ -608,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        hideViews('new-task-form', 'adult-edit-task-form', 'adult-user-info', 'adult-edit-user-form')
+        hideViews('adult-prizes-container','new-task-form', 'adult-edit-task-form', 'adult-user-info', 'adult-edit-user-form')
         adultTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
@@ -623,7 +644,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-// SHOW/HIDE CREATE TASK FORM
+// RENDER DETAILS OF CLICKED ADULT TASK
+  adultTaskBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedTaskId = parseInt(event.target.dataset.id)
+    const foundTask = Task.findTask(clickedTaskId)
+    hideViews('adult-edit-task-form', 'new-task-form')
+    showView('adult-task-info')
+    adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
+    setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
+  })
+
+// SCROLL TO TOP OF ADULT PAGE
+  adultTaskInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'top') {
+      const element = document.getElementById('stickers-header')
+      element.scrollIntoView({behavior: "smooth"})
+    }
+  })
+
+// SHOW CREATE TASK FORM
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'createTaskBtn') {
@@ -665,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       })
       const element = document.getElementById('adult-tasks-container')
-      hideViews('adult-task-info', 'adult-user-info', 'adult-edit-task-form', 'adult-edit-user-form')
+      hideViews('adult-task-info', 'adult-user-info', 'adult-edit-task-form', 'adult-edit-user-form', 'adult-prizes-container')
       if (element.style.display == 'none') {
         showView('adult-tasks-container')
       }
@@ -688,6 +728,15 @@ document.addEventListener('DOMContentLoaded', () => {
     adultTaskImageInfo.scrollIntoView({behavior: 'smooth'})
   })
 
+// RETURN TO TOP OF NEW TASK IMAGES
+  adultTaskImageInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfTaskImages') {
+      showView('adult-task-image-bar-container')
+      adultTaskImageBar.scrollIntoView({behavior: 'smooth'})
+    }
+  })
+
 // RENDER DETAILS OF CLICKED ADULT STICKER
   adultStickerBar.addEventListener('click', (event) => {
     console.log(event)
@@ -698,6 +747,15 @@ document.addEventListener('DOMContentLoaded', () => {
     showView('adult-sticker-info')
     adultStickerInfo.innerHTML = foundSticker.renderStickerDetails()
     adultStickerInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
+// RETURN TO TOP OF NEW STICKERS
+  adultStickerInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfStickers') {
+      showView('adult-sticker-bar-container')
+      adultStickerBar.scrollIntoView({behavior: 'smooth'})
+    }
   })
 
 // CREATE A NEW TASK
@@ -728,7 +786,6 @@ document.addEventListener('DOMContentLoaded', () => {
          taskReceiverId: childId,
          stickerImage: sticker
        })
-       
      })
      .then((r) => r.json())
      .then(adultTasksBtn.click(adultTasksBtn.click()))
@@ -744,65 +801,12 @@ document.addEventListener('DOMContentLoaded', () => {
      })
    })
 
-// RETURN TO TOP OF NEW TASK IMAGES
-  adultTaskImageInfo.addEventListener('click', (event) => {
-    event.preventDefault()
-    if (event.target.className === 'topOfTaskImages') {
-      showView('adult-task-image-bar-container')
-      adultTaskImageBar.scrollIntoView({behavior: 'smooth'})
-    }
-  })
-
-// RETURN TO TOP OF NEW STICKERS
-  adultStickerInfo.addEventListener('click', (event) => {
-    event.preventDefault()
-    if (event.target.className === 'topOfStickers') {
-      showView('adult-sticker-bar-container')
-      adultStickerBar.scrollIntoView({behavior: 'smooth'})
-    }
-  })
-
 // RETURN TO CREATE TASK FORM
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'createTaskForm') {
       const element = document.getElementById('createTaskBtn')
       element.click()
     }
-  })
-
-// RENDER DETAILS OF CLICKED ADULT TASK
-  adultTaskBar.addEventListener('click', (event) => {
-    console.log(event)
-    const clickedTaskId = parseInt(event.target.dataset.id)
-    const foundTask = Task.findTask(clickedTaskId)
-    hideViews('adult-edit-task-form', 'new-task-form')
-    showView('adult-task-info')
-    adultTaskInfo.innerHTML = foundTask.renderAdultDetails()
-    setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
-  })
-
-// RENDER DETAILS OF CLICKED ADULT EDIT TASK IMAGE
-  adultEditTaskImageBar.addEventListener('click', (event) => {
-    console.log(event)
-    const clickedTaskImageId = parseInt(event.target.dataset.id)
-    const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
-    localStorage.setItem("editedTaskImage", foundTaskImage.imageUrl)
-    setTimeout(() => { hideView('adult-edit-task-image-bar-container') }, 1500)
-    showView('adult-edit-task-image-info')
-    adultEditTaskImageInfo.innerHTML = foundTaskImage.renderTaskImageDetails()
-    adultEditTaskImageInfo.scrollIntoView({behavior: 'smooth'})
-  })
-
-// RENDER DETAILS OF CLICKED ADULT EDIT STICKER
-  adultEditStickerBar.addEventListener('click', (event) => {
-    console.log(event)
-    const clickedStickerId = parseInt(event.target.dataset.id)
-    const foundSticker = Sticker.findSticker(clickedStickerId)
-    localStorage.setItem("sticker", foundSticker.image)
-    setTimeout(() => { hideView('adult-edit-sticker-bar-container') }, 1500)
-    showView('adult-edit-sticker-info')
-    adultEditStickerInfo.innerHTML = foundSticker.renderStickerDetails()
-    adultEditStickerInfo.scrollIntoView({behavior: 'smooth'})
   })
 
 // CLICK EDIT TASK + PRE-FILL FORM
@@ -860,6 +864,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+// RENDER DETAILS OF CLICKED ADULT EDIT TASK IMAGE
+  adultEditTaskImageBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedTaskImageId = parseInt(event.target.dataset.id)
+    const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
+    localStorage.setItem("editedTaskImage", foundTaskImage.imageUrl)
+    setTimeout(() => { hideView('adult-edit-task-image-bar-container') }, 1500)
+    showView('adult-edit-task-image-info')
+    adultEditTaskImageInfo.innerHTML = foundTaskImage.renderTaskImageDetails()
+    adultEditTaskImageInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
 // RETURN TO TOP OF EDIT TASK IMAGES
   adultEditTaskImageInfo.addEventListener('click', (event) => {
     event.preventDefault()
@@ -867,6 +883,18 @@ document.addEventListener('DOMContentLoaded', () => {
       showView('adult-edit-task-image-bar-container')
       adultEditTaskImageBar.scrollIntoView({behavior: 'smooth'})
     }
+  })
+
+// RENDER DETAILS OF CLICKED ADULT EDIT STICKER
+  adultEditStickerBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedStickerId = parseInt(event.target.dataset.id)
+    const foundSticker = Sticker.findSticker(clickedStickerId)
+    localStorage.setItem("sticker", foundSticker.image)
+    setTimeout(() => { hideView('adult-edit-sticker-bar-container') }, 1500)
+    showView('adult-edit-sticker-info')
+    adultEditStickerInfo.innerHTML = foundSticker.renderStickerDetails()
+    adultEditStickerInfo.scrollIntoView({behavior: 'smooth'})
   })
 
 // RETURN TO TOP OF EDIT STICKERS
@@ -938,14 +966,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-// SCROLL TO TOP OF ADULT PAGE
-  adultTaskInfo.addEventListener('click', (event) => {
-    if (event.target.className === 'top') {
-      const element = document.getElementById('stickers-header')
-      element.scrollIntoView({behavior: "smooth"})
-    }
-  })
-
 // INITIAL FETCH OF CHILD TASKS
   childNavBar.addEventListener('click', (event) => {
     event.preventDefault()
@@ -963,7 +983,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(childTaskBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        hideViews('child-user-info', 'child-edit-user-form')
+        hideViews('child-prizes-container','child-user-info', 'child-edit-user-form')
         childTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
@@ -986,11 +1006,275 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { childTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
   })
 
-  // SCROLL TO TOP OF CHILD PAGE
+// SCROLL TO TOP OF CHILD PAGE
   childTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'top') {
       const element = document.getElementById('stickers-header')
       element.scrollIntoView({behavior: "smooth"})
+    }
+  })
+
+// INITIAL FETCH OF ADULT PRIZES
+  adultNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'adultPrizesBtn') {
+      const token = localStorage.token
+      showView('adult-prizes-container')
+      fetch('http://localhost:3000/api/v1/prizes', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(prizeDataJSON) => {
+        hideViews('adult-tasks-container','new-prize-form', 'adult-edit-prize-form', 'adult-user-info', 'adult-prize-info', 'adult-edit-user-form')
+        adultPrizeBar.innerHTML = ''
+        if (prizeDataJSON && prizeDataJSON.length) {
+          prizeDataJSON.forEach(/*function*/(prize) => {
+            const newPrize = new Prize(prize)
+            adultPrizeBar.innerHTML += newPrize.renderPrizeCollection()
+          })
+        } else {
+          adultPrizeBar.innerHTML = `<h2>There are currently 0 Prizes</h2>`
+        }
+        adultPrizeBar.scrollIntoView({behavior: "smooth"})
+      })
+    }
+  })
+
+// RENDER DETAILS OF CLICKED ADULT PRIZE
+  adultPrizeBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedPrizeId = parseInt(event.target.dataset.id)
+    const foundPrize = Prize.findPrize(clickedPrizeId)
+    hideViews('adult-edit-prize-form', 'new-prize-form')
+    showView('adult-prize-info')
+    adultPrizeInfo.innerHTML = foundPrize.renderAdultPrizeDetails()
+    setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
+  })
+
+// SHOW CREATE PRIZE FORM
+  adultNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'addPrizeBtn') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(adultPrizeImageBar.scrollIntoView({behavior: "smooth"}))
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(prizeImageDataJSON) => {
+        showView('adult-prize-image-bar')
+        adultPrizeImageBar.innerHTML = ''
+        prizeImageDataJSON.forEach(/*function*/(prizeImage) => {
+          const newPrizeImage = new PrizeImage(prizeImage)
+          adultPrizeImageBar.innerHTML += newPrizeImage.renderPrizeImageCollection()
+        })
+      })
+      const element = document.getElementById('adult-prizes-container')
+      hideViews('adult-tasks-container', 'adult-user-info', 'adult-prize-info', 'adult-edit-user-form')
+      if (element.style.display == 'none') {
+        showView('adult-prizes-container')
+      }
+      if (newPrizeForm.style.display == 'none') {
+        showView('new-prize-form')
+      }
+      setTimeout(() => { newPrizeForm.scrollIntoView({behavior: "smooth"}) }, 500)
+    }
+  })
+
+// RENDER DETAILS OF CLICKED ADULT PRIZE IMAGE
+  adultPrizeImageBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedPrizeImageId = parseInt(event.target.dataset.id)
+    const foundPrizeImage = PrizeImage.findPrizeImage(clickedPrizeImageId)
+    localStorage.setItem("prizeImage", foundPrizeImage.imageUrl)
+    setTimeout(() => { hideView('adult-prize-image-bar-container') }, 1500)
+    showView('adult-prize-image-info')
+    adultPrizeImageInfo.innerHTML = foundPrizeImage.renderPrizeImageDetails()
+    adultPrizeImageInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
+// RETURN TO TOP OF NEW PRIZE IMAGES
+  adultPrizeImageInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfPrizeImages') {
+      showView('adult-prize-image-bar-container')
+      adultPrizeImageBar.scrollIntoView({behavior: 'smooth'})
+    }
+  })
+
+// CREATE A NEW PRIZE
+  newPrizeForm.addEventListener('submit', (event) => {
+     event.preventDefault()
+     debugger
+     const storedChildNames = localStorage.getItem("childNames")
+     const childId = prompt(`Type in the id of the child the prize is for: ${storedChildNames}` )
+     const token = localStorage.token
+     const parentId = localStorage.parentId
+     const prizeImage = localStorage.prizeImage
+     if (newPrizeImageInput.value == '') {
+       newPrizeImageInput.value = prizeImage
+     }
+     fetch(`http://localhost:3000/api/v1/prizes`, {
+       method: 'POST',
+       headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+       body: JSON.stringify({
+         // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+         name: newPrizeNameInput.value,
+         cost: newPrizeCostInput.value,
+         image: newPrizeImageInput.value,
+         purchased: adultEditPrizePurchasedInput.purchased,
+         prizeGiverId: parentId,
+         prizeReceiverId: childId
+       })
+     })
+     .then((r) => r.json())
+     .then(adultPrizesBtn.click(adultPrizesBtn.click()))
+     .then((newPrizeJSON) => {
+       const newPrize = new Prize(newPrizeJSON) //delegate updating prizes to the Prize class
+       hideView('new-prize-form')
+       newPrizeForm.reset()
+       delete localStorage.prizeImage
+       showView('adult-prize-info')
+       adultPrizeBar.innerHTML += newPrize.renderPrizeCollection()
+       adultPrizeInfo.innerHTML = newPrize.renderAdultPrizeDetails() //render the changes so the DOM is in sync with our data
+       setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 500)
+     })
+  })
+
+// RETURN TO CREATE PRIZE FORM
+  adultPrizeInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'addPrizeForm') {
+      const element = document.getElementById('addPrizeBtn')
+      element.click()
+    }
+  })
+
+// CLICK EDIT PRIZE + PRE-FILL FORM
+  adultPrizeInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'edit' || event.target.dataset.action === 'edit') {
+      console.log(event.target)
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(adultPrizeImageBar.scrollIntoView({behavior: "smooth"}))
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(prizeImageDataJSON) => {
+        showView('adult-edit-prize-image-bar')
+        adultEditPrizeImageBar.innerHTML = ''
+        prizeImageDataJSON.forEach(/*function*/(prizeImage) => {
+          const newPrizeImage = new PrizeImage(prizeImage)
+          adultEditPrizeImageBar.innerHTML += newPrizeImage.renderPrizeImageCollection()
+        })
+      })
+      setTimeout(() => { adultEditPrizeForm.scrollIntoView({behavior: "smooth"}) }, 1000)
+      hideViews('adult-prize-info', 'adult-edit-prize-image-info')
+      showViews('adult-edit-prize-form', 'adult-edit-prize-image-bar-container')
+      const clickedPrizeId = parseInt(event.target.dataset.id)
+      const foundPrize = Prize.findPrize(clickedPrizeId) //find the prize object based on the id found in the clicked edit button
+      // pre-fill the form data:
+      adultEditPrizeNameInput.value = foundPrize.name
+      adultEditPrizeCostInput.value = foundPrize.cost
+      adultEditPrizeImageInput.value = foundPrize.image
+      adultEditPrizePurchasedInput.checked = foundPrize.purchased
+      adultEditPrizeForm.dataset.id = foundPrize.id //store the prize id in the form so we can PATCH with that id later
+    }
+  })
+
+// RENDER DETAILS OF CLICKED ADULT EDIT PRIZE IMAGE
+  adultEditPrizeImageBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedPrizeImageId = parseInt(event.target.dataset.id)
+    const foundPrizeImage = PrizeImage.findPrizeImage(clickedPrizeImageId)
+    localStorage.setItem("editedPrizeImage", foundPrizeImage.imageUrl)
+    setTimeout(() => { hideView('adult-edit-prize-image-bar-container') }, 1500)
+    showView('adult-edit-prize-image-info')
+    adultEditPrizeImageInfo.innerHTML = foundPrizeImage.renderPrizeImageDetails()
+    adultEditPrizeImageInfo.scrollIntoView({behavior: 'smooth'})
+  })
+
+// RETURN TO TOP OF EDIT PRIZE IMAGES
+  adultEditPrizeImageInfo.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'topOfPrizeImages') {
+      showView('adult-edit-prize-image-bar-container')
+      adultEditPrizeImageBar.scrollIntoView({behavior: 'smooth'})
+    }
+  })
+
+// PATCH REQUEST TO UPDATE PRIZE
+  adultEditPrizeForm.addEventListener('submit', (event) => {
+    console.log(event)
+    event.preventDefault()
+    const token = localStorage.token
+    const editedPrizeImage = localStorage.editedPrizeImage
+    if (editedPrizeImage !== undefined) {
+      adultEditPrizeImageInput.value = editedPrizeImage
+    }
+    const updatePrizeId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
+    fetch(`http://localhost:3000/api/v1/prizes/${updatePrizeId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+        name: adultEditPrizeNameInput.value,
+        cost: adultEditPrizeCostInput.value,
+        image: adultEditPrizeImageInput.value,
+        purchased: adultEditPrizePurchasedInput.checked
+      })
+    })
+    .then((r) => r.json())
+    .then((updatedPrizeJSON) => {
+      const updatedPrize = Prize.updatePrize(updatedPrizeJSON) //delegate updating prizes to the Prize class
+      hideView('adult-edit-prize-form')
+      adultEditPrizeForm.reset()
+      delete localStorage.editedPrizeImage
+      showView('adult-prize-info')
+      adultPrizeInfo.innerHTML = updatedPrize.renderAdultPrizeDetails() //render the changes so the DOM is in sync with our data
+      setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 500)
+    })
+  })
+
+// DELETE REQUEST TO DELETE PRIZE
+  adultPrizeInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
+      console.log(event.target)
+      const result = confirm("Are you sure you want to delete this Prize? Click ok to confirm.")
+      if (result) {
+        const token = localStorage.token
+        const prizeToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
+        fetch(`http://localhost:3000/api/v1/prizes/${prizeToDeleteId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json', //MIME type we're sending to the server
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(alert(`Prize Successfully Deleted`))
+        .then(setTimeout(() => { adultPrizesBtn.click(adultPrizesBtn.click()) }, 1000))
+        .then(adultPrizeInfo.innerHTML = '')
+      }
     }
   })
 })

@@ -21,8 +21,8 @@ class Task {
     this.value = taskObj.value
     this.completed = taskObj.completed
     this.image = taskObj.image
-    this.parent = taskObj.parent
-    this.child = taskObj.child
+    this.taskParent = taskObj.taskParent
+    this.taskChild = taskObj.taskChild
     this.stickerImage = taskObj.stickerImage
     Task.allTasks.push(this)
   }
@@ -38,36 +38,36 @@ class Task {
         return `<h2 style="color:red">${this.errors[0]}</h2>
                 <h2 style="color:red">${this.errors[1]}</h2>
                 <h2 style="color:red">${this.errors[2]}</h2>
-          <button class="createTaskForm" data-id="${this.id}">Back to Create a new Task</button>
+          <button class="createTaskForm">Back to Create a new Task</button>
           `
       } else if (this.errors.length == 2) {
         return `<h2 style="color:red">${this.errors[0]}</h2>
                 <h2 style="color:red">${this.errors[1]}</h2>
-          <button class="createTaskForm" data-id="${this.id}">Back to Create a new Task</button>
+          <button class="createTaskForm">Back to Create a new Task</button>
           `
       } else {
         return `<h2 style="color:red">${this.errors}</h2>
-          <button class="createTaskForm" data-id="${this.id}">Back to Create a new Task</button>
+          <button class="createTaskForm">Back to Create a new Task</button>
           `
       }
     }
     if (this.completed == true) {
-      const isTaskCompletedString = `${this.child} completed: "${this.name}"!`
+      const isTaskCompletedString = `${this.taskChild} completed: "${this.name}"!`
       return `<h2>${this.name}</h2>
           <img src="${this.image}">
-          <h4>~ Created by: ${this.parent}</h4>
+          <h4>~ Created by: ${this.taskParent}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='100px' height='100px'>
           <h2>Value: ${this.value} Points!</h2>
           <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button>
-          <button class="top" data-id="${this.id}">Top of Page</button>
+          <button class="top">Top of Page</button>
           `
     } else {
-      const isTaskCompletedString = `${this.child} is currently working on: "${this.name}"`
+      const isTaskCompletedString = `${this.taskChild} is currently working on: "${this.name}"`
       return `<h1>"${this.name}"</h1>
-          <h3>~ Created by: ${this.parent}</h3>
+          <h3>~ Created by: ${this.taskParent}</h3>
           <img src="${this.image}"><br>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
@@ -75,7 +75,7 @@ class Task {
           <h2>${isTaskCompletedString}</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
-          <button class="top" data-id="${this.id}">Top of Page</button>
+          <button class="top">Top of Page</button>
           `
     }
   }
@@ -85,23 +85,23 @@ class Task {
       const isTaskCompletedString = `You completed: "${this.name}"!`
       return `<h2>${this.name}</h2>
           <img src="${this.image}">
-          <h4>~ Created by: ${this.parent}</h4>
+          <h4>~ Created by: ${this.taskParent}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Points!</h2>
           <h2>${isTaskCompletedString}</h2>
-          <button class="top" data-id="${this.id}">Top of Page</button>
+          <button class="top">Top of Page</button>
           `
     } else {
       const isTaskCompletedString = `You are currently working on: "${this.name}"`
       return `<h1>"${this.name}"</h1>
-          <h3>~ Created by: ${this.parent}</h3>
+          <h3>~ Created by: ${this.taskParent}</h3>
           <img src="${this.image}">
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Points!</h2>
           <h2>${isTaskCompletedString}</h2>
-          <button class="top" data-id="${this.id}">Top of Page</button>
+          <button class="top">Top of Page</button>
           `
     }
   }
