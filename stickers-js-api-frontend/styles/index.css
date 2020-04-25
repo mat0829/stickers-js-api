@@ -280,6 +280,58 @@ li {
   max-height: 15vw;
 }
 
+/* CHILD PRIZES */
+#child-prizes-container {
+  height: 75vh;
+  text-align: center;
+}
+
+#child-prize-bar {
+  height: 20vh;
+  background: yellow;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#child-prize-bar img {
+  width:  75px;
+  height: 75px;
+}
+
+#child-prize-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#child-prize-info img {
+  max-width: 125px;
+  max-height: 125px;
+}
+
+/* CHILD PRIZE IMAGES */
+#child-prize-image-bar {
+  background: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#child-prize-image-bar img {
+  width:  150px;
+  height: 75px;
+}
+
+#child-prize-image-bar span {
+  padding: 1vw;
+  display:inline-block;
+}
+
+#child-prize-image-info img {
+  max-width: 250px;
+  max-height: 125px;
+}
+
 /* ADULT PAGE NAV BUTTONS */
 .adultPageBtn {
   color: black;

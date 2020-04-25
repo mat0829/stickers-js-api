@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
   })
 
-// SCROLL TO TOP OF ADULT PAGE
+// SCROLL TO TOP OF ADULT TASKS PAGE
   adultTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'top') {
       const element = document.getElementById('stickers-header')
@@ -1006,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { childTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
   })
 
-// SCROLL TO TOP OF CHILD PAGE
+// SCROLL TO TOP OF CHILD TASK PAGE
   childTaskInfo.addEventListener('click', (event) => {
     if (event.target.className === 'top') {
       const element = document.getElementById('stickers-header')
@@ -1030,7 +1030,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(prizeDataJSON) => {
-        hideViews('adult-tasks-container','new-prize-form', 'adult-edit-prize-form', 'adult-user-info', 'adult-prize-info', 'adult-edit-user-form')
+        hideViews('adult-tasks-container','new-prize-form', 'adult-edit-prize-form', 'adult-user-info', 'adult-edit-user-form')
         adultPrizeBar.innerHTML = ''
         if (prizeDataJSON && prizeDataJSON.length) {
           prizeDataJSON.forEach(/*function*/(prize) => {
@@ -1054,6 +1054,14 @@ document.addEventListener('DOMContentLoaded', () => {
     showView('adult-prize-info')
     adultPrizeInfo.innerHTML = foundPrize.renderAdultPrizeDetails()
     setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
+  })
+
+// SCROLL TO TOP OF ADULT PRIZES PAGE
+  adultPrizeInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'top') {
+      const element = document.getElementById('stickers-header')
+      element.scrollIntoView({behavior: "smooth"})
+    }
   })
 
 // SHOW CREATE PRIZE FORM
@@ -1275,6 +1283,55 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(setTimeout(() => { adultPrizesBtn.click(adultPrizesBtn.click()) }, 1000))
         .then(adultPrizeInfo.innerHTML = '')
       }
+    }
+  })
+
+// INITIAL FETCH OF CHILD PRIZES
+  childNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'childPrizesBtn') {
+      const token = localStorage.token
+      showView('child-prizes-container')
+      fetch('http://localhost:3000/api/v1/prizes', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(childPrizeBar.scrollIntoView({behavior: "smooth"}))
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(prizeDataJSON) => {
+        hideViews('child-tasks-container','child-user-info', 'child-edit-user-form')
+        childPrizeBar.innerHTML = ''
+        if (prizeDataJSON && prizeDataJSON.length) {
+          prizeDataJSON.forEach(/*function*/(prize) => {
+            const newPrize = new Prize(prize)
+            childPrizeBar.innerHTML += newPrize.renderPrizeCollection()
+          })
+        } else {
+          childPrizeBar.innerHTML = `<h2>There are currently 0 Prizes</h2>`
+        }
+      })
+    }
+  })
+
+// RENDER DETAILS OF CLICKED CHILD PRIZE
+  childPrizeBar.addEventListener('click', (event) => {
+    console.log(event)
+    const clickedPrizeId = parseInt(event.target.dataset.id)
+    const foundPrize = Prize.findPrize(clickedPrizeId)
+    showView('child-prize-info')
+    childPrizeInfo.innerHTML = foundPrize.renderChildPrizeDetails()
+    setTimeout(() => { childPrizeInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
+  })
+
+// SCROLL TO TOP OF CHILD PRIZES PAGE
+  childPrizeInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'top') {
+      const element = document.getElementById('stickers-header')
+      element.scrollIntoView({behavior: "smooth"})
     }
   })
 })
