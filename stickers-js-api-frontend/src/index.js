@@ -205,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ADULT USER LOGIN
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -406,7 +405,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CHILD USER LOGIN
   childLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -700,14 +698,9 @@ document.addEventListener('DOMContentLoaded', () => {
           adultStickerBar.innerHTML += newSticker.renderStickerCollection()
         })
       })
-      const element = document.getElementById('adult-tasks-container')
-      hideViews('adult-task-info', 'adult-user-info', 'adult-edit-task-form', 'adult-edit-user-form', 'adult-prizes-container')
-      if (element.style.display == 'none') {
-        showView('adult-tasks-container')
-      }
-      if (newTaskForm.style.display == 'none') {
-        showView('new-task-form')
-      }
+      hideViews('adult-task-info', 'adult-sticker-info', 'adult-user-info', 'adult-task-image-info', 'adult-edit-task-form', 
+                'adult-edit-user-form', 'adult-prizes-container')
+      showViews('adult-tasks-container', 'new-task-form', 'adult-task-image-bar-container', 'adult-sticker-bar-container')
       setTimeout(() => { newTaskForm.scrollIntoView({behavior: "smooth"}) }, 500)
     }
   })
@@ -1084,15 +1077,9 @@ document.addEventListener('DOMContentLoaded', () => {
           adultPrizeImageBar.innerHTML += newPrizeImage.renderPrizeImageCollection()
         })
       })
-      const element = document.getElementById('adult-prizes-container')
-      hideViews('adult-tasks-container', 'adult-user-info', 'adult-prize-info', 'adult-edit-user-form')
-      if (element.style.display == 'none') {
-        showView('adult-prizes-container')
-      }
-      if (newPrizeForm.style.display == 'none') {
-        showView('new-prize-form')
-      }
-      setTimeout(() => { newPrizeForm.scrollIntoView({behavior: "smooth"}) }, 500)
+      hideViews('adult-tasks-container', 'adult-user-info', 'adult-prize-image-info', 'adult-prize-info', 'adult-edit-user-form')
+      showViews('adult-prizes-container', 'new-prize-form', 'adult-prize-image-bar-container')
+      setTimeout(() => { newPrizeForm.scrollIntoView({behavior: "smooth"}) }, 1000)
     }
   })
 
@@ -1251,7 +1238,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedPrizeJSON) => {
-      debugger
       const updatedPrize = Prize.updatePrize(updatedPrizeJSON) //delegate updating prizes to the Prize class
       hideView('adult-edit-prize-form')
       adultEditPrizeForm.reset()
