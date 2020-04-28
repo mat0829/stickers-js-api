@@ -175,8 +175,8 @@ li {
 }
 
 #adult-prize-bar img {
-  width:  75px;
-  height: 75px;
+  width:  250px;
+  height: 125px;
 }
 
 #adult-prize-bar span {
@@ -198,8 +198,8 @@ li {
 }
 
 #adult-prize-image-bar img {
-  width:  150px;
-  height: 75px;
+  width:  300px;
+  height: 150px;
 }
 
 #adult-prize-image-bar span {
@@ -208,8 +208,8 @@ li {
 }
 
 #adult-prize-image-info img {
-  max-width: 250px;
-  max-height: 125px;
+  max-width: 750px;
+  max-height: 375px;
 }
 
 #adult-edit-prize-image-bar {
@@ -220,8 +220,8 @@ li {
 }
 
 #adult-edit-prize-image-bar img {
-  width:  75px;
-  height: 75px;
+  width:  300px;
+  height: 150px;
 }
 
 #adult-edit-prize-image-bar span {
@@ -230,8 +230,8 @@ li {
 }
 
 #adult-edit-prize-image-info img {
-  max-width: 250px;
-  max-height: 125px;
+  max-width: 750px;
+  max-height: 375px;
 }
 
 /* CHILD USER */

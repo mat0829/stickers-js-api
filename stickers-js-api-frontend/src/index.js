@@ -863,6 +863,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // RENDER DETAILS OF CLICKED ADULT EDIT TASK IMAGE
   adultEditTaskImageBar.addEventListener('click', (event) => {
     console.log(event)
+    debugger
+    adultEditTaskImageInput.value = ''
     const clickedTaskImageId = parseInt(event.target.dataset.id)
     const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
     localStorage.setItem("editedTaskImage", foundTaskImage.imageUrl)
@@ -1205,6 +1207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // RENDER DETAILS OF CLICKED ADULT EDIT PRIZE IMAGE
   adultEditPrizeImageBar.addEventListener('click', (event) => {
     console.log(event)
+    adultEditPrizeImageInput.value = ''
     const clickedPrizeImageId = parseInt(event.target.dataset.id)
     const foundPrizeImage = PrizeImage.findPrizeImage(clickedPrizeImageId)
     localStorage.setItem("editedPrizeImage", foundPrizeImage.imageUrl)
@@ -1249,6 +1252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((r) => r.json())
     .then((updatedPrizeJSON) => {
+      debugger
       const updatedPrize = Prize.updatePrize(updatedPrizeJSON) //delegate updating prizes to the Prize class
       hideView('adult-edit-prize-form')
       adultEditPrizeForm.reset()

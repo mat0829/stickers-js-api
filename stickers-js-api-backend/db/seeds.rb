@@ -455,11 +455,10 @@ PrizeImage.create!([
   { imageUrl: 'https://i.imgur.com/SdGQry4.jpg'},
   { imageUrl: 'https://i.imgur.com/Ja2yCtW.jpg'},
   { imageUrl: 'https://i.imgur.com/DW59E7W.jpg'},
-  { imageUrl: 'https://i.imgur.com/x9SonsS.jpg'},
-  { imageUrl: 'https://i.imgur.com/vndN5B1.jpg'},
-  { imageUrl: 'https://i.imgur.com/70sgJ4k.jpg'},
-  { imageUrl: 'https://i.imgur.com/4SETSwW.jpg'},
-  { imageUrl: 'https://i.imgur.com/FPHjLNB.jpg'}])
+  { imageUrl: 'https://i.imgur.com/kckn3zv.jpg'},
+  { imageUrl: 'https://i.imgur.com/AK5DNwl.jpg'},
+  { imageUrl: 'https://i.imgur.com/9JKDXgE.jpg'},
+  { imageUrl: 'https://i.imgur.com/Kwemgpf.jpg'}])
 
   #{ imageUrl: ''}
 
