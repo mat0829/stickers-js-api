@@ -784,7 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
        })
      })
      .then((r) => r.json())
-     .then(adultTasksBtn.click(adultTasksBtn.click()))
+     .then(setTimeout(() => { adultTasksBtn.click() }, 500))
      .then((newTaskJSON) => {
        const newTask = new Task(newTaskJSON) //delegate updating tasks to the Task class
        hideView('new-task-form')
@@ -863,7 +863,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // RENDER DETAILS OF CLICKED ADULT EDIT TASK IMAGE
   adultEditTaskImageBar.addEventListener('click', (event) => {
     console.log(event)
-    debugger
     adultEditTaskImageInput.value = ''
     const clickedTaskImageId = parseInt(event.target.dataset.id)
     const foundTaskImage = TaskImage.findTaskImage(clickedTaskImageId)
@@ -958,7 +957,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
         .then(alert(`Task Successfully Deleted`))
-        .then(setTimeout(() => { adultTasksBtn.click(adultTasksBtn.click()) }, 1000))
+        .then(setTimeout(() => { adultTasksBtn.click() }, 500))
         .then(adultTaskInfo.innerHTML = '')
       }
     }
@@ -1146,7 +1145,7 @@ document.addEventListener('DOMContentLoaded', () => {
        })
      })
      .then((r) => r.json())
-     .then(adultPrizesBtn.click(adultPrizesBtn.click()))
+     .then(setTimeout(() => { adultPrizesBtn.click() }, 500))
      .then((newPrizeJSON) => {
        const newPrize = new Prize(newPrizeJSON) //delegate updating prizes to the Prize class
        hideView('new-prize-form')
@@ -1279,7 +1278,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
         .then(alert(`Prize Successfully Deleted`))
-        .then(setTimeout(() => { adultPrizesBtn.click(adultPrizesBtn.click()) }, 1000))
+        .then(setTimeout(() => { adultPrizesBtn.click() }, 500))
         .then(adultPrizeInfo.innerHTML = '')
       }
     }
