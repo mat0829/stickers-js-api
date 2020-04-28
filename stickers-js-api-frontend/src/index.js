@@ -205,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ADULT USER LOGIN
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -224,10 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newUser = new User(returnUserJSON)
         adultUserInfo.innerHTML = newUser.renderLoginErrors()
       } else {
-        const placeholderAvatar = localStorage.avatar
-        if (returnUserJSON.user.avatar == '') {
-          returnUserJSON.user.avatar = placeholderAvatar
-        }
+        avatarCreationIfEmpty(returnUserJSON.user)
         const newUser = new User(returnUserJSON)
         localStorage.setItem("token", newUser.token)
         localStorage.setItem("parentId", newUser.id)
@@ -408,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CHILD USER LOGIN
   childLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    debugger
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -427,10 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newUser = new User(returnUserJSON)
         childUserInfo.innerHTML = newUser.renderLoginErrors()
       } else {
-        const placeholderAvatar = localStorage.avatar
-        if (returnUserJSON.user.avatar == '') {
-          returnUserJSON.user.avatar = placeholderAvatar
-        }
+        avatarCreationIfEmpty(returnUserJSON.user)
         const newUser = new User(returnUserJSON)
         localStorage.setItem("token", newUser.token)
         localStorage.setItem("childId", newUser.id)
@@ -1123,7 +1119,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW PRIZE
   newPrizeForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     debugger
      const storedChildNames = localStorage.getItem("childNames")
      const childId = prompt(`Type in the id of the child the prize is for: ${storedChildNames}` )
      const token = localStorage.token
