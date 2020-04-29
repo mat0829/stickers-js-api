@@ -9,7 +9,7 @@ task_child = User.create!(
   name: 'Meeyu',
   email: 'meow@email.com',
   password: 'password',
-  avatar: 'https://previews.123rf.com/images/lar01joka/lar01joka1806/lar01joka180600036/102460124-isolated-cute-cat-avatar.jpg'
+  avatar: 'https://cataas.com/cat?97'
 )
 
 task_parent = User.create!(

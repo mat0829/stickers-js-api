@@ -185,8 +185,8 @@ li {
 }
 
 #adult-prize-info img {
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 750px;
+  max-height: 375px;
 }
 
 /* ADULT PRIZE IMAGES */
@@ -295,8 +295,8 @@ li {
 }
 
 #child-prize-bar img {
-  width:  75px;
-  height: 75px;
+  width:  250px;
+  height: 125px;
 }
 
 #child-prize-bar span {
@@ -305,8 +305,8 @@ li {
 }
 
 #child-prize-info img {
-  max-width: 125px;
-  max-height: 125px;
+  max-width: 750px;
+  max-height: 375px;
 }
 
 /* CHILD PRIZE IMAGES */
@@ -391,6 +391,10 @@ li {
 .logoutBtn {
   color: white;
   background-image: linear-gradient(to right, gold, green);
+}
+
+.collectStickerPoints {
+  color: red;
 }
 
 /* BUTTONS */

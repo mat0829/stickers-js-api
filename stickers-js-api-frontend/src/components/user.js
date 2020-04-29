@@ -3,6 +3,14 @@ class User {
     return this.allUsers.find((user) => user.id === id)
   }
 
+  static updateChildUserPoints(updatedChildPointsData) {
+    debugger
+    const childUserToUpdate = this.findUser(updatedChildPointsData.id)
+    childUserToUpdate.points = updatedChildPointsData.points
+    childUserToUpdate.stickers = updatedChildPointsData.stickers
+    return childUserToUpdate
+  }
+
   static updateUser(updatedUserData) {
     const userToUpdate = this.findUser(updatedUserData.id)
     userToUpdate.name = updatedUserData.name
@@ -25,6 +33,8 @@ class User {
       this.password = userObj.user.password
       this.token = userObj.jwt
       this.avatar = userObj.user.avatar
+      this.points = userObj.user.points
+      this.stickers =userObj.user.stickers
       this.children = userObj.user.children
       this.parentTasks = userObj.user.parent_tasks
       this.childTasks = userObj.user.child_tasks
@@ -65,13 +75,13 @@ class User {
   }
 
   renderWelcomeUser() {
-    return `<h1 data-id="${this.id}"> Welcome to Stickers ${this.name}!</h1>
+    return `<h1> Welcome to Stickers ${this.name}!</h1>
             <img src="${this.avatar}">
            `
   }
 
   renderWelcomeUserBack() {
-    return `<h1 data-id="${this.id}"> Welcome back to Stickers ${this.name}!</h1>
+    return `<h1> Welcome back to Stickers ${this.name}!</h1>
             <img src="${this.avatar}">
            `
   }
@@ -80,11 +90,11 @@ class User {
     return `<img src="${this.avatar}"><br>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
-            <li data-id="${this.id}">Name: ( ${this.name} )</li>
-            <li data-id="${this.id}">Email: ( ${this.email} )</li>
-            <li data-id="${this.id}">Avatar Url: ( ${this.avatar} )</li>
-            <li data-id="${this.id}">Children: (${this.children} )</li>
-            <li data-id="${this.id}">Tasks for Children: (${this.parentTasks} )</li>
+            <li>Name: ( ${this.name} )</li>
+            <li>Email: ( ${this.email} )</li>
+            <li>Avatar Url: ( ${this.avatar} )</li>
+            <li>Children: (${this.children} )</li>
+            <li>Tasks for Children: (${this.parentTasks} )</li>
             `
   }
 
@@ -92,11 +102,22 @@ class User {
     return `<img src="${this.avatar}"><br>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
-            <li data-id="${this.id}">Name: (${this.name})</li>
-            <li data-id="${this.id}">Email: (${this.email})</li>
-            <li data-id="${this.id}">Avatar Url: (${this.avatar})</li>
-            <li data-id="${this.id}">Current Tasks: (${this.childTasks})</li>
+            <li>Name: (${this.name})</li>
+            <li>Email: (${this.email})</li>
+            <li>You currently have: (${this.points}) Sticker Points</li>
+            <li>Current Tasks: (${this.childTasks})</li>
             `
+  }
+
+  renderPointsRedemption() {
+    const collectedSticker = this.stickers[this.stickers.length - 1]
+    return `<h1>Congratulations ${this.name}!</h1>
+            <img src="${this.avatar}">
+            <h2>You now have: ${this.points} Sticker Points!</h2>
+            <h2>You have also added:</h2>
+            <img src="${collectedSticker}" width='150px' height='150px'>
+            <h2>to your Sticker Collection!</h2>
+    `
   }
 }
   

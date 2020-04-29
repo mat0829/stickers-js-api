@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
       childLoggedIn()
       hideView("index-nav")
       showView("child-user-container")
-      setTimeout(() => { checkAge() }, 500)
+      //setTimeout(() => { checkAge() }, 500)
     }
   })
 
@@ -992,8 +992,65 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(event)
     const clickedTaskId = parseInt(event.target.dataset.id)
     const foundTask = Task.findTask(clickedTaskId)
+    localStorage.setItem("taskSticker", foundTask.stickerImage)
+    localStorage.setItem("taskValue", foundTask.value)
     childTaskInfo.innerHTML = foundTask.renderChildDetails()
     setTimeout(() => { childTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
+  })
+
+// COLLECT STICKER POINTS
+  childTaskInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'collectStickerPoints') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(userDataJSON) => {
+        debugger
+        const userStickers = userDataJSON.user.stickers
+        const points = userDataJSON.user.points
+        const element = document.getElementById('collect-points-password')
+        const password = element.value
+        const childId = parseInt(localStorage.childId)
+        const foundUser = User.findUser(childId)
+        const taskSticker = localStorage.taskSticker
+        userStickers.push(taskSticker)
+        const taskValue = localStorage.taskValue
+        const totalPoints = parseInt(taskValue) + parseInt(points)
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+            user: {
+              name: foundUser.name,
+              email: foundUser.email,
+              password: password,
+              avatar: foundUser.avatar,
+              points: totalPoints,
+              stickers: userStickers
+            }
+          })
+        })
+        .then((r) => r.json())
+        .then((updatedUserJSON) => {
+          const updatedUser = User.updateChildUserPoints(updatedUserJSON) //delegate updating points to the User class
+          hideViews('collect-points-password', 'child-tasks-container' )
+          showView('child-user-info')
+          childUserInfo.innerHTML = ''
+          childUserInfo.innerHTML = updatedUser.renderPointsRedemption()
+          childUserInfo.scrollIntoView({behavior: "smooth"})
+        })
+      })
+    }
   })
 
 // SCROLL TO TOP OF CHILD TASK PAGE
