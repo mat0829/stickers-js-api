@@ -975,6 +975,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(/*function*/(taskDataJSON) => {
         hideViews('child-prizes-container','child-user-info', 'child-edit-user-form')
         childTaskBar.innerHTML = ''
+        childTaskInfo.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
@@ -994,6 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const foundTask = Task.findTask(clickedTaskId)
     localStorage.setItem("taskSticker", foundTask.stickerImage)
     localStorage.setItem("taskValue", foundTask.value)
+    localStorage.setItem("taskId", foundTask.id)
     childTaskInfo.innerHTML = foundTask.renderChildDetails()
     setTimeout(() => { childTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
   })
@@ -1011,7 +1013,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(userDataJSON) => {
-        debugger
         const userStickers = userDataJSON.user.stickers
         const points = userDataJSON.user.points
         const element = document.getElementById('collect-points-password')
@@ -1022,6 +1023,30 @@ document.addEventListener('DOMContentLoaded', () => {
         userStickers.push(taskSticker)
         const taskValue = localStorage.taskValue
         const totalPoints = parseInt(taskValue) + parseInt(points)
+        const taskId = parseInt(localStorage.taskId)
+        const foundTask = Task.findTask(taskId)
+
+        fetch(`http://localhost:3000/api/v1/tasks/${taskId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+            name: foundTask.name,
+            value: '0',
+            image: foundTask.image,
+            completed: foundTask.completed,
+            stickerImage: taskSticker
+          })
+        })
+        .then((r) => r.json())
+        .then((updatedTaskJSON) => {
+          Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
+          //delete localStorage.editedTaskImage
+        })
+        
         fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
           method: 'PATCH',
           headers: {
@@ -1043,7 +1068,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((r) => r.json())
         .then((updatedUserJSON) => {
           const updatedUser = User.updateChildUserPoints(updatedUserJSON) //delegate updating points to the User class
-          hideViews('collect-points-password', 'child-tasks-container' )
+          hideViews('collect-points-password', 'child-tasks-container')
           showView('child-user-info')
           childUserInfo.innerHTML = ''
           childUserInfo.innerHTML = updatedUser.renderPointsRedemption()

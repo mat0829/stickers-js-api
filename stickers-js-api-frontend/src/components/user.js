@@ -4,7 +4,6 @@ class User {
   }
 
   static updateChildUserPoints(updatedChildPointsData) {
-    debugger
     const childUserToUpdate = this.findUser(updatedChildPointsData.id)
     childUserToUpdate.points = updatedChildPointsData.points
     childUserToUpdate.stickers = updatedChildPointsData.stickers
@@ -87,25 +86,49 @@ class User {
   }
 
   renderAdultUserProfile() {
+    let taskStrings = '<ul></ul>'
+    let childStrings = '<ul></ul>'
+
+    this.parentTasks.forEach(function(task) {
+      taskStrings += '<li>'+  task + '</li>'
+    })
+
+    this.children.forEach(function(child) {
+      childStrings += '<li>'+  child + '</li>'
+    }) 
+
+    taskStrings += '</ul>'
+    childStrings += '</ul>'
+
     return `<img src="${this.avatar}"><br>
+            <h1>${this.name}</h1>
+            <h2>Children:</h2>
+            ${childStrings}
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
-            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
-            <li>Name: ( ${this.name} )</li>
-            <li>Email: ( ${this.email} )</li>
-            <li>Avatar Url: ( ${this.avatar} )</li>
-            <li>Children: (${this.children} )</li>
-            <li>Tasks for Children: (${this.parentTasks} )</li>
+            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
+            
+            <h1>Tasks Given:</h1>
+            ${taskStrings}
             `
   }
 
   renderChildUserProfile() {
+    let taskStrings = '<ul></ul>'
+
+    this.childTasks.forEach(function(task) {
+      taskStrings += '<li>'+  task + '</li>'
+    }) 
+
+    taskStrings += '</ul>'
+
     return `<img src="${this.avatar}"><br>
+            <h1>${this.name}</h1>
+            <h2>Sticker Points: ${this.points}</h2>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
-            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
-            <li>Name: (${this.name})</li>
-            <li>Email: (${this.email})</li>
-            <li>You currently have: (${this.points}) Sticker Points</li>
-            <li>Current Tasks: (${this.childTasks})</li>
+            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
+
+            <h1>Tasks: </h1>
+            ${taskStrings}
             `
   }
 
@@ -117,6 +140,7 @@ class User {
             <h2>You have also added:</h2>
             <img src="${collectedSticker}" width='150px' height='150px'>
             <h2>to your Sticker Collection!</h2>
+            <button class="top">Top of Page</button>
     `
   }
 }

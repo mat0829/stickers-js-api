@@ -39,7 +39,12 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def set_task
-    @task = current_user.parent_tasks.find(params[:id])
+    if current_user.parent_tasks.exists?
+      @task = current_user.parent_tasks.find(params[:id])
+    else
+      @task = current_user.child_tasks.find(params[:id])
+    end
+    
   end
 
   def task_params

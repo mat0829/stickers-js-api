@@ -51,8 +51,19 @@ class Task {
           `
       }
     }
-    if (this.completed == true) {
+    if (this.completed && this.value == 0) {
+      const isTaskCompletedString = `${this.taskChild} collected the Reward for: "${this.name}"!`
+
+      return `<h2>${isTaskCompletedString}</h2>
+          <img src="${this.image}" width='250px' height='125px'>
+          <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
+          <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
+          <button class="createTaskForm">Create another new Task</button><br><br>
+          <button class="top">Top of Page</button><br><br>
+          `
+    } else if (this.completed) {
       const isTaskCompletedString = `${this.taskChild} completed: "${this.name}"!`
+
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
           <h4>~ Created by: You</h4>
@@ -61,10 +72,12 @@ class Task {
           <h2>Value: ${this.value} Points!</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
-          <button class="top">Top of Page</button>
+          <button class="createTaskForm">Create another new Task</button><br><br>
+          <button class="top">Top of Page</button><br><br>
           `
     } else {
       const isTaskCompletedString = `${this.taskChild} is currently working on: "${this.name}"`
+
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
           <h4>~ Created by: You</h4>
@@ -73,27 +86,37 @@ class Task {
           <h2>Value: ${this.value} Points!</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
-          <button class="top">Top of Page</button>
+          <button class="createTaskForm">Create another new Task</button><br><br>
+          <button class="top">Top of Page</button><br><br>
           `
     }
   }
 
   renderChildDetails() {
-    if (this.completed == true) {
+    if (this.completed && this.value == 0) {
       const isTaskCompletedString = `You completed: "${this.name}"!`
+
+      return `<h2>${isTaskCompletedString}</h2>
+      <img src="${this.image}" width='250px' height='125px'>
+      <h4>~ Created by: ${this.taskParent}</h4>
+      `
+    } else if (this.completed) {
+      const isTaskCompletedString = `You completed: "${this.name}"!`
+
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
           <h4>~ Created by: ${this.taskParent}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Points!</h2>
-          <h3>Enter your password to collect points: <input id="collect-points-password" 
+          <h3>Enter your password to collect your Rewards: <input id="collect-points-password" 
           type="password" name="password"></h3>
           <button class="collectStickerPoints" data-id="${this.id}">Collect your points</button><br><br>
           <button class="top">Top of Page</button>
           `
     } else {
       const isTaskCompletedString = `You are currently working on: "${this.name}"`
+
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
           <h4>~ Created by: ${this.taskParent}</h4>
