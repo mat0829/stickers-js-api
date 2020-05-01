@@ -69,7 +69,7 @@ class Task {
           <h4>~ Created by: You</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
-          <h2>Value: ${this.value} Points!</h2>
+          <h2>Value: ${this.value} Sticker Points!</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
           <button class="createTaskForm">Create another new Task</button><br><br>
@@ -83,7 +83,7 @@ class Task {
           <h4>~ Created by: You</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
-          <h2>Value: ${this.value} Points!</h2>
+          <h2>Value: ${this.value} Sticker Points!</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
           <button class="createTaskForm">Create another new Task</button><br><br>
@@ -108,7 +108,7 @@ class Task {
           <h4>~ Created by: ${this.taskParent}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
-          <h2>Value: ${this.value} Points!</h2>
+          <h2>Value: ${this.value} Sticker Points!</h2>
           <h3>Enter your password to collect your Rewards: <input id="collect-points-password" 
           type="password" name="password"></h3>
           <button class="collectStickerPoints" data-id="${this.id}">Collect your points</button><br><br>
@@ -122,7 +122,7 @@ class Task {
           <h4>~ Created by: ${this.taskParent}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
-          <h2>Value: ${this.value} Points!</h2>
+          <h2>Value: ${this.value} Sticker Points!</h2>
           <button class="top">Top of Page</button>
           `
     }

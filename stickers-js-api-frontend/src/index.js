@@ -1014,14 +1014,24 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(/*function*/(userDataJSON) => {
         hideViews('child-prizes-container', 'child-tasks-container' , 'child-stickers-container', 'child-user-info', 
                   'child-edit-user-form')
-        childStickerCollection.innerHTML = '<h2>Your Stickers Collection:</h2>'
+        childStickerCollection.innerHTML = `<h2>Your Stickers Collection:</h2>
+                                            <h3>Total Stickers = ${userDataJSON.user.stickers.length}</h3>`
         showView('child-stickers-collection')
         
         if (userDataJSON.user.stickers.length !== 0) {
           const arrayWithoutDuplicates = [...new Set(userDataJSON.user.stickers)]
 
+          function getOccurrence(array, value) {
+            let count = 0;
+            array.forEach((v) => (v === value && count++));
+            return count;
+          }
+          
+
           arrayWithoutDuplicates.forEach(/*function*/(sticker) => {
-            childStickerCollection.innerHTML += `<img src="${sticker}"></img>`
+            let stickerCount = getOccurrence(userDataJSON.user.stickers, sticker)
+            childStickerCollection.innerHTML += `<span><img src="${sticker}"></img><br>
+                                                 (${stickerCount} collected)</span>`
           })
         } else {
           childStickerCollection.innerHTML = `<h2>You currently have 0 Stickers. Complete tasks to get Sticker rewards.</h2>`

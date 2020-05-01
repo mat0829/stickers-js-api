@@ -293,6 +293,13 @@ li {
 #child-stickers-collection img {
   width:  125px;
   height: 125px;
+  padding-right: 10px;
+}
+
+#child-stickers-collection span {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
 }
 
 /* CHILD PRIZES */

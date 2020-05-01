@@ -16,6 +16,7 @@ class Api::V1::TasksController < ApplicationController
 
   def create
     @task = current_user.parent_tasks.build(task_params)
+    @task.name = @task.name.titleize
     if @task.save
       render json: @task, status: 200
     else
