@@ -55,7 +55,7 @@ class Task {
       const isTaskCompletedString = `${this.taskChild} collected the Reward for: "${this.name}"!`
 
       return `<h2>${isTaskCompletedString}</h2>
-          <img src="${this.image}" width='250px' height='125px'>
+          <img src="${this.image}" width='250px' height='125px'><br><br>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Task!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Task!</button><br><br>
           <button class="createTaskForm">Create another new Task</button><br><br>

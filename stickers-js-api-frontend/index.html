@@ -71,198 +71,193 @@
           <input type="submit" value="Update User">
         </form>
       </center>
-      <div id="adult-tasks-container" style="display: none">
       
-        <div class="view hide" id="adult-tasks">
-          <h2>Current Tasks:</h2>
-          <div id="adult-task-bar">
+      <div id="adult-tasks-container" style="display: none">
+        <h2>Current Tasks:</h2>
+        <div id="adult-task-bar">
             
-          </div>
-  
-          <form id="adult-edit-task-form" method="POST" style="display: none">
-            <h1>Edit Task:</h1>
-            <h3>Task Name: <input type="text" name="adultEditTaskName" id="adult-edit-task-name"></h3>
-            <h3>Task Image URL: <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"></h3>
-
-            <div id="adult-edit-task-image-bar-container">
-              <h1>Click on a Image to Choose a New Task Image:</h1>
-              <div id="adult-edit-task-image-bar">
-            
-              </div><br>
-            </div>
-
-            <div id="adult-edit-task-image-info">
-            
-            </div><br>
-
-            <div id="adult-edit-sticker-bar-container">
-              <h1>Click on a Sticker to Choose a New Task Sticker:</h1>
-              <div id="adult-edit-sticker-bar">
-            
-              </div><br>
-            </div>
-
-            <div id="adult-edit-sticker-info">
-            
-            </div>
-            
-            <h3>Choose Task Sticker Value:</h3>
-            <select id="adult-edit-task-value" name="editTaskValue">
-              <option value="5">5 Sticker Points</option>
-              <option value="10">10 Sticker Points</option>
-              <option value="20">20 Sticker Points</option>
-              <option value="25">25 Sticker Points</option>
-              <option value="50">50 Sticker Points</option>
-              <option value="75">75 Sticker Points</option>
-              <option value="100">100 Sticker Points</option>
-              <option value="250">250 Sticker Points</option>
-              <option value="500">500 Sticker Points</option>
-              <option value="750">750 Sticker Points</option>
-              <option value="1000">1000 Sticker Points</option>
-            </select>
-            <h3>Mark Task Completed?<input id="adult-edit-task-completed" type="checkbox" name="adultEditTaskCompleted" value=""></h3>
-            
-            <input type="submit" value="Update Task">
-          </form>
-
-          <form id="new-task-form" method="POST" style="display: none">
-            <h1>Create a new Task:</h1>
-            <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" placeholder="Name Your Task Here" autocomplete="off"></h3>
-            <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
-
-            <div id="adult-task-image-bar-container">
-              <h1>Click on to Choose a Task Image:</h1>
-              <div id="adult-task-image-bar">
-            
-              </div><br>
-            </div>
-
-            <div id="adult-task-image-info">
-          
-            </div><br>
-
-            <div id="adult-sticker-bar-container">
-              <h1>Click on to Choose a Task Sticker:</h1>
-              <div id="adult-sticker-bar">
-            
-              </div><br>
-            </div>
-  
-            <div id="adult-sticker-info">
-          
-            </div>
-            <h3>Choose Task Sticker Value:</h3>
-            <select id="new-task-value" name="newTaskValue">
-              <option value="5">5 Sticker Points</option>
-              <option value="10">10 Sticker Points</option>
-              <option value="20">20 Sticker Points</option>
-              <option value="25">25 Sticker Points</option>
-              <option value="50">50 Sticker Points</option>
-              <option value="75">75 Sticker Points</option>
-              <option value="100">100 Sticker Points</option>
-              <option value="250">250 Sticker Points</option>
-              <option value="500">500 Sticker Points</option>
-              <option value="750">750 Sticker Points</option>
-              <option value="1000">1000 Sticker Points</option>
-            </select>
-              
-            <input type="submit" value="Create Task">
-          </form><br>
-    
-          <div id="adult-task-info">
-        
-          </div>
-          
         </div>
+  
+        <form id="adult-edit-task-form" method="POST" style="display: none">
+          <h1>Edit Task:</h1>
+          <h3>Task Name: <input type="text" name="adultEditTaskName" id="adult-edit-task-name"></h3>
+          <h3>Task Image URL: <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"></h3>
+
+          <div id="adult-edit-task-image-bar-container">
+            <h1>Click on a Image to Choose a New Task Image:</h1>
+            <div id="adult-edit-task-image-bar">
+            
+            </div><br>
+          </div>
+
+          <div id="adult-edit-task-image-info">
+            
+          </div><br>
+
+          <div id="adult-edit-sticker-bar-container">
+            <h1>Click on a Sticker to Choose a New Task Sticker:</h1>
+            <div id="adult-edit-sticker-bar">
+            
+            </div><br>
+          </div>
+
+          <div id="adult-edit-sticker-info">
+            
+          </div>
+            
+          <h3>Choose Task Sticker Value:</h3>
+          <select id="adult-edit-task-value" name="editTaskValue">
+            <option value="5">5 Sticker Points</option>
+            <option value="10">10 Sticker Points</option>
+            <option value="20">20 Sticker Points</option>
+            <option value="25">25 Sticker Points</option>
+            <option value="50">50 Sticker Points</option>
+            <option value="75">75 Sticker Points</option>
+            <option value="100">100 Sticker Points</option>
+            <option value="250">250 Sticker Points</option>
+            <option value="500">500 Sticker Points</option>
+            <option value="750">750 Sticker Points</option>
+            <option value="1000">1000 Sticker Points</option>
+          </select>
+          <h3>Mark Task Completed?<input id="adult-edit-task-completed" type="checkbox" name="adultEditTaskCompleted" value=""></h3>
+          
+          <input type="submit" value="Update Task">
+        </form>
+
+        <form id="new-task-form" method="POST" style="display: none">
+          <h1>Create a new Task:</h1>
+          <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" placeholder="Name Your Task Here" autocomplete="off"></h3>
+          <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
+
+          <div id="adult-task-image-bar-container">
+            <h1>Click on to Choose a Task Image:</h1>
+            <div id="adult-task-image-bar">
+            
+            </div><br>
+          </div>
+
+          <div id="adult-task-image-info">
+          
+          </div><br>
+
+          <div id="adult-sticker-bar-container">
+            <h1>Click on to Choose a Task Sticker:</h1>
+            <div id="adult-sticker-bar">
+            
+              </div><br>
+          </div>
+  
+          <div id="adult-sticker-info">
+          
+          </div>
+          <h3>Choose Task Sticker Value:</h3>
+          <select id="new-task-value" name="newTaskValue">
+            <option value="5">5 Sticker Points</option>
+            <option value="10">10 Sticker Points</option>
+            <option value="20">20 Sticker Points</option>
+            <option value="25">25 Sticker Points</option>
+            <option value="50">50 Sticker Points</option>
+            <option value="75">75 Sticker Points</option>
+            <option value="100">100 Sticker Points</option>
+            <option value="250">250 Sticker Points</option>
+            <option value="500">500 Sticker Points</option>
+            <option value="750">750 Sticker Points</option>
+            <option value="1000">1000 Sticker Points</option>
+          </select>
+              
+          <input type="submit" value="Create Task">
+        </form><br>
+    
+        <div id="adult-task-info">
+        
+        </div>
+          
       </div>
 
       <div id="adult-prizes-container" style="display: none">
-      
-        <div class="view hide" id="adult-prizes">
-          <h2>Prizes:</h2>
-          <div id="adult-prize-bar">
+        <h2>Prizes:</h2>
+        <div id="adult-prize-bar">
             
-          </div>
-  
-          <form id="adult-edit-prize-form" method="POST" style="display: none">
-            <h1>Edit Prize:</h1>
-            <h3>Prize Name: <input type="text" name="adultEditPrizeName" id="adult-edit-prize-name"></h3>
-            <h3>Prize Image URL: <input type="text" name="adultEditPrizeImage" id="adult-edit-prize-image"></h3>
-
-            <div id="adult-edit-prize-image-bar-container">
-              <h1>Click on a Image to Choose a New Prize Image:</h1>
-              <div id="adult-edit-prize-image-bar">
-            
-              </div><br>
-            </div>
-
-            <div id="adult-edit-prize-image-info">
-            
-            </div>
-            
-            <h3>Choose Prize Cost:</h3>
-            <select id="adult-edit-prize-cost" name="editPrizeCost">
-              <option value="5">5 Sticker Points</option>
-              <option value="10">10 Sticker Points</option>
-              <option value="20">20 Sticker Points</option>
-              <option value="25">25 Sticker Points</option>
-              <option value="50">50 Sticker Points</option>
-              <option value="75">75 Sticker Points</option>
-              <option value="100">100 Sticker Points</option>
-              <option value="250">250 Sticker Points</option>
-              <option value="500">500 Sticker Points</option>
-              <option value="750">750 Sticker Points</option>
-              <option value="1000">1000 Sticker Points</option>
-            </select>
-            <h3>Mark Prize Purchased?<input id="adult-edit-prize-purchased" type="checkbox" name="adultEditPrizePurchased" value=""></h3>
-            
-            <input type="submit" value="Update Prize">
-          </form>
-
-          <form id="new-prize-form" method="POST" style="display: none">
-            <h1>Create a new Prize:</h1>
-            <h3>Prize Name: <input type="text" name="newPrizeName" id="new-prize-name" placeholder="Name Your Prize Here" autocomplete="off"></h3>
-            <h3>Prize Image URL: <input type="text" name="newPrizeImage" id="new-prize-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
-
-            <div id="adult-prize-image-bar-container">
-              <h1>Click on to Choose a Prize Image:</h1>
-              <div id="adult-prize-image-bar">
-            
-              </div><br>
-            </div>
-
-            <div id="adult-prize-image-info">
-          
-            </div><br>
-
-            <h3>Choose Prize Cost:</h3>
-            <select id="new-prize-cost" name="newPrizeCost">
-              <option value="5">5 Sticker Points</option>
-              <option value="10">10 Sticker Points</option>
-              <option value="20">20 Sticker Points</option>
-              <option value="25">25 Sticker Points</option>
-              <option value="50">50 Sticker Points</option>
-              <option value="75">75 Sticker Points</option>
-              <option value="100">100 Sticker Points</option>
-              <option value="250">250 Sticker Points</option>
-              <option value="500">500 Sticker Points</option>
-              <option value="750">750 Sticker Points</option>
-              <option value="1000">1000 Sticker Points</option>
-            </select>
-              
-            <input type="submit" value="Create Prize">
-          </form><br>
-    
-          <div id="adult-prize-info">
-        
-          </div>
-          
         </div>
+  
+        <form id="adult-edit-prize-form" method="POST" style="display: none">
+          <h1>Edit Prize:</h1>
+          <h3>Prize Name: <input type="text" name="adultEditPrizeName" id="adult-edit-prize-name"></h3>
+          <h3>Prize Image URL: <input type="text" name="adultEditPrizeImage" id="adult-edit-prize-image"></h3>
+
+          <div id="adult-edit-prize-image-bar-container">
+            <h1>Click on a Image to Choose a New Prize Image:</h1>
+            <div id="adult-edit-prize-image-bar">
+            
+            </div><br>
+          </div>
+
+          <div id="adult-edit-prize-image-info">
+            
+          </div>
+            
+          <h3>Choose Prize Cost:</h3>
+          <select id="adult-edit-prize-cost" name="editPrizeCost">
+            <option value="5">5 Sticker Points</option>
+            <option value="10">10 Sticker Points</option>
+            <option value="20">20 Sticker Points</option>
+            <option value="25">25 Sticker Points</option>
+            <option value="50">50 Sticker Points</option>
+            <option value="75">75 Sticker Points</option>
+            <option value="100">100 Sticker Points</option>
+            <option value="250">250 Sticker Points</option>
+            <option value="500">500 Sticker Points</option>
+            <option value="750">750 Sticker Points</option>
+            <option value="1000">1000 Sticker Points</option>
+          </select>
+          <h3>Mark Prize Purchased?<input id="adult-edit-prize-purchased" type="checkbox" name="adultEditPrizePurchased" value=""></h3>
+          
+          <input type="submit" value="Update Prize">
+        </form>
+
+        <form id="new-prize-form" method="POST" style="display: none">
+          <h1>Create a new Prize:</h1>
+          <h3>Prize Name: <input type="text" name="newPrizeName" id="new-prize-name" placeholder="Name Your Prize Here" autocomplete="off"></h3>
+          <h3>Prize Image URL: <input type="text" name="newPrizeImage" id="new-prize-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
+
+          <div id="adult-prize-image-bar-container">
+            <h1>Click on to Choose a Prize Image:</h1>
+            <div id="adult-prize-image-bar">
+            
+            </div><br>
+          </div>
+
+          <div id="adult-prize-image-info">
+          
+          </div><br>
+
+          <h3>Choose Prize Cost:</h3>
+          <select id="new-prize-cost" name="newPrizeCost">
+            <option value="5">5 Sticker Points</option>
+            <option value="10">10 Sticker Points</option>
+            <option value="20">20 Sticker Points</option>
+            <option value="25">25 Sticker Points</option>
+            <option value="50">50 Sticker Points</option>
+            <option value="75">75 Sticker Points</option>
+            <option value="100">100 Sticker Points</option>
+            <option value="250">250 Sticker Points</option>
+            <option value="500">500 Sticker Points</option>
+            <option value="750">750 Sticker Points</option>
+            <option value="1000">1000 Sticker Points</option>
+          </select>
+            
+          <input type="submit" value="Create Prize">
+        </form><br>
+    
+        <div id="adult-prize-info">
+        
+        </div>
+          
       </div>
 
     </div>
 
-    <div class="view hide" id="child-user-container" style="display: none">
+    <div id="child-user-container" style="display: none">
       <center>
         <nav id="child-nav-bar">
           <button class="userProfileBtn" id="userProfileBtn">User Profile</button>
@@ -306,45 +301,39 @@
       </center>
 
       <div id="child-tasks-container" style="display: none">
-        <div class="view hide" id="child-tasks">
-          <h2>Current Tasks:</h2>
-          <div id="child-task-bar">
+        <h2>Current Tasks:</h2>
+        <div id="child-task-bar">
             
-          </div><br>
+        </div><br>
     
-          <div id="child-task-info">
+        <div id="child-task-info">
         
-          </div>
-  
         </div>
+
       </div>
 
       <div id="child-stickers-container" style="display: none">
-        <div class="view hide" id="child-stickers">
-          <h2>Current Stickers:</h2>
-          <div id="child-sticker-bar">
+        <h2>Current Stickers:</h2>
+        <div id="child-sticker-bar">
             
-          </div><br>
-    
-          <div id="child-sticker-info">
-        
-          </div>
-  
-        </div>
+        </div><br>
+
+      </div>
+
+      <div id="child-stickers-collection" style="display: none">
+      
       </div>
 
       <div id="child-prizes-container" style="display: none">
-        <div class="view hide" id="child-prizes">
-          <h2>Prizes:</h2>
-          <div id="child-prize-bar">
+        <h2>Prizes:</h2>
+        <div id="child-prize-bar">
             
-          </div>
-    
-          <div id="child-prize-info">
-        
-          </div>
-  
         </div>
+    
+        <div id="child-prize-info">
+        
+        </div>
+
       </div>
 
     </div>

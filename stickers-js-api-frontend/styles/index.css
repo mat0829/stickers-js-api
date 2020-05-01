@@ -16,11 +16,15 @@ body {
 }
 
 /* GENERAL */
+ul {
+  padding-inline-start: 0px;
+}
+
 li {
   font-size: 20px;
   text-align: center;
   margin: 0 0 8px 0;
-  list-style: none;
+  list-style: square;
   font-weight: bold;
   list-style-position: inside;
 }
@@ -279,6 +283,16 @@ li {
 #child-task-info img {
   max-width: 15vw;
   max-height: 15vw;
+}
+
+/* CHILD STICKERS*/
+#child-stickers-collection {
+  text-align: center;
+}
+
+#child-stickers-collection img {
+  width:  125px;
+  height: 125px;
 }
 
 /* CHILD PRIZES */

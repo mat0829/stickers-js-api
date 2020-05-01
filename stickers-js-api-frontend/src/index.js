@@ -85,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const childTaskBar = document.querySelector('#child-task-bar')
   const childTaskInfo = document.querySelector('#child-task-info')
 
+  const childStickerCollection = document.querySelector('#child-stickers-collection')
+
   const childPrizeBar = document.querySelector('#child-prize-bar')
   const childPrizeInfo = document.querySelector('#child-prize-info')
 
@@ -844,6 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showViews('adult-edit-task-form', 'adult-edit-task-image-bar-container', 'adult-edit-sticker-bar-container')
       const clickedTaskId = parseInt(event.target.dataset.id)
       const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
+      localStorage.setItem("originalSticker", foundTask.stickerImage)
       // pre-fill the form data:
       adultEditTaskNameInput.value = foundTask.name
       adultEditTaskValueInput.value = foundTask.value
@@ -880,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(event)
     const clickedStickerId = parseInt(event.target.dataset.id)
     const foundSticker = Sticker.findSticker(clickedStickerId)
-    localStorage.setItem("sticker", foundSticker.image)
+    localStorage.setItem("clickedSticker", foundSticker.image)
     setTimeout(() => { hideView('adult-edit-sticker-bar-container') }, 1500)
     showView('adult-edit-sticker-info')
     adultEditStickerInfo.innerHTML = foundSticker.renderStickerDetails()
@@ -901,7 +904,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(event)
     event.preventDefault()
     const token = localStorage.token
-    const sticker = localStorage.sticker
+    let sticker = ''
+    if (localStorage.clickedSticker !== undefined) {
+      sticker = localStorage.clickedSticker
+    } else {
+      sticker = localStorage.originalSticker
+    }
     const editedTaskImage = localStorage.editedTaskImage
     if (editedTaskImage !== undefined) {
       adultEditTaskImageInput.value = editedTaskImage
@@ -928,6 +936,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hideView('adult-edit-task-form')
       adultEditTaskForm.reset()
       delete localStorage.editedTaskImage
+      delete localStorage.clickedSticker
       showView('adult-task-info')
       adultTaskInfo.innerHTML = updatedTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
       setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
@@ -970,10 +979,10 @@ document.addEventListener('DOMContentLoaded', () => {
           'Authorization': `Bearer ${token}`
         }
       })
-      .then(childTaskBar.scrollIntoView({behavior: "smooth"}))
+      .then(childTaskBar.scrollIntoView({behavior: "smooth"})) // Flag
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        hideViews('child-prizes-container','child-user-info', 'child-edit-user-form')
+        hideViews('child-prizes-container','child-user-info', 'child-edit-user-form', 'child-stickers-collection')
         childTaskBar.innerHTML = ''
         childTaskInfo.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
@@ -987,6 +996,39 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     }
   })
+
+// INITIAL FETCH OF CHILD STICKERS COLLECTION
+  childNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'stickersPageBtn') {
+      const token = localStorage.token
+      fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(userDataJSON) => {
+        hideViews('child-prizes-container', 'child-tasks-container' , 'child-stickers-container', 'child-user-info', 
+                  'child-edit-user-form')
+        childStickerCollection.innerHTML = '<h2>Your Stickers Collection:</h2>'
+        showView('child-stickers-collection')
+        
+        if (userDataJSON.user.stickers.length !== 0) {
+          const arrayWithoutDuplicates = [...new Set(userDataJSON.user.stickers)]
+
+          arrayWithoutDuplicates.forEach(/*function*/(sticker) => {
+            childStickerCollection.innerHTML += `<img src="${sticker}"></img>`
+          })
+        } else {
+          childStickerCollection.innerHTML = `<h2>You currently have 0 Stickers. Complete tasks to get Sticker rewards.</h2>`
+        }
+      })
+    }
+  })  
 
 // RENDER DETAILS OF CLICKED CHILD TASK
   childTaskBar.addEventListener('click', (event) => {
@@ -1044,7 +1086,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((r) => r.json())
         .then((updatedTaskJSON) => {
           Task.updateTask(updatedTaskJSON) //delegate updating tasks to the Task class
-          //delete localStorage.editedTaskImage
         })
         
         fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
@@ -1068,11 +1109,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((r) => r.json())
         .then((updatedUserJSON) => {
           const updatedUser = User.updateChildUserPoints(updatedUserJSON) //delegate updating points to the User class
-          hideViews('collect-points-password', 'child-tasks-container')
-          showView('child-user-info')
-          childUserInfo.innerHTML = ''
-          childUserInfo.innerHTML = updatedUser.renderPointsRedemption()
-          childUserInfo.scrollIntoView({behavior: "smooth"})
+          hideView('collect-points-password')
+          childTaskInfo.innerHTML = ''
+          childTaskInfo.innerHTML = updatedUser.renderPointsRedemption()
+          childTaskInfo.scrollIntoView({behavior: "smooth"})
         })
       })
     }

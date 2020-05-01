@@ -86,22 +86,30 @@ class User {
   }
 
   renderAdultUserProfile() {
-    let taskStrings = '<ul></ul>'
-    let childStrings = '<ul></ul>'
+    let taskStrings = '<ul>'
 
-    this.parentTasks.forEach(function(task) {
-      taskStrings += '<li>'+  task + '</li>'
-    })
-
-    this.children.forEach(function(child) {
-      childStrings += '<li>'+  child + '</li>'
-    }) 
-
+    if (this.parentTasks.length !== 0) {
+      this.parentTasks.forEach(function(task) {
+        taskStrings += '<li>'+  task + '</li>'
+      })
+    } else {
+      taskStrings += '<li>'+  'You currently have 0 tasks.' + '</li>'
+    }
     taskStrings += '</ul>'
-    childStrings += '</ul>'
 
-    return `<img src="${this.avatar}"><br>
-            <h1>${this.name}</h1>
+    let childStrings = '<ul>'
+
+    if (this.children.length !== 0) {
+      this.children.forEach(function(child) {
+        childStrings += '<li>'+  child + '</li>'
+      })
+    } else {
+      childStrings += '<li>'+  'You currently have 0 children. Help your children to create users to start making tasks.' + '</li>'
+    }
+    childStrings += '</ul>'
+    
+    return `<h1>${this.name}</h1>
+            <img src="${this.avatar}"><br>
             <h2>Children:</h2>
             ${childStrings}
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
@@ -113,16 +121,19 @@ class User {
   }
 
   renderChildUserProfile() {
-    let taskStrings = '<ul></ul>'
+    let taskStrings = '<ul>'
 
-    this.childTasks.forEach(function(task) {
-      taskStrings += '<li>'+  task + '</li>'
-    }) 
-
+    if (this.childTasks.length !== 0) {
+      this.childTasks.forEach(function(task) {
+        taskStrings += '<li>'+  task + '</li>'
+      })
+    } else {
+      taskStrings += '<li>'+  'You currently have 0 tasks. Ask your parent(s) to create some for you.' + '</li>'
+    }
     taskStrings += '</ul>'
 
-    return `<img src="${this.avatar}"><br>
-            <h1>${this.name}</h1>
+    return `<h1>${this.name}</h1>
+            <img src="${this.avatar}"><br>
             <h2>Sticker Points: ${this.points}</h2>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
