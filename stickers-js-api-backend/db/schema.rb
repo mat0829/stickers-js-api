@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_195155) do
     t.string "token"
     t.integer "points", default: 0
     t.text "stickers", default: [], array: true
+    t.text "prizes", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

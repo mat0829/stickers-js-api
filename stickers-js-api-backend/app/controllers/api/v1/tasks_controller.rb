@@ -45,7 +45,6 @@ class Api::V1::TasksController < ApplicationController
     else
       @task = current_user.child_tasks.find(params[:id])
     end
-    
   end
 
   def task_params

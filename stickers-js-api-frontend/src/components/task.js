@@ -109,8 +109,6 @@ class Task {
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Sticker Points!</h2>
-          <h3>Enter your password to collect your Rewards: <input id="collect-points-password" 
-          type="password" name="password"></h3>
           <button class="collectStickerPoints" data-id="${this.id}">Collect your points</button><br><br>
           <button class="top">Top of Page</button>
           `

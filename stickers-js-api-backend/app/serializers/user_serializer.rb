@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :password, :avatar, :token, :points, :stickers, :children, :parent_tasks, :child_tasks, :logged_in
+  attributes :id, :name, :email, :password, :avatar, :token, :points, :stickers, :prizes, :children, :parent_tasks, :child_tasks, :logged_in
 
   def children
     self.object.children.uniq.map do |child|

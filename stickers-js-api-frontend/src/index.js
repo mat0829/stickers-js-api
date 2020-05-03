@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showView('adult-user-info')
         adultUserInfo.innerHTML = ''
         adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
-        adultUserInfo.scrollIntoView({behavior: "smooth"})
+        setTimeout(() => { adultUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       })
     }
   })
@@ -462,11 +462,11 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        hideViews('child-edit-user-form', 'child-tasks-container','child-prizes-container',)
+        hideViews('child-edit-user-form', 'child-tasks-container','child-prizes-container', 'child-stickers-collection')
         showView('child-user-info')
         childUserInfo.innerHTML = ''
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
-        childUserInfo.scrollIntoView({behavior: "smooth"})
+        setTimeout(() => { childUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       })
     }
   })
@@ -1026,7 +1026,6 @@ document.addEventListener('DOMContentLoaded', () => {
             array.forEach((v) => (v === value && count++));
             return count;
           }
-          
 
           arrayWithoutDuplicates.forEach(/*function*/(sticker) => {
             let stickerCount = getOccurrence(userDataJSON.user.stickers, sticker)
@@ -1067,8 +1066,6 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(/*function*/(userDataJSON) => {
         const userStickers = userDataJSON.user.stickers
         const points = userDataJSON.user.points
-        const element = document.getElementById('collect-points-password')
-        const password = element.value
         const childId = parseInt(localStorage.childId)
         const foundUser = User.findUser(childId)
         const taskSticker = localStorage.taskSticker
@@ -1109,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             user: {
               name: foundUser.name,
               email: foundUser.email,
-              password: password,
+              password: childUserLoginPassword.value,
               avatar: foundUser.avatar,
               points: totalPoints,
               stickers: userStickers
@@ -1119,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((r) => r.json())
         .then((updatedUserJSON) => {
           const updatedUser = User.updateChildUserPoints(updatedUserJSON) //delegate updating points to the User class
-          hideView('collect-points-password')
+          //hideView('collect-points-password')
           childTaskInfo.innerHTML = ''
           childTaskInfo.innerHTML = updatedUser.renderPointsRedemption()
           childTaskInfo.scrollIntoView({behavior: "smooth"})
@@ -1154,6 +1151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(/*function*/(prizeDataJSON) => {
         hideViews('adult-tasks-container','new-prize-form', 'adult-edit-prize-form', 'adult-user-info', 'adult-edit-user-form')
         adultPrizeBar.innerHTML = ''
+        adultPrizeInfo.innerHTML = ''
         if (prizeDataJSON && prizeDataJSON.length) {
           prizeDataJSON.forEach(/*function*/(prize) => {
             const newPrize = new Prize(prize)
@@ -1419,8 +1417,9 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(childPrizeBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(prizeDataJSON) => {
-        hideViews('child-tasks-container','child-user-info', 'child-edit-user-form')
+        hideViews('child-tasks-container','child-user-info', 'child-edit-user-form', 'child-stickers-collection')
         childPrizeBar.innerHTML = ''
+        childPrizeInfo.innerHTML = ''
         if (prizeDataJSON && prizeDataJSON.length) {
           prizeDataJSON.forEach(/*function*/(prize) => {
             const newPrize = new Prize(prize)
@@ -1438,9 +1437,102 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(event)
     const clickedPrizeId = parseInt(event.target.dataset.id)
     const foundPrize = Prize.findPrize(clickedPrizeId)
+    localStorage.setItem("prizeName", foundPrize.name)
+    localStorage.setItem("purchasedPrize", foundPrize.image)
+    localStorage.setItem("prizeCost", foundPrize.cost)
+    localStorage.setItem("prizeId", foundPrize.id)
     showView('child-prize-info')
     childPrizeInfo.innerHTML = foundPrize.renderChildPrizeDetails()
     setTimeout(() => { childPrizeInfo.scrollIntoView({behavior: 'smooth'}) }, 500)
+  })
+
+// PURCHASE A PRIZE
+  childPrizeInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'buyPrize') {
+      const token = localStorage.token
+      debugger
+      fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(userDataJSON) => {
+        const childId = userDataJSON.user.id
+        const userPrizes = userDataJSON.user.prizes
+        const points = userDataJSON.user.points
+        const prizeName = localStorage.prizeName
+        const purchasedPrize = localStorage.purchasedPrize
+        const prizeCost = parseInt(localStorage.prizeCost)
+        if (prizeCost > points) {
+          childPrizeInfo.innerHTML = ''
+          childPrizeInfo.innerHTML = `<h2> You do not have enough Sticker Points to purchase "${prizeName}"</h2>
+          <img src="${purchasedPrize}"></img><br><br>
+          <button class="backToPrizes">Back to Prizes</button>`
+          childPrizeInfo.scrollIntoView({behavior: "smooth"})
+        } else {
+          const newPoints = points - prizeCost
+          const foundUser = User.findUser(childId)
+          userPrizes.push(purchasedPrize)
+          const prizeId = parseInt(localStorage.prizeId)
+          const foundPrize = Prize.findPrize(prizeId)
+  
+          fetch(`http://localhost:3000/api/v1/prizes/${prizeId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+              name: foundPrize.name,
+              image: foundPrize.image,
+              cost: '0',
+              purchased: true
+            })
+          })
+          .then((r) => r.json())
+          .then((updatedPrizeJSON) => {
+            Prize.updatePrize(updatedPrizeJSON) //delegate updating tasks to the Task class
+          })
+          fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+              user: {
+                name: foundUser.name,
+                email: foundUser.email,
+                password: childUserLoginPassword.value,
+                avatar: foundUser.avatar,
+                points: newPoints,
+                prizes: userPrizes
+              }
+            })
+          })
+          .then((r) => r.json())
+          .then((updatedUserJSON) => {
+            const updatedUser = User.updateChildUserPointsSpent(updatedUserJSON) //delegate updating points to the User class
+            childPrizeInfo.innerHTML = ''
+            childPrizeInfo.innerHTML = updatedUser.renderPrizePurchase()
+            childPrizeInfo.scrollIntoView({behavior: "smooth"})
+          })
+        }
+      })
+    }
+  })
+
+// RETURN TO CHILD PRIZE INFO
+  childPrizeInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'backToPrizes') {
+      const element = document.getElementById('childPrizesBtn')
+      element.click()
+    }
   })
 
 // SCROLL TO TOP OF CHILD PRIZES PAGE

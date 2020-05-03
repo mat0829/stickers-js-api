@@ -10,6 +10,13 @@ class User {
     return childUserToUpdate
   }
 
+  static updateChildUserPointsSpent(updatedChildPointsData) {
+    const childUserToUpdate = this.findUser(updatedChildPointsData.id)
+    childUserToUpdate.points = updatedChildPointsData.points
+    childUserToUpdate.prizes = updatedChildPointsData.prizes
+    return childUserToUpdate
+  }
+
   static updateUser(updatedUserData) {
     const userToUpdate = this.findUser(updatedUserData.id)
     userToUpdate.name = updatedUserData.name
@@ -33,7 +40,8 @@ class User {
       this.token = userObj.jwt
       this.avatar = userObj.user.avatar
       this.points = userObj.user.points
-      this.stickers =userObj.user.stickers
+      this.stickers = userObj.user.stickers
+      this.prizes = userObj.user.prizes
       this.children = userObj.user.children
       this.parentTasks = userObj.user.parent_tasks
       this.childTasks = userObj.user.child_tasks
@@ -93,7 +101,7 @@ class User {
         taskStrings += '<li>'+  task + '</li>'
       })
     } else {
-      taskStrings += '<li>'+  'You currently have 0 tasks.' + '</li>'
+      taskStrings += '<li>'+  'You currently have 0 tasks. Create child user(s) to create Tasks.' + '</li>'
     }
     taskStrings += '</ul>'
 
@@ -104,7 +112,7 @@ class User {
         childStrings += '<li>'+  child + '</li>'
       })
     } else {
-      childStrings += '<li>'+  'You currently have 0 children. Help your children to create users to start making tasks.' + '</li>'
+      childStrings += '<li>'+  'You currently have 0 children. Create a new Task to add children.' + '</li>'
     }
     childStrings += '</ul>'
     
@@ -121,20 +129,21 @@ class User {
   }
 
   renderChildUserProfile() {
-    let taskStrings = '<ul>'
+    let taskStrings = '<ul>' // 1st half of Unordered List in taskStrings
 
     if (this.childTasks.length !== 0) {
       this.childTasks.forEach(function(task) {
-        taskStrings += '<li>'+  task + '</li>'
+        taskStrings += '<li>'+  task + '</li>' // add to taskStrings the Line Items
       })
     } else {
-      taskStrings += '<li>'+  'You currently have 0 tasks. Ask your parent(s) to create some for you.' + '</li>'
+      taskStrings += '<li>'+  'You currently have 0 tasks. Ask your parent(s) to create some for you.' + '</li>' // add in string if 0 tasks
     }
-    taskStrings += '</ul>'
+    taskStrings += '</ul>' // 2nd half of Unordered List added to end of taskStrings
 
     return `<h1>${this.name}</h1>
             <img src="${this.avatar}"><br>
             <h2>Sticker Points: ${this.points}</h2>
+            <h3>Stickers: ${this.stickers.length}</h3>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
 
@@ -152,6 +161,17 @@ class User {
             <img src="${collectedSticker}" width='150px' height='150px'>
             <h2>to your Sticker Collection!</h2>
             <button class="top">Top of Page</button>
+    `
+  }
+
+  renderPrizePurchase() {
+    const collectedPrize = this.prizes[this.prizes.length - 1]
+    return `<h1>Congratulations ${this.name}!</h1>
+            <img src="${this.avatar}">
+            <h2>You now have: ${this.points} Sticker Points!</h2>
+            <h2>You have purchased:</h2>
+            <img src="${collectedPrize}"><br>
+            <button class="top">Top of Page</button><br><br>
     `
   }
 }

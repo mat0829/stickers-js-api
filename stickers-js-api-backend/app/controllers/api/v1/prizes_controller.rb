@@ -16,6 +16,7 @@ class Api::V1::PrizesController < ApplicationController
 
   def create
     @prize = current_user.parent_prizes.build(prize_params)
+    @prize.name = @prize.name.titleize
     if @prize.save
       render json: @prize, status: 200
     else
@@ -39,7 +40,11 @@ class Api::V1::PrizesController < ApplicationController
   private
 
   def set_prize
-    @prize = current_user.parent_prizes.find(params[:id])
+    if current_user.parent_prizes.exists?
+      @prize = current_user.parent_prizes.find(params[:id])
+    else
+      @prize = current_user.child_prizes.find(params[:id])
+    end
   end
 
   def prize_params
