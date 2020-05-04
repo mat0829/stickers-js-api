@@ -505,7 +505,6 @@ document.addEventListener('DOMContentLoaded', () => {
         childNames.push(childObject)
         window.localStorage.setItem('childNames', JSON.stringify(childNames))
         storedChildNames = JSON.parse(localStorage.getItem("childNames"))
-        console.log(storedChildNames)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('child-login-signup-container')
         showView('child-user-info')
@@ -591,10 +590,26 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
+      debugger
       const result = confirm("Are you sure you want to delete this User? Click ok to confirm.")
       if (result) {
         const token = localStorage.token
         const userToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
+        storedChildNames = JSON.parse(localStorage.getItem("childNames"))
+
+        const childToDelete = storedChildNames.find(obj => {
+          return obj.id == userToDeleteId
+        })
+
+        function removeChild(array, childObject) { 
+          const index = array.indexOf(childObject)
+          if (index > -1) {
+              array.splice(index, 1);
+          }
+          window.localStorage.setItem('childNames', JSON.stringify(array))
+        }
+        removeChild(storedChildNames, childToDelete)
+
         fetch(`http://localhost:3000/api/v1/users/${userToDeleteId}`, {
           method: 'DELETE',
           headers: {
@@ -752,8 +767,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     const storedChildNames = localStorage.getItem("childNames")
-     const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
+     const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
+     const childUsers = []
+     storedChildNames.forEach(function (arrayItem) {
+      var childUser = ' ' + '[' + arrayItem.name + '-' + ' ' + 'id:' + ' ' + arrayItem.id + ']' + ' '
+      childUsers.push(childUser)
+     })
+     const childId = prompt(`Type in the id of the child the task is for: ${childUsers}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
      const sticker = localStorage.sticker
@@ -1237,8 +1257,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW PRIZE
   newPrizeForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     const storedChildNames = localStorage.getItem("childNames")
-     const childId = prompt(`Type in the id of the child the prize is for: ${storedChildNames}` )
+     const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
+     const childUsers = []
+     storedChildNames.forEach(function (arrayItem) {
+      var childUser = ' ' + '[' + arrayItem.name + '-' + ' ' + 'id:' + ' ' + arrayItem.id + ']' + ' '
+      childUsers.push(childUser)
+     })
+     const childId = prompt(`Type in the id of the child the prize is for: ${childUsers}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
      const prizeImage = localStorage.prizeImage
@@ -1262,7 +1287,7 @@ document.addEventListener('DOMContentLoaded', () => {
        })
      })
      .then((r) => r.json())
-     .then(setTimeout(() => { adultPrizesBtn.click() }, 500))
+     .then(setTimeout(() => { adultPrizesBtn.click() }, 100))
      .then((newPrizeJSON) => {
        const newPrize = new Prize(newPrizeJSON) //delegate updating prizes to the Prize class
        hideView('new-prize-form')
@@ -1468,9 +1493,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const prizeCost = parseInt(localStorage.prizeCost)
         if (prizeCost > points) {
           childPrizeInfo.innerHTML = ''
-          childPrizeInfo.innerHTML = `<h2> You do not have enough Sticker Points to purchase "${prizeName}"</h2>
-          <img src="${purchasedPrize}"></img><br><br>
-          <button class="backToPrizes">Back to Prizes</button>`
+          childPrizeInfo.innerHTML = `<h2>"${prizeName}"</h2>
+          <img src="${purchasedPrize}"></img>
+          <h2>You do not have enough Sticker Points to purchase "${prizeName}"</h2>
+          <button class="backToPrizes">Back to Prizes</button><br><br>`
           childPrizeInfo.scrollIntoView({behavior: "smooth"})
         } else {
           const newPoints = points - prizeCost

@@ -172,9 +172,7 @@ li {
 }
 
 #adult-prize-bar {
-  height: 20vh;
   background: yellow;
-  display: flex;
   justify-content: space-around;
   align-items: center;
 }
@@ -309,9 +307,7 @@ li {
 }
 
 #child-prize-bar {
-  height: 20vh;
   background: yellow;
-  display: flex;
   justify-content: space-around;
   align-items: center;
 }
