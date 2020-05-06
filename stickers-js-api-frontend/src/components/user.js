@@ -1,51 +1,58 @@
 class User {
+
   static findUser(id) {
-    return this.allUsers.find((user) => user.id === id)
+    return this.allUsers.find((user) => user.id === id) // Find User by passed in id
   }
 
   static updateChildUserPoints(updatedChildPointsData) {
     const childUserToUpdate = this.findUser(updatedChildPointsData.id)
+    // Update attributes
     childUserToUpdate.points = updatedChildPointsData.points
     childUserToUpdate.stickers = updatedChildPointsData.stickers
-    return childUserToUpdate
+
+    return childUserToUpdate // Return the updated Child User instance
   }
 
   static updateChildUserPointsSpent(updatedChildPointsData) {
     const childUserToUpdate = this.findUser(updatedChildPointsData.id)
+    // Update attributes
     childUserToUpdate.points = updatedChildPointsData.points
     childUserToUpdate.prizes = updatedChildPointsData.prizes
-    return childUserToUpdate
+
+    return childUserToUpdate // Return the updated Child User instance
   }
 
   static updateUser(updatedUserData) {
     const userToUpdate = this.findUser(updatedUserData.id)
+    // Update attributes
     userToUpdate.name = updatedUserData.name
     userToUpdate.email = updatedUserData.email
     userToUpdate.password = updatedUserData.password
     userToUpdate.avatar = updatedUserData.avatar
-    return userToUpdate
+
+    return userToUpdate // Return the User instance
   }
 
   constructor(userObj) {
     if (userObj.errors !== undefined) {
       this.errors = userObj.errors
     } else if (userObj.message !== undefined) {
-      this.message = userObj.message
+        this.message = userObj.message
     } else {
-      this.id = userObj.user.id
-      this.logged_in = userObj.user.logged_in
-      this.name = userObj.user.name
-      this.email = userObj.user.email
-      this.password = userObj.user.password
-      this.token = userObj.jwt
-      this.avatar = userObj.user.avatar
-      this.points = userObj.user.points
-      this.stickers = userObj.user.stickers
-      this.prizes = userObj.user.prizes
-      this.children = userObj.user.children
-      this.parentTasks = userObj.user.parent_tasks
-      this.childTasks = userObj.user.child_tasks
-      User.allUsers.push(this)
+        this.id = userObj.user.id
+        this.logged_in = userObj.user.logged_in
+        this.name = userObj.user.name
+        this.email = userObj.user.email
+        this.password = userObj.user.password
+        this.token = userObj.jwt
+        this.avatar = userObj.user.avatar
+        this.points = userObj.user.points
+        this.stickers = userObj.user.stickers
+        this.prizes = userObj.user.prizes
+        this.children = userObj.user.children
+        this.parentTasks = userObj.user.parent_tasks
+        this.childTasks = userObj.user.child_tasks
+        User.allUsers.push(this)
     }
   }
 
@@ -60,23 +67,23 @@ class User {
                 <h2 style="color:red">${this.errors[1]}</h2>
                 <h2 style="color:red">${this.errors[2]}</h2>
                 <h2 style="color:red">${this.errors[3]}</h2>
-          <button class="create${userType}UserForm">Back to Create a new User</button>
-          `
+                <button class="create${userType}UserForm">Back to Create a new User</button>
+                `
       } else if (this.errors.length == 3) {
-        return `<h2 style="color:red">${this.errors[0]}</h2>
-                <h2 style="color:red">${this.errors[1]}</h2>
-                <h2 style="color:red">${this.errors[2]}</h2>
-          <button class="create${userType}UserForm">Back to Create a new User</button>
-          `
+          return `<h2 style="color:red">${this.errors[0]}</h2>
+                  <h2 style="color:red">${this.errors[1]}</h2>
+                  <h2 style="color:red">${this.errors[2]}</h2>
+                  <button class="create${userType}UserForm">Back to Create a new User</button>
+                  `
       } else if (this.errors.length == 2) {
-        return `<h2 style="color:red">${this.errors[0]}</h2>
-                <h2 style="color:red">${this.errors[1]}</h2>
-          <button class="create${userType}UserForm">Back to Create a new User</button>
-          `
+          return `<h2 style="color:red">${this.errors[0]}</h2>
+                  <h2 style="color:red">${this.errors[1]}</h2>
+                  <button class="create${userType}UserForm">Back to Create a new User</button>
+                  `
       } else {
-        return `<h2 style="color:red">${this.errors}</h2>
-          <button class="create${userType}UserForm">Back to Create a new User</button>
-          `
+          return `<h2 style="color:red">${this.errors}</h2>
+                 <button class="create${userType}UserForm">Back to Create a new User</button>
+                 `
       }
     }
   }
@@ -86,14 +93,17 @@ class User {
 
     if (this.children.length !== 0) {
       this.children.forEach(function(child) {
-        debugger
         if (!childNames.includes(child.name)) { // Checking for duplicate child names
           childNames += `<li>${child.name}</li>` // add line items to childNames list
         }
       })
+    } else if (this.children.length == 0 && this.parentTasks.length == 0) {
+        childNames += '<li>' + 'You currently have 0 children.' + '</li>'
+        alert('Logout and make some child Users to start creating Tasks.') // Alert to create child Users
     } else {
-      childNames += '<li>'+  'You currently have 0 children. Create a new Task to add children.' + '</li>'
+        childNames += '<li>' + 'You currently have 0 children.' + '</li>'
     }
+
     childNames += '</ul>' // 2nd half of childNames unordered list
 
     let tasksForChildren = '<ul>' // 1st half of tasksForChildren unordered list
@@ -103,8 +113,9 @@ class User {
         tasksForChildren += `<li>${task.name}</li>` // add line items to tasksForChildren list
       })
     } else {
-      tasksForChildren += '<li>'+  'You currently have 0 tasks. Create child user(s) to create Tasks.' + '</li>'
+        tasksForChildren += '<li>'+  'You currently have 0 tasks.' + '</li>'
     }
+
     tasksForChildren += '</ul>' // 2nd half of tasksForChildren unordered list
     
     return `<h1>${this.name}</h1>
@@ -114,7 +125,7 @@ class User {
             
             <h2>Children:</h2>
             ${childNames}
-            <h1>Tasks Given:</h1>
+            <h2>Tasks Given:</h2>
             ${tasksForChildren}
             `
   }
@@ -127,13 +138,14 @@ class User {
         if (task.completed == false) {
           currentTasks += `<li>${task.name}</li>` // add line items to currentTasks list
         } else if (task.value !== 0) {
-          let completedTaskWithPoints = `${task.name}` // assign to completed task with points for collecting
-          alert(`You have completed the Task: "${completedTaskWithPoints}"! \n\nGo to the Tasks page to collect your rewards!`)
+            let completedTaskWithPoints = `${task.name}` // assign to completed task with points for collecting
+            alert(`You have completed the Task: "${completedTaskWithPoints}"! \n\nGo to the Tasks page to collect your rewards!`)
         }
       })
     } else {
-      currentTasks += '<li>'+'You currently have 0 tasks. Ask your parent(s) to create some for you.'+'</li>' // add if 0 tasks
+        currentTasks += '<li>'+'You currently have 0 tasks. Ask your parent(s) to create some for you.'+'</li>' // add if 0 tasks
     }
+
     currentTasks += '</ul>' // 2nd half of currentTasks unordered list
 
     return `<h1>${this.name}</h1>
@@ -150,6 +162,7 @@ class User {
 
   renderPointsRedemption() {
     const collectedSticker = this.stickers[this.stickers.length - 1]
+
     return `<h1>Congratulations ${this.name}!</h1>
             <img src="${this.avatar}">
             <h2>You now have: ${this.points} Sticker Points!</h2>
@@ -162,6 +175,7 @@ class User {
 
   renderPrizePurchase() {
     const collectedPrize = this.prizes[this.prizes.length - 1]
+    
     return `<h1>Congratulations ${this.name}!</h1>
             <img src="${this.avatar}">
             <h2>You have purchased:</h2>

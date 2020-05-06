@@ -1,13 +1,15 @@
 class PrizeImage {
-  // `static` creates a 'class' method; PrizeImage.methodName()
+  
   static findPrizeImage(id) {
-    return this.allPrizeImages.find((prizeImage) => prizeImage.id === id) //`this` will be PrizeImage when invoked like -> PrizeImage.findPrizeImage(1)
+    return this.allPrizeImages.find((prizeImage) => prizeImage.id === id) // Find PrizeImage by passed in id
   }
 
   static updatePrizeImage(updatedPrizeImageData) {
-    const prizeImageToUpdate = this.findPrizeImage(updatedPrizeImageData.id) // if we invoke PrizeImage.updatePrizeImage(newPrizeImageJSON), `this` will be PrizeImage class
+    // Update attributes
+    const prizeImageToUpdate = this.findPrizeImage(updatedPrizeImageData.id)
     prizeImageToUpdate.image = updatedPrizeImageData.imageUrl
-    return prizeImageToUpdate //return the updated prizeImage instance for method chaining; prizeImageToUpdate.renderDetails() etc
+
+    return prizeImageToUpdate // Return the updated PrizeImage instance
   }
 
   constructor(prizeImageDataObj) {
@@ -23,7 +25,7 @@ class PrizeImage {
   renderPrizeImageDetails() {
     return `<img src="${this.imageUrl}"><br>
             <button class="topOfPrizeImages" data-id="${this.id}">Select a Different Prize Image</button>
-          `
+            `
   }
 }
 

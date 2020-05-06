@@ -1,13 +1,15 @@
 class TaskImage {
-  // `static` creates a 'class' method; TaskImage.methodName()
+  
   static findTaskImage(id) {
-    return this.allTaskImages.find((taskImage) => taskImage.id === id) //`this` will be TaskImage when invoked like -> TaskImage.findTaskImage(1)
+    return this.allTaskImages.find((taskImage) => taskImage.id === id) // Find TaskImage by passed in id
   }
 
   static updateTaskImage(updatedTaskImageData) {
-    const taskImageToUpdate = this.findTaskImage(updatedTaskImageData.id) // if we invoke TaskImage.updateTaskImage(newTaskImageJSON), `this` will be TaskImage class
+    const taskImageToUpdate = this.findTaskImage(updatedTaskImageData.id)
+    // Update attributes
     taskImageToUpdate.image = updatedTaskImageData.imageUrl
-    return taskImageToUpdate //return the updated taskImage instance for method chaining; taskImageToUpdate.renderDetails() etc
+
+    return taskImageToUpdate // Return the updated TaskImage instance
   }
 
   constructor(taskImageDataObj) {
@@ -23,7 +25,7 @@ class TaskImage {
   renderTaskImageDetails() {
     return `<img src="${this.imageUrl}"><br>
             <button class="topOfTaskImages" data-id="${this.id}">Select a Different Task Image</button>
-          `
+            `
   }
 }
 

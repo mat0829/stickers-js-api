@@ -1,13 +1,15 @@
 class Sticker {
-  // `static` creates a 'class' method; Sticker.methodName()
+
   static findSticker(id) {
-    return this.allStickers.find((sticker) => sticker.id === id) //`this` will be Sticker when invoked like -> Sticker.findSticker(1)
+    return this.allStickers.find((sticker) => sticker.id === id) // Find Sticker by passed in id
   }
 
   static updateSticker(updatedStickerData) {
-    const stickerToUpdate = this.findSticker(updatedStickerData.id) // if we invoke Sticker.updateSticker(newStickerJSON), `this` will be Sticker class
+    // Update attributes
+    const stickerToUpdate = this.findSticker(updatedStickerData.id)
     stickerToUpdate.image = updatedStickerData.image
-    return stickerToUpdate //return the updated sticker instance for method chaining; stickerToUpdate.renderDetails() etc
+
+    return stickerToUpdate // Return the updated Sticker instance
   }
 
   constructor(stickerDataObj) {
@@ -23,7 +25,7 @@ class Sticker {
   renderStickerDetails() {
     return `<img src="${this.image}"><br>
             <button class="topOfStickers" data-id="${this.id}">Select a Different Sticker</button>
-          `
+            `
   }
 }
 
