@@ -97,9 +97,6 @@ class User {
           childNames += `<li>${child.name}</li>` // add line items to childNames list
         }
       })
-    } else if (this.children.length == 0 && this.parentTasks.length == 0) {
-        childNames += '<li>' + 'You currently have 0 children.' + '</li>'
-        alert('Logout and make some child Users to start creating Tasks.') // Alert to create child Users
     } else {
         childNames += '<li>' + 'You currently have 0 children.' + '</li>'
     }
@@ -113,7 +110,7 @@ class User {
         tasksForChildren += `<li>${task.name}</li>` // add line items to tasksForChildren list
       })
     } else {
-        tasksForChildren += '<li>'+  'You currently have 0 tasks.' + '</li>'
+        tasksForChildren += '<li>'+  'You have created 0 tasks.' + '</li>'
     }
 
     tasksForChildren += '</ul>' // 2nd half of tasksForChildren unordered list

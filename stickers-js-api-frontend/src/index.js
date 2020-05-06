@@ -137,20 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function checkAge() {
-    const result = prompt("Please Enter Your Age and Click Ok.")
-    if (result == parseInt(result, 10)) {
-      if (result <= 10) {
-        alert('Please ask a Parent or Guardian to help you fill this out.')
-      } else {
-          alert('If you have trouble filling this out ask a Parent or Guardian to help you.')
-      }
-    } else {
-        alert("Please Enter a Number for Your Age. Not a Word.")
-        checkAge()
-    }
-  }
-
   function avatarCreationIfEmpty(jsonUserData) {
     const number = Math.floor((Math.random() * 100) + 1)
     if (jsonUserData.avatar == '') {
@@ -189,6 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function alertToCreateChildren(className) {
+    if (!localStorage.childNames) {
+      setTimeout(() => { alert(`Logout and make Child Users to start creating ${className}.`) }, 500)
+    }
+  } 
+
 // INDEX NAV BAR
   indexNavBar.addEventListener('click', (event) => {
     event.preventDefault()
@@ -202,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
       childLoggedIn()
       hideView("index-nav")
       showView("child-user-container")
-      //setTimeout(() => { checkAge() }, 500)
     }
   })
 
@@ -659,10 +650,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
-            adultTaskBar.innerHTML += newTask.renderSpan()
+            adultTaskBar.innerHTML += newTask.renderTaskSpan()
           })
         } else {
-            adultTaskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
+            adultTaskBar.innerHTML = `` 
+            alertToCreateChildren('Tasks')
         }
         adultTaskBar.scrollIntoView({behavior: "smooth"})
       })
@@ -692,6 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'createTaskBtn') {
+      alertToCreateChildren('Tasks')
       const token = localStorage.token
 
       fetch('http://localhost:3000/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
@@ -818,7 +811,7 @@ document.addEventListener('DOMContentLoaded', () => {
        newTaskForm.reset()
        delete localStorage.taskImage
        showView('adult-task-info')
-       adultTaskBar.innerHTML += newTask.renderSpan()
+       adultTaskBar.innerHTML += newTask.renderTaskSpan()
        adultTaskInfo.innerHTML = newTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
        setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
      })
@@ -1033,10 +1026,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (taskDataJSON && taskDataJSON.length) {
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
-            childTaskBar.innerHTML += newTask.renderSpan()
+            childTaskBar.innerHTML += newTask.renderTaskSpan()
           })
         } else {
-            childTaskBar.innerHTML = `<h2>You currently have 0 Tasks</h2>`
+            childTaskBar.innerHTML = `<h2>You currently have 0 Tasks.</h2>`
         }
       })
     }
@@ -1079,7 +1072,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                                  (${stickerCount} collected)</span>`
           })
         } else {
-            childStickerCollection.innerHTML = `<h2>You currently have 0 Stickers. Complete Tasks to get Sticker rewards.</h2>`
+            childStickerCollection.innerHTML = `<h2>You currently have 0 Stickers. Complete Tasks to get Stickers.</h2>`
         }
       })
     }
@@ -1198,14 +1191,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(/*function*/(prizeDataJSON) => {
         hideViews('adult-tasks-container','new-prize-form', 'adult-edit-prize-form', 'adult-user-info', 'adult-edit-user-form')
         adultPrizeBar.innerHTML = ''
-        adultPrizeInfo.innerHTML = ''
         if (prizeDataJSON && prizeDataJSON.length) {
           prizeDataJSON.forEach(/*function*/(prize) => {
             const newPrize = new Prize(prize)
-            adultPrizeBar.innerHTML += newPrize.renderPrizeCollection()
+            adultPrizeBar.innerHTML += newPrize.renderPrizeSpan()
           })
         } else {
-            adultPrizeBar.innerHTML = `<h2>There are currently 0 Prizes</h2>`
+            adultPrizeBar.innerHTML = ``
+            alertToCreateChildren('Prizes')
         }
         adultPrizeBar.scrollIntoView({behavior: "smooth"})
       })
@@ -1235,6 +1228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'addPrizeBtn') {
+      alertToCreateChildren('Prizes')
       const token = localStorage.token
       
       fetch('http://localhost:3000/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
@@ -1311,16 +1305,16 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     })
     .then((r) => r.json())
-    .then(adultPrizesBtn.click())
     .then((newPrizeJSON) => {
       const newPrize = new Prize(newPrizeJSON) //delegate updating prizes to the Prize class
       hideView('new-prize-form')
       newPrizeForm.reset()
       delete localStorage.prizeImage
       showView('adult-prize-info')
-      adultPrizeBar.innerHTML += newPrize.renderPrizeCollection()
+      adultPrizeBar.innerHTML += newPrize.renderPrizeSpan()
+      adultPrizesBtn.click()
       adultPrizeInfo.innerHTML = newPrize.renderAdultPrizeDetails() //render the changes so the DOM is in sync with our data
-      setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 100)
+      setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 500)
     })
   })
 
@@ -1476,10 +1470,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prizeDataJSON && prizeDataJSON.length) {
           prizeDataJSON.forEach(/*function*/(prize) => {
             const newPrize = new Prize(prize)
-            childPrizeBar.innerHTML += newPrize.renderPrizeCollection()
+            childPrizeBar.innerHTML += newPrize.renderPrizeSpan()
           })
         } else {
-            childPrizeBar.innerHTML = `<h2>There are currently 0 Prizes</h2>`
+            childPrizeBar.innerHTML = `<h2>There are currently 0 Prizes.</h2>`
         }
       })
     }
@@ -1522,9 +1516,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prizeCost > points) {
           childPrizeInfo.innerHTML = ''
           childPrizeInfo.innerHTML = `<h2>"${prizeName}"</h2>
-          <img src="${purchasedPrize}"></img>
-          <h2>You do not have enough Sticker Points to purchase "${prizeName}"</h2>
-          <button class="backToPrizes">Back to Prizes</button><br><br>`
+                                      <img src="${purchasedPrize}"></img>
+                                      <h2>You do not have enough Sticker Points to purchase "${prizeName}"</h2>
+                                      <button class="backToPrizes">Back to Prizes</button><br><br>
+                                      `
           childPrizeInfo.scrollIntoView({behavior: "smooth"})
         } else {
             const newPoints = points - prizeCost

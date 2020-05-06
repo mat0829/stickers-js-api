@@ -16,18 +16,21 @@ class Prize {
   }
 
   constructor(prizeDataObj) {
-    this.id = prizeDataObj.id
-    this.errors = prizeDataObj.errors
-    this.name = prizeDataObj.name
-    this.image = prizeDataObj.image
-    this.cost = prizeDataObj.cost
-    this.purchased = prizeDataObj.purchased
-    this.prizeParent = prizeDataObj.prize_parent
-    this.prizeChild = prizeDataObj.prize_child
-    Prize.allPrizes.push(this)
+    if (prizeDataObj.errors !== undefined) {
+      this.errors = prizeDataObj.errors
+    } else {
+        this.id = prizeDataObj.id
+        this.name = prizeDataObj.name
+        this.image = prizeDataObj.image
+        this.cost = prizeDataObj.cost
+        this.purchased = prizeDataObj.purchased
+        this.prizeParent = prizeDataObj.prize_parent
+        this.prizeChild = prizeDataObj.prize_child
+        Prize.allPrizes.push(this)
+    }
   }
 
-  renderPrizeCollection() {
+  renderPrizeSpan() {
     return `<span data-id="${this.id}"><img src="${this.image}" data-id="${this.id}"></span>`
   }
 

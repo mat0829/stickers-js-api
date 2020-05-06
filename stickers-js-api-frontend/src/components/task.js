@@ -16,19 +16,22 @@ class Task {
   }
 
   constructor(taskObj) {
-    this.id = taskObj.id
-    this.errors = taskObj.errors
-    this.name = taskObj.name
-    this.value = taskObj.value
-    this.completed = taskObj.completed
-    this.image = taskObj.image
-    this.taskParent = taskObj.task_parent
-    this.taskChild = taskObj.task_child
-    this.stickerImage = taskObj.stickerImage
-    Task.allTasks.push(this)
+    if (taskObj.errors !== undefined) {
+      this.errors = taskObj.errors
+    } else {
+        this.id = taskObj.id
+        this.name = taskObj.name
+        this.value = taskObj.value
+        this.completed = taskObj.completed
+        this.image = taskObj.image
+        this.taskParent = taskObj.task_parent
+        this.taskChild = taskObj.task_child
+        this.stickerImage = taskObj.stickerImage
+        Task.allTasks.push(this)
+    }
   }
 
-  renderSpan() {
+  renderTaskSpan() {
     return `<span data-id="${this.id}">${this.name}</span>`
   }
 
