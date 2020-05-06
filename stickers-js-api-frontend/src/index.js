@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const newTaskImageInput = document.querySelector('#new-task-image')
 
   const adultEditTaskForm = document.querySelector('#adult-edit-task-form')
+  const adultEditTaskBarContainer = document.querySelector('#adult-edit-task-image-bar-container')
   const adultEditTaskNameInput = document.querySelector('#adult-edit-task-name')
   const adultEditTaskValueInput = document.querySelector('#adult-edit-task-value')
   const adultEditTaskImageInput = document.querySelector('#adult-edit-task-image')
@@ -232,7 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("parentId", newUser.id)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('adult-login-signup-container')
-        adultUserInfo.innerHTML = newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
+        adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
+        setTimeout(() => { adultUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
     })
   })
@@ -304,8 +306,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('adult-login-signup-container')
         showView('adult-user-info')
-        adultUserInfo.innerHTML = newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
-        adultUserInfo.scrollIntoView({behavior: "smooth"})
+        adultUserInfo.innerHTML = newUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
+        setTimeout(() => { adultUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
     })
   })
@@ -432,7 +434,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("childId", newUser.id)
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('child-login-signup-container')
-        childUserInfo.innerHTML = newUser.renderWelcomeUserBack() //render the changes so the DOM is in sync with our data
+        childUserInfo.innerHTML = newUser.renderChildUserProfile()
+        setTimeout(() => { childUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
     })
   })
@@ -501,15 +504,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const newUser = new User(newUserJSON)
         localStorage.setItem("token", newUser.token)
         const childNames = JSON.parse(localStorage.getItem("childNames")) || []
-        const childObject = {name: `${newUser.name}`, id: newUser.id + ""}
+
+        const childObject = ' ' + '[' + newUser.name + '-' + ' ' + 'id:' + ' ' + newUser.id + ']' + ' '
         childNames.push(childObject)
         window.localStorage.setItem('childNames', JSON.stringify(childNames))
-        storedChildNames = JSON.parse(localStorage.getItem("childNames"))
         localStorage.setItem("loggedIn", newUser.logged_in)
         hideView('child-login-signup-container')
         showView('child-user-info')
-        childUserInfo.innerHTML = newUser.renderWelcomeUser() //render the changes so the DOM is in sync with our data
-        childUserInfo.scrollIntoView({behavior: "smooth"})
+        childUserInfo.innerHTML = newUser.renderChildUserProfile()
+        setTimeout(() => { childUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
     })
   })
@@ -590,15 +593,15 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
-      debugger
       const result = confirm("Are you sure you want to delete this User? Click ok to confirm.")
       if (result) {
         const token = localStorage.token
         const userToDeleteId = event.target.dataset.id //don't need to parseInt because we are interpolating the id into a url string
         storedChildNames = JSON.parse(localStorage.getItem("childNames"))
 
-        const childToDelete = storedChildNames.find(obj => {
-          return obj.id == userToDeleteId
+        const childToDelete = storedChildNames.find(childString => {
+          const parsedId = parseInt(userToDeleteId)
+          return childString.match(parsedId)
         })
 
         function removeChild(array, childObject) { 
@@ -767,13 +770,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
+     debugger
      const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
-     const childUsers = []
-     storedChildNames.forEach(function (arrayItem) {
-      var childUser = ' ' + '[' + arrayItem.name + '-' + ' ' + 'id:' + ' ' + arrayItem.id + ']' + ' '
-      childUsers.push(childUser)
-     })
-     const childId = prompt(`Type in the id of the child the task is for: ${childUsers}` )
+     const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
      const sticker = localStorage.sticker
@@ -873,6 +872,14 @@ document.addEventListener('DOMContentLoaded', () => {
       adultEditTaskImageInput.value = foundTask.image
       adultEditTaskCompletedInput.checked = foundTask.completed
       adultEditTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
+    }
+  })
+
+// MARK A TASK COMPLETED
+  adultEditTaskBarContainer.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.className === 'markTaskCompleted') {
+      adultEditTaskCompletedInput.scrollIntoView({behavior: 'smooth'})
     }
   })
 
@@ -1053,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                                  (${stickerCount} collected)</span>`
           })
         } else {
-          childStickerCollection.innerHTML = `<h2>You currently have 0 Stickers. Complete tasks to get Sticker rewards.</h2>`
+          childStickerCollection.innerHTML = `<h2>You currently have 0 Stickers. Complete Tasks to get Sticker rewards.</h2>`
         }
       })
     }
@@ -1258,12 +1265,7 @@ document.addEventListener('DOMContentLoaded', () => {
   newPrizeForm.addEventListener('submit', (event) => {
      event.preventDefault()
      const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
-     const childUsers = []
-     storedChildNames.forEach(function (arrayItem) {
-      var childUser = ' ' + '[' + arrayItem.name + '-' + ' ' + 'id:' + ' ' + arrayItem.id + ']' + ' '
-      childUsers.push(childUser)
-     })
-     const childId = prompt(`Type in the id of the child the prize is for: ${childUsers}` )
+     const childId = prompt(`Type in the id of the child the prize is for: ${storedChildNames}` )
      const token = localStorage.token
      const parentId = localStorage.parentId
      const prizeImage = localStorage.prizeImage
@@ -1287,7 +1289,7 @@ document.addEventListener('DOMContentLoaded', () => {
        })
      })
      .then((r) => r.json())
-     .then(setTimeout(() => { adultPrizesBtn.click() }, 100))
+     .then(adultPrizesBtn.click())
      .then((newPrizeJSON) => {
        const newPrize = new Prize(newPrizeJSON) //delegate updating prizes to the Prize class
        hideView('new-prize-form')
@@ -1296,7 +1298,7 @@ document.addEventListener('DOMContentLoaded', () => {
        showView('adult-prize-info')
        adultPrizeBar.innerHTML += newPrize.renderPrizeCollection()
        adultPrizeInfo.innerHTML = newPrize.renderAdultPrizeDetails() //render the changes so the DOM is in sync with our data
-       setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 500)
+       setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 100)
      })
   })
 
@@ -1475,7 +1477,6 @@ document.addEventListener('DOMContentLoaded', () => {
   childPrizeInfo.addEventListener('click', (event) => {
     if (event.target.className === 'buyPrize') {
       const token = localStorage.token
-      debugger
       fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {

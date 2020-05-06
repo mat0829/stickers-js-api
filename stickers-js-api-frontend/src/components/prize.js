@@ -14,14 +14,15 @@ class Prize {
   }
 
   constructor(prizeDataObj) {
+    debugger
     this.id = prizeDataObj.id
     this.errors = prizeDataObj.errors
     this.name = prizeDataObj.name
     this.image = prizeDataObj.image
     this.cost = prizeDataObj.cost
     this.purchased = prizeDataObj.purchased
-    this.prizeParent = prizeDataObj.prizeParent
-    this.prizeChild = prizeDataObj.prizeChild
+    this.prizeParent = prizeDataObj.prize_parent
+    this.prizeChild = prizeDataObj.prize_child
     Prize.allPrizes.push(this)
   }
 
@@ -50,23 +51,24 @@ class Prize {
       }
     }
     if (this.purchased == true) {
-      const isPrizePurchasedString = `${this.prizeChild} has purchased: "${this.name}"!`
+      const isPrizePurchasedString = `${this.prizeChild.name} has purchased: "${this.name}"!`
       return `<h2>${isPrizePurchasedString}</h2>
-          <img src="${this.image}">
-          <h4>~ Created by: ${this.prizeParent}</h4>
+          <h3>~ Created by: ${this.prizeParent.name}</h3>
+          <img src="${this.image}"><br><br>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Prize!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Prize!</button><br><br>
+          <button class="addPrizeForm">Create another new Prize</button><br><br>
           <button class="top">Top of Page</button><br><br>
           `
     } else {
       const isPrizePurchasedString = `"${this.name}" has not been purchased yet.`
-      return `<h1>"${this.name}"</h1>
-          <h3>~ Created by: ${this.prizeParent}</h3>
+      return `<h2>${isPrizePurchasedString}</h2>
+          <h3>~ Created by: ${this.prizeParent.name}</h3>
           <img src="${this.image}"><br>
-          <h2>${isPrizePurchasedString}</h2>
           <h2>Cost: ${this.cost} Points!</h2>
           <button class="edit" data-id="${this.id}" data-action="edit">Edit this Prize!</button>
           <button class="delete" data-id="${this.id}" data-action="delete">Delete this Prize!</button><br><br>
+          <button class="addPrizeForm">Create another new Prize</button><br><br>
           <button class="top">Top of Page</button><br><br>
           `
     }
@@ -74,15 +76,15 @@ class Prize {
   renderChildPrizeDetails() {
     if (this.purchased == true) {
       const isPrizePurchasedString = `You have purchased: "${this.name}"!`
-      return `<h2>${isPrizePurchasedString}</h2>
-          <img src="${this.image}">
-          <h4>~ Created by: ${this.prizeParent}</h4>
+      return `<h1>${isPrizePurchasedString}</h1>
+          <h3>~ Created by: ${this.prizeParent.name}</h3>
+          <img src="${this.image}"><br><br>
           <button class="top">Top of Page</button><br><br>
           `
     } else {
       const isPrizePurchasedString = `"${this.name}" has not been purchased yet.`
       return `<h1>"${this.name}"</h1>
-          <h3>~ Created by: ${this.prizeParent}</h3>
+          <h3>~ Created by: ${this.prizeParent.name}</h3>
           <img src="${this.image}">
           <h2>${isPrizePurchasedString}</h2>
           <h2>Cost: ${this.cost} Points!</h2>

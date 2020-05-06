@@ -81,64 +81,60 @@ class User {
     }
   }
 
-  renderWelcomeUser() {
-    return `<h1> Welcome to Stickers ${this.name}!</h1>
-            <img src="${this.avatar}">
-           `
-  }
-
-  renderWelcomeUserBack() {
-    return `<h1> Welcome back to Stickers ${this.name}!</h1>
-            <img src="${this.avatar}">
-           `
-  }
-
   renderAdultUserProfile() {
-    let taskStrings = '<ul>'
-
-    if (this.parentTasks.length !== 0) {
-      this.parentTasks.forEach(function(task) {
-        taskStrings += '<li>'+  task + '</li>'
-      })
-    } else {
-      taskStrings += '<li>'+  'You currently have 0 tasks. Create child user(s) to create Tasks.' + '</li>'
-    }
-    taskStrings += '</ul>'
-
-    let childStrings = '<ul>'
+    let childNames = '<ul>' // 1st half of childNames unordered list
 
     if (this.children.length !== 0) {
       this.children.forEach(function(child) {
-        childStrings += '<li>'+  child + '</li>'
+        debugger
+        if (!childNames.includes(child.name)) { // Checking for duplicate child names
+          childNames += `<li>${child.name}</li>` // add line items to childNames list
+        }
       })
     } else {
-      childStrings += '<li>'+  'You currently have 0 children. Create a new Task to add children.' + '</li>'
+      childNames += '<li>'+  'You currently have 0 children. Create a new Task to add children.' + '</li>'
     }
-    childStrings += '</ul>'
+    childNames += '</ul>' // 2nd half of childNames unordered list
+
+    let tasksForChildren = '<ul>' // 1st half of tasksForChildren unordered list
+
+    if (this.parentTasks.length !== 0) {
+      this.parentTasks.forEach(function(task) {
+        tasksForChildren += `<li>${task.name}</li>` // add line items to tasksForChildren list
+      })
+    } else {
+      tasksForChildren += '<li>'+  'You currently have 0 tasks. Create child user(s) to create Tasks.' + '</li>'
+    }
+    tasksForChildren += '</ul>' // 2nd half of tasksForChildren unordered list
     
     return `<h1>${this.name}</h1>
             <img src="${this.avatar}"><br>
-            <h2>Children:</h2>
-            ${childStrings}
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
             
+            <h2>Children:</h2>
+            ${childNames}
             <h1>Tasks Given:</h1>
-            ${taskStrings}
+            ${tasksForChildren}
             `
   }
 
   renderChildUserProfile() {
-    let taskStrings = '<ul>' // 1st half of Unordered List in taskStrings
+    let currentTasks = '<ul>' // 1st half of currentTasks unordered list
 
     if (this.childTasks.length !== 0) {
       this.childTasks.forEach(function(task) {
-        taskStrings += '<li>'+  task + '</li>' // add to taskStrings the Line Items
+        if (task.completed == false) {
+          currentTasks += `<li>${task.name}</li>` // add line items to currentTasks list
+        } else if (task.value !== 0) {
+          let completedTaskWithPoints = `${task.name}` // assign to completed task with points for collecting
+          alert(`You have completed the Task: "${completedTaskWithPoints}"! \n\nGo to the Tasks page to collect your rewards!`)
+        }
       })
     } else {
-      taskStrings += '<li>'+  'You currently have 0 tasks. Ask your parent(s) to create some for you.' + '</li>' // add in string if 0 tasks
+      currentTasks += '<li>'+'You currently have 0 tasks. Ask your parent(s) to create some for you.'+'</li>' // add if 0 tasks
     }
-    taskStrings += '</ul>' // 2nd half of Unordered List added to end of taskStrings
+    currentTasks += '</ul>' // 2nd half of currentTasks unordered list
 
     return `<h1>${this.name}</h1>
             <img src="${this.avatar}"><br>
@@ -147,8 +143,8 @@ class User {
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
 
-            <h1>Tasks: </h1>
-            ${taskStrings}
+            <h1>Current Tasks: </h1>
+            ${currentTasks}
             `
   }
 
@@ -161,18 +157,17 @@ class User {
             <img src="${collectedSticker}" width='150px' height='150px'>
             <h2>to your Sticker Collection!</h2>
             <button class="top">Top of Page</button>
-    `
+            `
   }
 
   renderPrizePurchase() {
     const collectedPrize = this.prizes[this.prizes.length - 1]
     return `<h1>Congratulations ${this.name}!</h1>
             <img src="${this.avatar}">
-            <h2>You now have: ${this.points} Sticker Points!</h2>
             <h2>You have purchased:</h2>
-            <img src="${collectedPrize}"><br>
+            <img src="${collectedPrize}"><br><br>
             <button class="top">Top of Page</button><br><br>
-    `
+           `
   }
 }
   

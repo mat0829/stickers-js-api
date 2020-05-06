@@ -21,8 +21,8 @@ class Task {
     this.value = taskObj.value
     this.completed = taskObj.completed
     this.image = taskObj.image
-    this.taskParent = taskObj.taskParent
-    this.taskChild = taskObj.taskChild
+    this.taskParent = taskObj.task_parent
+    this.taskChild = taskObj.task_child
     this.stickerImage = taskObj.stickerImage
     Task.allTasks.push(this)
   }
@@ -52,7 +52,7 @@ class Task {
       }
     }
     if (this.completed && this.value == 0) {
-      const isTaskCompletedString = `${this.taskChild} collected the Reward for: "${this.name}"!`
+      const isTaskCompletedString = `${this.taskChild.name} collected the Reward for: "${this.name}"!`
 
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'><br><br>
@@ -62,11 +62,11 @@ class Task {
           <button class="top">Top of Page</button><br><br>
           `
     } else if (this.completed) {
-      const isTaskCompletedString = `${this.taskChild} completed: "${this.name}"!`
+      const isTaskCompletedString = `${this.taskChild.name} completed: "${this.name}"!`
 
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
-          <h4>~ Created by: You</h4>
+          <h4>~ Created by: ${this.taskParent.name}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Sticker Points!</h2>
@@ -76,11 +76,11 @@ class Task {
           <button class="top">Top of Page</button><br><br>
           `
     } else {
-      const isTaskCompletedString = `${this.taskChild} is currently working on: "${this.name}"`
+      const isTaskCompletedString = `${this.taskChild.name} is currently working on: "${this.name}"`
 
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
-          <h4>~ Created by: You</h4>
+          <h4>~ Created by: ${this.taskParent.name}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Sticker Points!</h2>
@@ -98,14 +98,14 @@ class Task {
 
       return `<h2>${isTaskCompletedString}</h2>
       <img src="${this.image}" width='250px' height='125px'>
-      <h4>~ Created by: ${this.taskParent}</h4>
+      <h4>~ Created by: ${this.taskParent.name}</h4>
       `
     } else if (this.completed) {
       const isTaskCompletedString = `You completed: "${this.name}"!`
 
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
-          <h4>~ Created by: ${this.taskParent}</h4>
+          <h4>~ Created by: ${this.taskParent.name}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Sticker Points!</h2>
@@ -117,7 +117,7 @@ class Task {
 
       return `<h2>${isTaskCompletedString}</h2>
           <img src="${this.image}" width='250px' height='125px'>
-          <h4>~ Created by: ${this.taskParent}</h4>
+          <h4>~ Created by: ${this.taskParent.name}</h4>
           <h2>Sticker Reward:</h2>
           <img src="${this.stickerImage}" width='150px' height='150px'>
           <h2>Value: ${this.value} Sticker Points!</h2>

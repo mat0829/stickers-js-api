@@ -172,7 +172,9 @@ li {
 }
 
 #adult-prize-bar {
+  height: 20vh;
   background: yellow;
+  display: flex;
   justify-content: space-around;
   align-items: center;
 }
@@ -188,8 +190,8 @@ li {
 }
 
 #adult-prize-info img {
-  max-width: 750px;
-  max-height: 375px;
+  max-width: 25vw;
+  max-height: 25vw;
 }
 
 /* ADULT PRIZE IMAGES */
@@ -211,8 +213,8 @@ li {
 }
 
 #adult-prize-image-info img {
-  max-width: 750px;
-  max-height: 375px;
+  max-width: 15vw;
+  max-height: 15vw;
 }
 
 #adult-edit-prize-image-bar {
@@ -233,8 +235,8 @@ li {
 }
 
 #adult-edit-prize-image-info img {
-  max-width: 750px;
-  max-height: 375px;
+  max-width: 25vw;
+  max-height: 25vw;
 }
 
 /* CHILD USER */
@@ -307,7 +309,9 @@ li {
 }
 
 #child-prize-bar {
+  height: 20vh;
   background: yellow;
+  display: flex;
   justify-content: space-around;
   align-items: center;
 }
@@ -323,8 +327,8 @@ li {
 }
 
 #child-prize-info img {
-  max-width: 15vw;
-  max-height: 15vw;
+  max-width: 25vw;
+  max-height: 25vw;
 }
 
 /* CHILD PRIZE IMAGES */
@@ -369,6 +373,10 @@ li {
 .createTaskBtn {
   color: white;
   background-image: linear-gradient(to right, blue, red);
+}
+
+.markTaskCompleted {
+  color: blue;
 }
 
 .topOfStickers {
