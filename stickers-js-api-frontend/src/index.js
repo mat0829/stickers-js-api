@@ -98,8 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function hideViews() {
     for (let i = 0; i < arguments.length; i++) {
-        let element = document.getElementById(arguments[i]);
-        element.style.display = 'none'
+      let element = document.getElementById(arguments[i]);
+      element.style.display = 'none'
     }
   }
 
@@ -110,8 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showViews() {
     for (let i = 0; i < arguments.length; i++) {
-        let element = document.getElementById(arguments[i]);
-        element.style.display = 'block'
+      let element = document.getElementById(arguments[i]);
+      element.style.display = 'block'
     }
   }
 
@@ -143,11 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (result <= 10) {
         alert('Please ask a Parent or Guardian to help you fill this out.')
       } else {
-        alert('If you have trouble filling this out ask a Parent or Guardian to help you.')
+          alert('If you have trouble filling this out ask a Parent or Guardian to help you.')
       }
     } else {
-      alert("Please Enter a Number for Your Age. Not a Word.")
-      checkAge()
+        alert("Please Enter a Number for Your Age. Not a Word.")
+        checkAge()
     }
   }
 
@@ -158,13 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (userChoice == 'Robot' || userChoice == 'robot') {
           jsonUserData.avatar = `https://robohash.org/Random-Robot-Avatar`+`${number}`+`.png` // Generates a random Robot avatar
         } else if (userChoice == 'Cat' || userChoice == 'cat') {
-          jsonUserData.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
+            jsonUserData.avatar = `https://cataas.com/cat?`+`${number}` // Generates a random Cat avatar
         } else if (userChoice == 'Dog' || userChoice == 'dog') {
-          jsonUserData.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
+            jsonUserData.avatar = `https://placedog.net/500/280/?id=`+`${number}` // Generates a random Dog avatar
         } else if (userChoice == 'Monster' || userChoice == 'monster') {
-          jsonUserData.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
+            jsonUserData.avatar = `https://api.adorable.io/avatars/200/`+`${number}`+`.png` // Generates a random Monster avatar
         } else {
-          jsonUserData.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
+            jsonUserData.avatar = `http://loremflickr.com/320/240/`+`${userChoice}` // Generates an avatar based on the word given
         }
       localStorage.setItem("avatar", jsonUserData.avatar)
     }
@@ -175,17 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return `<h2 style="color:red">${userData.errors[0]}</h2>
               <h2 style="color:red">${userData.errors[1]}</h2>
               <h2 style="color:red">${userData.errors[2]}</h2>
-        <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
-        `
+              <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
+              `
     } else if (userData.errors.length == 2) {
-      return `<h2 style="color:red">${userData.errors[0]}</h2>
-              <h2 style="color:red">${userData.errors[1]}</h2>
-        <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
-        `
+        return `<h2 style="color:red">${userData.errors[0]}</h2>
+                <h2 style="color:red">${userData.errors[1]}</h2>
+                <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
+                `
     } else {
-      return `<h2 style="color:red">${userData.errors}</h2>
-        <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
-        `
+        return `<h2 style="color:red">${userData.errors}</h2>
+                <button class="edit${userType}UserForm">Back to Edit ${userType} User</button>
+                `
     }
   }
 

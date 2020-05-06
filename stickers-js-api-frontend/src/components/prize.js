@@ -33,7 +33,6 @@ class Prize {
 
   renderAdultPrizeDetails() {
     if (this.errors !== undefined) {
-      
       if (this.errors.length == 3) {
         return `<h2 style="color:red">${this.errors[0]}</h2>
                 <h2 style="color:red">${this.errors[1]}</h2>
