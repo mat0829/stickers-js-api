@@ -1,64 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c DOM is loaded", "color :purple")
 
+// NAVIGATION BARS
   const indexNavBar = document.querySelector('#index-nav')
-
   const adultNavBar = document.querySelector('#adult-nav-bar')
-  const adultUserInfo = document.querySelector('#adult-user-info')
   const childNavBar = document.querySelector('#child-nav-bar')
-  const childUserInfo = document.querySelector('#child-user-info')
-  
-  const adultLoginForm = document.querySelector('#adult-user-login-form')
-  const adultUserLoginName = document.querySelector('#adult-user-login-name')
-  const adultUserLoginPassword = document.querySelector('#adult-user-login-password')
 
+// ADULT NEW USER
   const adultUserForm = document.querySelector('#adult-new-user-form')
   const adultNewAvatarInput = document.querySelector('#adult-new-user-avatar')
   const adultNewNameInput = document.querySelector('#adult-new-user-name')
   const adultNewEmailInput = document.querySelector('#adult-new-user-email')
   const adultNewPasswordInput = document.querySelector('#adult-new-user-password')
+  const adultUserInfo = document.querySelector('#adult-user-info')
 
+// ADULT USER LOGIN
+  const adultLoginForm = document.querySelector('#adult-user-login-form')
+  const adultUserLoginName = document.querySelector('#adult-user-login-name')
+  const adultUserLoginPassword = document.querySelector('#adult-user-login-password')
+
+// EDIT ADULT USER
   const adultEditUserForm = document.querySelector('#adult-edit-user-form')
   const adultEditAvatarInput = document.querySelector('#adult-edit-user-avatar')
   const adultEditNameInput = document.querySelector('#adult-edit-user-name')
   const adultEditEmailInput = document.querySelector('#adult-edit-user-email')
   const adultEditPasswordInput = document.querySelector('#adult-edit-user-password')
 
-  const childLoginForm = document.querySelector('#child-user-login-form')
-  const childUserLoginName = document.querySelector('#child-user-login-name')
-  const childUserLoginPassword = document.querySelector('#child-user-login-password')
-  
-  const childUserForm = document.querySelector('#child-new-user-form')
-  const childNewAvatarInput = document.querySelector('#child-new-user-avatar')
-  const childNewNameInput = document.querySelector('#child-new-user-name')
-  const childNewEmailInput = document.querySelector('#child-new-user-email')
-  const childNewPasswordInput = document.querySelector('#child-new-user-password')
-
-  const childEditUserForm = document.querySelector('#child-edit-user-form')
-  const childEditAvatarInput = document.querySelector('#child-edit-user-avatar')
-  const childEditNameInput = document.querySelector('#child-edit-user-name')
-  const childEditEmailInput = document.querySelector('#child-edit-user-email')
-  const childEditPasswordInput = document.querySelector('#child-edit-user-password')
-
+// ADULT TASK BAR, TASK INFO, AND TASKS BUTTON
   const adultTaskBar = document.querySelector('#adult-task-bar')
   const adultTaskInfo = document.querySelector('#adult-task-info')
   const adultTasksBtn = document.querySelector('#adultTasksBtn')
+
+// NEW TASK
+  const newTaskForm = document.querySelector('#new-task-form')
+  const newTaskNameInput = document.querySelector('#new-task-name')
+  const newTaskValueInput = document.querySelector('#new-task-value')
+  const newTaskImageInput = document.querySelector('#new-task-image')
   const adultTaskImageBar = document.querySelector('#adult-task-image-bar')
   const adultTaskImageInfo = document.querySelector('#adult-task-image-info')
   const adultStickerBar = document.querySelector('#adult-sticker-bar')
   const adultStickerInfo = document.querySelector('#adult-sticker-info')
 
-  const adultPrizeBar = document.querySelector('#adult-prize-bar')
-  const adultPrizeInfo = document.querySelector('#adult-prize-info')
-  const adultPrizesBtn = document.querySelector('#adultPrizesBtn')
-  const adultPrizeImageBar = document.querySelector('#adult-prize-image-bar')
-  const adultPrizeImageInfo = document.querySelector('#adult-prize-image-info')
-
-  const newTaskForm = document.querySelector('#new-task-form')
-  const newTaskNameInput = document.querySelector('#new-task-name')
-  const newTaskValueInput = document.querySelector('#new-task-value')
-  const newTaskImageInput = document.querySelector('#new-task-image')
-
+// EDIT TASK
   const adultEditTaskForm = document.querySelector('#adult-edit-task-form')
   const adultEditTaskBarContainer = document.querySelector('#adult-edit-task-image-bar-container')
   const adultEditTaskNameInput = document.querySelector('#adult-edit-task-name')
@@ -70,11 +53,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultEditStickerBar = document.querySelector('#adult-edit-sticker-bar')
   const adultEditStickerInfo = document.querySelector('#adult-edit-sticker-info')
 
+// ADULT PRIZE BAR, PRIZE INFO, AND PRIZES BUTTON
+  const adultPrizeBar = document.querySelector('#adult-prize-bar')
+  const adultPrizeInfo = document.querySelector('#adult-prize-info')
+  const adultPrizesBtn = document.querySelector('#adultPrizesBtn')
+
+// NEW PRIZE
   const newPrizeForm = document.querySelector('#new-prize-form')
   const newPrizeNameInput = document.querySelector('#new-prize-name')
   const newPrizeCostInput = document.querySelector('#new-prize-cost')
   const newPrizeImageInput = document.querySelector('#new-prize-image')
+  const adultPrizeImageBar = document.querySelector('#adult-prize-image-bar')
+  const adultPrizeImageInfo = document.querySelector('#adult-prize-image-info')
 
+// EDIT PRIZE
   const adultEditPrizeForm = document.querySelector('#adult-edit-prize-form')
   const adultEditPrizeNameInput = document.querySelector('#adult-edit-prize-name')
   const adultEditPrizeCostInput = document.querySelector('#adult-edit-prize-cost')
@@ -82,15 +74,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultEditPrizePurchasedInput = document.querySelector('#adult-edit-prize-purchased')
   const adultEditPrizeImageBar = document.querySelector('#adult-edit-prize-image-bar')
   const adultEditPrizeImageInfo = document.querySelector('#adult-edit-prize-image-info')
+  
+// CHILD NEW USER
+  const childUserForm = document.querySelector('#child-new-user-form')
+  const childNewAvatarInput = document.querySelector('#child-new-user-avatar')
+  const childNewNameInput = document.querySelector('#child-new-user-name')
+  const childNewEmailInput = document.querySelector('#child-new-user-email')
+  const childNewPasswordInput = document.querySelector('#child-new-user-password')
+  const childUserInfo = document.querySelector('#child-user-info')
 
+// CHILD USER LOGIN
+  const childLoginForm = document.querySelector('#child-user-login-form')
+  const childUserLoginName = document.querySelector('#child-user-login-name')
+  const childUserLoginPassword = document.querySelector('#child-user-login-password')
+
+// EDIT CHILD USER
+  const childEditUserForm = document.querySelector('#child-edit-user-form')
+  const childEditAvatarInput = document.querySelector('#child-edit-user-avatar')
+  const childEditNameInput = document.querySelector('#child-edit-user-name')
+  const childEditEmailInput = document.querySelector('#child-edit-user-email')
+  const childEditPasswordInput = document.querySelector('#child-edit-user-password')
+
+// CHILD TASKS
   const childTaskBar = document.querySelector('#child-task-bar')
   const childTaskInfo = document.querySelector('#child-task-info')
 
+// CHILD STICKERS COLLECTION
   const childStickerCollection = document.querySelector('#child-stickers-collection')
-
+  
+// CHILD PRIZES
   const childPrizeBar = document.querySelector('#child-prize-bar')
   const childPrizeInfo = document.querySelector('#child-prize-info')
 
+// FUNCTIONS
   function hideView(id) {
     const element = document.getElementById(id);
     element.style.display = 'none'
@@ -204,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', //MIME type we're sending to the server
+        'Content-Type': 'application/json',
          Accept: 'application/json'
        },
        body: JSON.stringify({
@@ -274,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', //MIME type we're sending to the server
+        'Content-Type': 'application/json',
          Accept: 'application/json'
        },
        body: JSON.stringify({
@@ -301,7 +317,8 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem("loggedIn", newUser.logged_in)
           hideView('adult-login-signup-container')
           showView('adult-user-info')
-          adultUserInfo.innerHTML = newUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
+          //render the changes so the DOM is in sync with our data
+          adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
           setTimeout(() => { adultUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
     })
@@ -328,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
       adultEditEmailInput.value = foundUser.email
       adultEditPasswordInput.value = foundUser.password
       adultEditAvatarInput.value = foundUser.avatar
-      adultEditUserForm.dataset.id = foundUser.id //store the task id in the form so we can PATCH with that id later
+      adultEditUserForm.dataset.id = foundUser.id //store the User id in the form so we can PATCH with that id later
     }
   })
 
@@ -366,7 +383,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const updatedUser = User.updateUser(updatedUserJSON) 
           hideView('adult-edit-user-form')
           showView('adult-user-info')
-          adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile() //render the changes so the DOM is in sync with our data
+          //render the changes so the DOM is in sync with our data
+          adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile()
           adultUserInfo.scrollIntoView({behavior: "smooth"})
       }
     })
@@ -392,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`http://localhost:3000/api/v1/users/${userToDeleteId}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json', //MIME type we're sending to the server
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         })
@@ -410,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', //MIME type we're sending to the server
+        'Content-Type': 'application/json',
          Accept: 'application/json'
        },
        body: JSON.stringify({
@@ -480,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', //MIME type we're sending to the server
+        'Content-Type': 'application/json',
          Accept: 'application/json'
        },
        body: JSON.stringify({
@@ -537,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
       childEditEmailInput.value = foundUser.email
       childEditPasswordInput.value = foundUser.password
       childEditAvatarInput.value = foundUser.avatar
-      childEditUserForm.dataset.id = foundUser.id //store the task id in the form so we can PATCH with that id later
+      childEditUserForm.dataset.id = foundUser.id //store the User id in the form so we can PATCH with that id later
     }
   })
 
@@ -575,7 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const updatedUser = User.updateUser(updatedUserJSON)
           hideView('child-edit-user-form')
           showView('child-user-info')
-          childUserInfo.innerHTML = updatedUser.renderChildUserProfile() //render the changes so the DOM is in sync with our data
+          //render the changes so the DOM is in sync with our data
+          childUserInfo.innerHTML = updatedUser.renderChildUserProfile()
           childUserInfo.scrollIntoView({behavior: "smooth"})
       }
     })
@@ -617,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`http://localhost:3000/api/v1/users/${userToDeleteId}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json', //MIME type we're sending to the server
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         })
@@ -812,7 +831,8 @@ document.addEventListener('DOMContentLoaded', () => {
        delete localStorage.taskImage
        showView('adult-task-info')
        adultTaskBar.innerHTML += newTask.renderTaskSpan()
-       adultTaskInfo.innerHTML = newTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
+       //render the changes so the DOM is in sync with our data
+       adultTaskInfo.innerHTML = newTask.renderAdultDetails()
        setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
      })
    })
@@ -872,14 +892,14 @@ document.addEventListener('DOMContentLoaded', () => {
       showViews('adult-edit-task-form', 'adult-edit-task-image-bar-container', 'adult-edit-sticker-bar-container')
       setTimeout(() => { adultEditTaskForm.scrollIntoView({behavior: "smooth"}) }, 1000)
       const clickedTaskId = parseInt(event.target.dataset.id)
-      const foundTask = Task.findTask(clickedTaskId) //find the task object based on the id found in the clicked edit button
+      const foundTask = Task.findTask(clickedTaskId) //find the Task object based on the id found in the clicked edit button
       localStorage.setItem("originalSticker", foundTask.stickerImage)
       // pre-fill the form data:
       adultEditTaskNameInput.value = foundTask.name
       adultEditTaskValueInput.value = foundTask.value
       adultEditTaskImageInput.value = foundTask.image
       adultEditTaskCompletedInput.checked = foundTask.completed
-      adultEditTaskForm.dataset.id = foundTask.id //store the task id in the form so we can PATCH with that id later
+      adultEditTaskForm.dataset.id = foundTask.id //store the Task id in the form so we can PATCH with that id later
     }
   })
 
@@ -974,7 +994,8 @@ document.addEventListener('DOMContentLoaded', () => {
       delete localStorage.editedTaskImage
       delete localStorage.clickedSticker
       showView('adult-task-info')
-      adultTaskInfo.innerHTML = updatedTask.renderAdultDetails() //render the changes so the DOM is in sync with our data
+      //render the changes so the DOM is in sync with our data
+      adultTaskInfo.innerHTML = updatedTask.renderAdultDetails()
       setTimeout(() => { adultTaskInfo.scrollIntoView({behavior: "smooth"}) }, 500)
     })
   })
@@ -991,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`http://localhost:3000/api/v1/tasks/${taskToDeleteId}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json', //MIME type we're sending to the server
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         })
@@ -1197,7 +1218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             adultPrizeBar.innerHTML += newPrize.renderPrizeSpan()
           })
         } else {
-            adultPrizeBar.innerHTML = ``
+            adultPrizeBar.innerHTML = `` //FLAG
             alertToCreateChildren('Prizes')
         }
         adultPrizeBar.scrollIntoView({behavior: "smooth"})
@@ -1228,7 +1249,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'addPrizeBtn') {
-      alertToCreateChildren('Prizes')
+      alertToCreateChildren('Prizes') //FLAG 
       const token = localStorage.token
       
       fetch('http://localhost:3000/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
@@ -1261,7 +1282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickedPrizeImageId = parseInt(event.target.dataset.id)
     const foundPrizeImage = PrizeImage.findPrizeImage(clickedPrizeImageId)
     localStorage.setItem("prizeImage", foundPrizeImage.imageUrl)
-    setTimeout(() => { hideView('adult-prize-image-bar-container') }, 1500)
+    setTimeout(() => { hideView('adult-prize-image-bar-container') }, 1500) //FLAG
     showView('adult-prize-image-info')
     adultPrizeImageInfo.innerHTML = foundPrizeImage.renderPrizeImageDetails()
     adultPrizeImageInfo.scrollIntoView({behavior: 'smooth'})
@@ -1313,7 +1334,8 @@ document.addEventListener('DOMContentLoaded', () => {
       showView('adult-prize-info')
       adultPrizeBar.innerHTML += newPrize.renderPrizeSpan()
       adultPrizesBtn.click()
-      adultPrizeInfo.innerHTML = newPrize.renderAdultPrizeDetails() //render the changes so the DOM is in sync with our data
+      //render the changes so the DOM is in sync with our data
+      adultPrizeInfo.innerHTML = newPrize.renderAdultPrizeDetails()
       setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 500)
     })
   })
@@ -1354,13 +1376,13 @@ document.addEventListener('DOMContentLoaded', () => {
       hideViews('adult-prize-info', 'adult-edit-prize-image-info')
       showViews('adult-edit-prize-form', 'adult-edit-prize-image-bar-container')
       const clickedPrizeId = parseInt(event.target.dataset.id)
-      const foundPrize = Prize.findPrize(clickedPrizeId) //find the prize object based on the id found in the clicked edit button
+      const foundPrize = Prize.findPrize(clickedPrizeId) //find the Prize object based on the id found in clicked edit button
       // pre-fill the form data:
       adultEditPrizeNameInput.value = foundPrize.name
       adultEditPrizeCostInput.value = foundPrize.cost
       adultEditPrizeImageInput.value = foundPrize.image
       adultEditPrizePurchasedInput.checked = foundPrize.purchased
-      adultEditPrizeForm.dataset.id = foundPrize.id //store the prize id in the form so we can PATCH with that id later
+      adultEditPrizeForm.dataset.id = foundPrize.id //store the Prize id in the form so we can PATCH with that id later
     }
   })
 
@@ -1418,7 +1440,8 @@ document.addEventListener('DOMContentLoaded', () => {
       adultEditPrizeForm.reset()
       delete localStorage.editedPrizeImage
       showView('adult-prize-info')
-      adultPrizeInfo.innerHTML = updatedPrize.renderAdultPrizeDetails() //render the changes so the DOM is in sync with our data
+      //render the changes so the DOM is in sync with our data
+      adultPrizeInfo.innerHTML = updatedPrize.renderAdultPrizeDetails()
       setTimeout(() => { adultPrizeInfo.scrollIntoView({behavior: "smooth"}) }, 500)
     })
   })
@@ -1427,7 +1450,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultPrizeInfo.addEventListener('click', (event) => {
     if (event.target.className === 'delete' || event.target.dataset.action === 'delete') {
       console.log(event.target)
-      const result = confirm("Are you sure you want to delete this Prize? Click ok to confirm.")
+      const result = confirm("Are you sure you want to delete this Prize? Click ok to confirm.") //FLAG
       if (result) {
         const prizeToDeleteId = event.target.dataset.id
         const token = localStorage.token
@@ -1435,7 +1458,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`http://localhost:3000/api/v1/prizes/${prizeToDeleteId}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json', //MIME type we're sending to the server
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         })
