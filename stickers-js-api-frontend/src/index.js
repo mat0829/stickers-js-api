@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const indexNavBar = document.querySelector('#index-nav')
   const adultNavBar = document.querySelector('#adult-nav-bar')
   const childNavBar = document.querySelector('#child-nav-bar')
+  const adultUserErrorsInfo = document.querySelector('#adult-user-errors-info')
+  const childUserErrorsInfo = document.querySelector('#child-user-errors-info')
 
 // ADULT NEW USER
   const adultUserForm = document.querySelector('#adult-new-user-form')
@@ -133,15 +135,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function adultLoggedIn() {
     if (localStorage.loggedIn == 'true') {
-      element = document.getElementById('adult-login-signup-container')
-      element.style.display = 'none'
+      hideViews('index-nav', 'adult-login-signup-container', 'adult-user-errors-info')
+      showView('adult-user-container')
+    } else {
+      hideViews('adult-user-container', 'child-login-signup-container', 'child-user-errors-info')
+      adultUserErrorsInfo.innerHTML = ''
+      showViews('index-nav','adult-login-signup-container', 'adult-user-errors-info')
     }
   }
 
   function childLoggedIn() {
     if (localStorage.loggedIn == 'true') {
-      element = document.getElementById('child-login-signup-container')
-      element.style.display = 'none'
+      hideViews('index-nav', 'child-login-signup-container', 'child-user-errors-info')
+      showView('child-user-container')
+    } else {
+      hideViews('child-user-container', 'adult-login-signup-container', 'adult-user-errors-info')
+      childUserErrorsInfo.innerHTML = ''
+      showViews('index-nav','child-login-signup-container', 'child-user-errors-info')
     }
   }
 
@@ -201,15 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
   indexNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'adultPageBtn') {
+      hideView('child-user-errors-info')
       adultLoggedIn()
-      hideView('index-nav')
-      showView("adult-user-container")
-    }
-
-    if (event.target.id === 'childPageBtn') {
+    } else if (event.target.id === 'childPageBtn') {
+      hideView('adult-user-errors-info')
       childLoggedIn()
-      hideView("index-nav")
-      showView("child-user-container")
     }
   })
 
@@ -234,14 +240,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((returnUserJSON) => {
       if (returnUserJSON.message !== undefined) {
         const newUser = new User(returnUserJSON)
-        adultUserInfo.innerHTML = newUser.renderLoginErrors()
+        adultUserErrorsInfo.innerHTML = newUser.renderLoginErrors()
       } else {
           avatarCreationIfEmpty(returnUserJSON.user)
           const newUser = new User(returnUserJSON)
           localStorage.setItem("token", newUser.token)
           localStorage.setItem("parentId", newUser.id)
           localStorage.setItem("loggedIn", newUser.logged_in)
-          hideView('adult-login-signup-container')
+          hideViews('users-signup-login-container', 'index-nav')
+          showView('adult-user-container')
           adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
           setTimeout(() => { adultUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
@@ -308,15 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (newUserJSON.errors !== undefined) {
         const newUser = new User(newUserJSON)
         hideView('adult-login-signup-container')
-        adultUserInfo.innerHTML = newUser.renderUserErrors('Adult')
+        adultUserErrorsInfo.innerHTML = newUser.renderUserErrors('Adult')
       } else {
           avatarCreationIfEmpty(newUserJSON.user)
           const newUser = new User(newUserJSON)
           localStorage.setItem("token", newUser.token)
           localStorage.setItem("parentId", newUser.id)
           localStorage.setItem("loggedIn", newUser.logged_in)
-          hideView('adult-login-signup-container')
-          showView('adult-user-info')
+          hideViews('users-signup-login-container', 'index-nav')
+          showView('adult-user-container')
           //render the changes so the DOM is in sync with our data
           adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
           setTimeout(() => { adultUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
@@ -325,9 +332,9 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 // RETURN TO CREATE ADULT USER FORM
-  adultUserInfo.addEventListener('click', (event) => {
+  adultUserErrorsInfo.addEventListener('click', (event) => {
     if (event.target.className === 'createAdultUserForm') {
-      adultUserInfo.innerHTML = ''
+      adultUserErrorsInfo.innerHTML = ''
       showView('adult-login-signup-container')
     }
   })
@@ -442,14 +449,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((returnUserJSON) => {
       if (returnUserJSON.message !== undefined) {
         const newUser = new User(returnUserJSON)
-        childUserInfo.innerHTML = newUser.renderLoginErrors()
+        childUserErrorsInfo.innerHTML = newUser.renderLoginErrors()
       } else {
           avatarCreationIfEmpty(returnUserJSON.user)
           const newUser = new User(returnUserJSON)
           localStorage.setItem("token", newUser.token)
           localStorage.setItem("childId", newUser.id)
           localStorage.setItem("loggedIn", newUser.logged_in)
-          hideView('child-login-signup-container')
+          hideViews('users-signup-login-container', 'index-nav')
+          showView('child-user-container')
           childUserInfo.innerHTML = newUser.renderChildUserProfile()
           setTimeout(() => { childUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
@@ -516,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (newUserJSON.errors !== undefined) {
         const newUser = new User(newUserJSON)
         hideView('child-login-signup-container')
-        childUserInfo.innerHTML = newUser.renderUserErrors('Child')
+        childUserErrorsInfo.innerHTML = newUser.renderUserErrors('Child')
       } else {
           avatarCreationIfEmpty(newUserJSON.user)
           const newUser = new User(newUserJSON)
@@ -526,18 +534,18 @@ document.addEventListener('DOMContentLoaded', () => {
           childNames.push(childObject) // Add new childObject to childNames array
           window.localStorage.setItem('childNames', JSON.stringify(childNames))
           localStorage.setItem("loggedIn", newUser.logged_in)
-          hideView('child-login-signup-container')
-          showView('child-user-info')
+          hideViews('users-signup-login-container', 'index-nav')
+          showView('child-user-container')
           childUserInfo.innerHTML = newUser.renderChildUserProfile()
           setTimeout(() => { childUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       }
     })
   })
 
-// RETURN TO CREATE ADULT CHILD FORM
-  childUserInfo.addEventListener('click', (event) => {
+// RETURN TO CREATE CHILD USER FORM
+  childUserErrorsInfo.addEventListener('click', (event) => {
     if (event.target.className === 'createChildUserForm') {
-      childUserInfo.innerHTML = ''
+      childUserErrorsInfo.innerHTML = ''
       showView('child-login-signup-container')
     }
   })
