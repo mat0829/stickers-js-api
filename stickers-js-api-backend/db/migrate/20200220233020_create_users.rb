@@ -5,7 +5,6 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :password_digest
       t.string :avatar
-      t.string :token
       t.integer :points, default: '0'
       t.text :stickers, array: true, default: []
       t.text :prizes, array: true, default: []

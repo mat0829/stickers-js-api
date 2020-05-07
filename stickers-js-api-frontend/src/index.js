@@ -137,6 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function alertToCreateChildren(className) {
+    if (!localStorage.childNames) {
+      setTimeout(() => { alert(`Logout and make Child Users to start creating ${className}.`) }, 500)
+    }
+  }
+
   function avatarCreationIfEmpty(jsonUserData) {
     const number = Math.floor((Math.random() * 100) + 1)
     if (jsonUserData.avatar == '') {
@@ -174,12 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 `
     }
   }
-
-  function alertToCreateChildren(className) {
-    if (!localStorage.childNames) {
-      setTimeout(() => { alert(`Logout and make Child Users to start creating ${className}.`) }, 500)
-    }
-  } 
 
 // INDEX NAV BAR
   indexNavBar.addEventListener('click', (event) => {
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW ADULT USER
   adultUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
-
+  
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -504,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const newUser = new User(newUserJSON)
           localStorage.setItem("token", newUser.token)
           const childNames = JSON.parse(localStorage.getItem("childNames")) || [] // Get or create childNames Array
-          const childObject = ' ' + '[' + newUser.name + '-' + ' ' + 'id:' + ' ' + newUser.id + ']' + ' '
+          const childObject = ' ' + '[' + newUser.name + '-' + ' ' + 'ID:' + ' ' + newUser.id + ']' + ' '
           childNames.push(childObject) // Add new childObject to childNames array
           window.localStorage.setItem('childNames', JSON.stringify(childNames))
           localStorage.setItem("loggedIn", newUser.logged_in)
@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
      event.preventDefault()
      const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
      const parentId = localStorage.parentId
-     const childId = prompt(`Type in the id of the child the task is for: ${storedChildNames}` )
+     const childId = prompt(`Type in the ID of the child the task is for: ${storedChildNames}` )
      const sticker = localStorage.sticker
      const taskImage = localStorage.taskImage
      if (newTaskImageInput.value == '') {
@@ -1112,8 +1112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         userStickers.push(taskSticker)
         const taskValue = localStorage.taskValue
         const totalPoints = parseInt(taskValue) + parseInt(points)
-        const foundTask = Task.findTask(taskId)
         const taskId = parseInt(localStorage.taskId)
+        const foundTask = Task.findTask(taskId)
 
         fetch(`http://localhost:3000/api/v1/tasks/${taskId}`, {
           method: 'PATCH',
@@ -1280,7 +1280,7 @@ document.addEventListener('DOMContentLoaded', () => {
   newPrizeForm.addEventListener('submit', (event) => {
     event.preventDefault()
     const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
-    const childId = prompt(`Type in the id of the child the prize is for: ${storedChildNames}` )
+    const childId = prompt(`Type in the ID of the child the prize is for: ${storedChildNames}` )
     const token = localStorage.token
     const parentId = localStorage.parentId
     const prizeImage = localStorage.prizeImage

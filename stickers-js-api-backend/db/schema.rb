@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_195155) do
     t.string "email"
     t.string "password_digest"
     t.string "avatar"
-    t.string "token"
     t.integer "points", default: 0
     t.text "stickers", default: [], array: true
     t.text "prizes", default: [], array: true
