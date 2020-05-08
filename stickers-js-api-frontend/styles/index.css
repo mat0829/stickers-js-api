@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Ultra&display=swap');
+
+/*https://wallpapercave.com/wp/wp3430475.jpg */
+
 body {
-  background: white;
+  background: url(https://wallpapercave.com/wp/wp3430475.jpg) center no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   margin: 0;
 }
 
@@ -35,8 +40,8 @@ li {
 }
 
 #adult-user-info img {
-  max-width: 15vw;
-  max-height: 15vw;
+  max-width: 20vw;
+  max-height: 20vw;
 }
 
 /* ADULT TASKS */
@@ -190,8 +195,8 @@ li {
 }
 
 #adult-prize-info img {
-  max-width: 25vw;
-  max-height: 25vw;
+  max-width: 20vw;
+  max-height: 20vw;
 }
 
 /* ADULT PRIZE IMAGES */
@@ -235,8 +240,8 @@ li {
 }
 
 #adult-edit-prize-image-info img {
-  max-width: 25vw;
-  max-height: 25vw;
+  max-width: 20vw;
+  max-height: 20vw;
 }
 
 /* CHILD USER */
@@ -262,6 +267,7 @@ li {
   height: 80%;
   width: 8vw;
   display: flex;
+  font-family: 'Ultra', serif;
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
@@ -327,8 +333,8 @@ li {
 }
 
 #child-prize-info img {
-  max-width: 25vw;
-  max-height: 25vw;
+  max-width: 20vw;
+  max-height: 20vw;
 }
 
 /* CHILD PRIZE IMAGES */

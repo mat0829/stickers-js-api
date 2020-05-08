@@ -1226,7 +1226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             adultPrizeBar.innerHTML += newPrize.renderPrizeSpan()
           })
         } else {
-            adultPrizeBar.innerHTML = `` //FLAG
+            adultPrizeBar.innerHTML = ``
             alertToCreateChildren('Prizes')
         }
         adultPrizeBar.scrollIntoView({behavior: "smooth"})

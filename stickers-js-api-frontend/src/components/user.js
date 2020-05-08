@@ -89,12 +89,35 @@ class User {
   }
 
   renderAdultUserProfile() {
+    let tasksForChildren = [] // 1st half of tasksForChildren unordered list
+
+    if (this.parentTasks.length !== 0) {
+      this.parentTasks.forEach(function(task) {
+        tasksForChildren.push(task)// add line items to tasksForChildren list
+      })
+    } else {
+        tasksForChildren = 'You have created 0 tasks.'
+    }
+
     let childNames = '<ul>' // 1st half of childNames unordered list
 
     if (this.children.length !== 0) {
       this.children.forEach(function(child) {
+        let tasksForChild = '<ul>'
+
+        tasksForChildren.forEach(function(task) {
+          if (task.taskReceiverId == child.id) { // Only allowing tasks with the child.id
+            tasksForChild += `<li>${task.name}</li>`
+          }
+        })
+        
+        tasksForChild += '</ul>'
+        
         if (!childNames.includes(child.name)) { // Checking for duplicate child names
-          childNames += `<li>${child.name}</li>` // add line items to childNames list
+          childNames += `<li>${child.name}</li>
+                         <img src="${child.avatar}" width='150px' height='150px'><br>
+                         <h2>Current Tasks:</h2>
+                         ${tasksForChild}<br>`
         }
       })
     } else {
@@ -102,28 +125,15 @@ class User {
     }
 
     childNames += '</ul>' // 2nd half of childNames unordered list
-
-    let tasksForChildren = '<ul>' // 1st half of tasksForChildren unordered list
-
-    if (this.parentTasks.length !== 0) {
-      this.parentTasks.forEach(function(task) {
-        tasksForChildren += `<li>${task.name}</li>` // add line items to tasksForChildren list
-      })
-    } else {
-        tasksForChildren += '<li>'+  'You have created 0 tasks.' + '</li>'
-    }
-
-    tasksForChildren += '</ul>' // 2nd half of tasksForChildren unordered list
     
     return `<h1>${this.name}</h1>
             <img src="${this.avatar}"><br>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
-            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
+            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
+            <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button><br>
             
             <h2>Children:</h2>
             ${childNames}
-            <h2>Tasks Given:</h2>
-            ${tasksForChildren}
             `
   }
 
