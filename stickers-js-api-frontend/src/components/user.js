@@ -52,6 +52,8 @@ class User {
         this.children = userObj.user.children
         this.parentTasks = userObj.user.parent_tasks
         this.childTasks = userObj.user.child_tasks
+        this.parentPrizes = userObj.user.parent_prizes
+        this.childPrizes = userObj.user.child_prizes
         User.allUsers.push(this)
     }
   }
@@ -89,39 +91,72 @@ class User {
   }
 
   renderAdultUserProfile() {
-    let tasksForChildren = [] // 1st half of tasksForChildren unordered list
+    let tasksForChildren = []
+    let purchasedPrizes = []
 
     if (this.parentTasks.length !== 0) {
       this.parentTasks.forEach(function(task) {
-        tasksForChildren.push(task)// add line items to tasksForChildren list
+        tasksForChildren.push(task)
       })
     } else {
         tasksForChildren = 'You have created 0 tasks.'
     }
 
+    let prizesForChildren = this.parentPrizes
+    
+
     let childNames = '<ul>' // 1st half of childNames unordered list
 
     if (this.children.length !== 0) {
       this.children.forEach(function(child) {
-        let tasksForChild = '<ul>'
+        let currentTasks = '<ul>'
+        let completedTasks = '<ul>'
 
         tasksForChildren.forEach(function(task) {
-          if (task.taskReceiverId == child.id) { // Only allowing tasks with the child.id
-            tasksForChild += `<li>${task.name}</li>`
+          if (task.taskReceiverId == child.id && task.completed == false) { // Only non-completed tasks with the child.id
+            currentTasks += `<li>${task.name}</li>`
+          } else if (task.taskReceiverId == child.id && task.completed == true) {
+            completedTasks += `<li> ${child.name} has completed "${task.name}"</li>`
           }
         })
         
-        tasksForChild += '</ul>'
+        if (currentTasks == '<ul>') {
+          currentTasks += `<li>${child.name} does not currently have any Tasks.</li></ul>`
+        } else {
+          currentTasks += '</ul>'
+        }
+
+        if (completedTasks == '<ul>') {
+          completedTasks += `<li>${child.name} has not completed any Tasks.</li></ul>`
+        } else {
+          completedTasks += '</ul>'
+        }
+
+        prizesForChildren.forEach(function(prize) {
+          if (prize.prizeReceiverId == child.id && prize.purchased == true) { // Only allowing prizes with the child.id
+            if (!purchasedPrizes.includes(child.name)) {
+              purchasedPrizes += `${child.name} has purchased the Prize: "${prize.name}"`
+            }
+          }
+        })
         
         if (!childNames.includes(child.name)) { // Checking for duplicate child names
-          childNames += `<li>${child.name}</li>
-                         <img src="${child.avatar}" width='150px' height='150px'><br>
+          childNames += `<h2>(${child.name})</h2>
+                         <img src="${child.avatar}" width='150px' height='150px'>
+                         <h3>Sticker Points: ${child.points}</h3>
                          <h2>Current Tasks:</h2>
-                         ${tasksForChild}<br>`
+                         ${currentTasks}<br>
+                         <h2>Completed Tasks:</h2>
+                         ${completedTasks}
+                         `
         }
       })
     } else {
         childNames += '<li>' + 'You currently have 0 children.' + '</li>'
+    }
+    
+    if (purchasedPrizes.length !== 0) {
+      alert(purchasedPrizes)
     }
 
     childNames += '</ul>' // 2nd half of childNames unordered list
@@ -132,13 +167,14 @@ class User {
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
             <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button><br>
             
-            <h2>Children:</h2>
+            <h1>Children:</h1>
             ${childNames}
             `
   }
 
   renderChildUserProfile() {
     let currentTasks = '<ul>' // 1st half of currentTasks unordered list
+    let completedTasks = '<ul>' // 1st half of currentTasks unordered list
 
     if (this.childTasks.length !== 0) {
       this.childTasks.forEach(function(task) {
@@ -147,6 +183,8 @@ class User {
         } else if (task.value !== 0) {
             let completedTaskWithPoints = `${task.name}` // assign to completed task with points for collecting
             alert(`You have completed the Task: "${completedTaskWithPoints}"! \n\nGo to the Tasks page to collect your rewards!`)
+        } else if (task.completed == true) {
+          completedTasks += `<li>${task.name}</li>` // add line items to completedTasks list
         }
       })
     } else {
@@ -154,6 +192,7 @@ class User {
     }
 
     currentTasks += '</ul>' // 2nd half of currentTasks unordered list
+    completedTasks += '</ul>' // 2nd half of completedTasks unordered list
 
     return `<h1>${this.name}</h1>
             <img src="${this.avatar}"><br>
@@ -162,8 +201,10 @@ class User {
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
 
-            <h1>Current Tasks: </h1>
+            <h1>Current Tasks:</h1>
             ${currentTasks}
+            <h1>Completed Tasks:</h1>
+            ${completedTasks}
             `
   }
 
