@@ -1,12 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Ultra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Emilys+Candy&family=Salsa&family=Ultra&display=swap');
 
-/*https://wallpapercave.com/wp/wp3430475.jpg */
+/*https://wallpapercave.com/wp/wp3430475.jpg
+
+font-family: 'Emilys Candy', cursive;
+font-family: 'Salsa', cursive;
+*/
+h1 {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 50px;
+}
+
+h2 {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 30px;
+}
 
 body {
   background: url(https://wallpapercave.com/wp/wp3430475.jpg) center no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  margin: 0;
+  font-family: 'Salsa', cursive;
 }
 
 /* HEADER */
@@ -16,11 +29,21 @@ body {
 }
 
 #stickers-header img {
+  background-color: #302244;
+  border: 7px solid transparent;
+  border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  border-image-slice: 1;
+  margin: 20px auto;
   max-width: 30vw;
   max-height: 30vw;
 }
 
 /* GENERAL */
+select {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
+}
+
 ul {
   padding-inline-start: 0px;
 }
@@ -30,18 +53,42 @@ li {
   text-align: center;
   margin: 0 0 8px 0;
   list-style: square;
-  font-weight: bold;
   list-style-position: inside;
 }
 
 /* ADULT USER */
+#adult-login-signup-container input[type="submit" i] {
+  background-image: linear-gradient(to right, #b827fc, #2c90fc, #b8fd33);
+}
+
 #adult-user-info {
+  display: block;
+  flex-flow: column;
+  align-items: center;
   padding-bottom: 25px;
+}
+
+#adult-user-info button {
+  color: white;
+  background-image: linear-gradient(to right, blue, purple, teal);
 }
 
 #adult-user-info img {
   max-width: 20vw;
   max-height: 20vw;
+}
+
+#adult-user-info div {
+  display: inline-flex;
+}
+
+#adult-user-info span {
+  display: inline-block;
+  padding: 5px;
+  border: 3px solid transparent;
+  border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  border-image-slice: 1;
+  margin: 30px;
 }
 
 /* ADULT TASKS */
@@ -51,21 +98,24 @@ li {
 }
 
 #adult-task-bar {
-  height: 20vh;
-  background: yellow;
+  height: 25vh;
+  background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   display: flex;
+  width: auto;
   justify-content: space-around;
   align-items: center;
 }
 
 #adult-task-bar span {
+  font-size: 20px;
   height: 80%;
-  width: 8vw;
+  width: 10vw;
   display: flex;
   justify-content: center;
+  margin: 5px;
   align-items: center;
   border-radius: 1rem;
-  border: 1px solid blue;
+  border: 2px solid black;
 }
 
 #adult-task-info {
@@ -177,9 +227,9 @@ li {
 }
 
 #adult-prize-bar {
-  height: 20vh;
-  background: yellow;
-  display: flex;
+  height: auto;
+  background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  display: block;
   justify-content: space-around;
   align-items: center;
 }
@@ -245,8 +295,21 @@ li {
 }
 
 /* CHILD USER */
+#child-login-signup-container input[type="submit" i] {
+  background-image: linear-gradient(to right, #b827fc, #2c90fc, #b8fd33);
+}
+
 #child-user-info {
   padding-bottom: 25px;
+}
+
+#child-user-info li{
+  font-size: 25px;
+}
+
+#child-user-info button {
+  color: white;
+  background-image: linear-gradient(to right, blue, purple, teal);
 }
 
 #child-user-info img {
@@ -256,22 +319,24 @@ li {
 
 /* CHILD TASKS */
 #child-task-bar {
-  height: 20vh;
-  background: yellow;
+  height: 25vh;
+  background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   display: flex;
+  width: auto;
   justify-content: space-around;
   align-items: center;
 }
 
 #child-task-bar span {
+  font-size: 20px;
   height: 80%;
-  width: 8vw;
+  width: 10vw;
   display: flex;
-  font-family: 'Ultra', serif;
   justify-content: center;
+  margin: 5px;
   align-items: center;
   border-radius: 1rem;
-  border: 1px solid blue;
+  border: 2px solid black;
 }
 
 #child-tasks-container {
@@ -315,9 +380,9 @@ li {
 }
 
 #child-prize-bar {
-  height: 20vh;
-  background: yellow;
-  display: flex;
+  height: auto;
+  background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  display: block;
   justify-content: space-around;
   align-items: center;
 }
@@ -360,7 +425,28 @@ li {
   max-height: 125px;
 }
 
-/* ADULT PAGE NAV BUTTONS */
+/* ADULT BUTTONS */
+input[type="submit" i] {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
+  color: white;
+  background-image: linear-gradient(to right, blue, red);
+}
+
+#adult-tasks-container button {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
+  color: white;
+  background-image: linear-gradient(to right, blue, red);
+}
+
+#adult-prizes-container button {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
+  color: white;
+  background-image: linear-gradient(to right, blue, red);
+}
+
 .adultPageBtn {
   color: black;
   background-image: linear-gradient(to right, red, yellow);
@@ -399,7 +485,21 @@ li {
   background-image: linear-gradient(to right, rgb(250, 120, 142), gold);
 }
 
-/* CHILD PAGE NAV BUTTONS */
+/* CHILD BUTTONS */
+#child-tasks-container button {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
+  color: white;
+  background-image: linear-gradient(to right, blue, red);
+}
+
+#child-prizes-container button {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
+  color: white;
+  background-image: linear-gradient(to right, blue, red);
+}
+
 .childPageBtn {
   color: black;
   background-image: linear-gradient(to right, gold, lime);
@@ -430,6 +530,11 @@ li {
 }
 
 /* BUTTONS */
+button {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
+}
+
 .delete.delete { 
   color: red;
 }

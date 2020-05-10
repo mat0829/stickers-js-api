@@ -102,10 +102,9 @@ class User {
         tasksForChildren = 'You have created 0 tasks.'
     }
 
-    let prizesForChildren = this.parentPrizes
-    
+    const prizesForChildren = this.parentPrizes
 
-    let childNames = '<ul>' // 1st half of childNames unordered list
+    let childNames = '<div>' // 1st half of childNames unordered list
 
     if (this.children.length !== 0) {
       this.children.forEach(function(child) {
@@ -141,14 +140,14 @@ class User {
         })
         
         if (!childNames.includes(child.name)) { // Checking for duplicate child names
-          childNames += `<h2>(${child.name})</h2>
+          childNames += `<span><h2>${child.name}</h2>
                          <img src="${child.avatar}" width='150px' height='150px'>
                          <h3>Sticker Points: ${child.points}</h3>
                          <h2>Current Tasks:</h2>
                          ${currentTasks}<br>
                          <h2>Completed Tasks:</h2>
                          ${completedTasks}
-                         `
+                         </span>`
         }
       })
     } else {
@@ -159,7 +158,7 @@ class User {
       alert(purchasedPrizes)
     }
 
-    childNames += '</ul>' // 2nd half of childNames unordered list
+    childNames += '</div>' // 2nd half of childNames unordered list
     
     return `<h1>${this.name}</h1>
             <img src="${this.avatar}"><br>
@@ -168,7 +167,8 @@ class User {
             <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button><br>
             
             <h1>Children:</h1>
-            ${childNames}
+            ${childNames}<br>
+            <button class="top">Top of Page</button><br><br>
             `
   }
 
@@ -187,24 +187,30 @@ class User {
           completedTasks += `<li>${task.name}</li>` // add line items to completedTasks list
         }
       })
-    } else {
+    } else if (currentTasks == '<ul>') {
         currentTasks += '<li>'+'You currently have 0 tasks. Ask your parent(s) to create some for you.'+'</li>' // add if 0 tasks
     }
-
+    
     currentTasks += '</ul>' // 2nd half of currentTasks unordered list
-    completedTasks += '</ul>' // 2nd half of completedTasks unordered list
+    if (completedTasks == '<ul>') {
+      completedTasks += '<li>'+'You have not completed any Tasks.'+'</li>'
+    } else {
+      completedTasks += '</ul>' // 2nd half of completedTasks unordered list
+    }
 
     return `<h1>${this.name}</h1>
             <img src="${this.avatar}"><br>
             <h2>Sticker Points: ${this.points}</h2>
-            <h3>Stickers: ${this.stickers.length}</h3>
+            <h2>Stickers: ${this.stickers.length}</h2>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
-            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br>
+            <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
+            <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button><br>
 
             <h1>Current Tasks:</h1>
             ${currentTasks}
             <h1>Completed Tasks:</h1>
-            ${completedTasks}
+            ${completedTasks}<br>
+            <button class="top">Top of Page</button><br><br>
             `
   }
 

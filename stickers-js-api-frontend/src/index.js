@@ -213,9 +213,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.id === 'adultPageBtn') {
       hideView('child-user-errors-info')
       adultLoggedIn()
+      setTimeout(() => { adultLoginForm.scrollIntoView({behavior: "smooth"}) }, 500)
     } else if (event.target.id === 'childPageBtn') {
       hideView('adult-user-errors-info')
       childLoggedIn()
+      setTimeout(() => { childLoginForm.scrollIntoView({behavior: "smooth"}) }, 500)
     }
   })
 
@@ -287,6 +289,14 @@ document.addEventListener('DOMContentLoaded', () => {
         adultUserInfo.innerHTML = newUser.renderAdultUserProfile()
         setTimeout(() => { adultUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       })
+    }
+  })
+
+// SCROLL TO TOP OF CHILD PROFILE PAGE
+  adultUserInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'top') {
+      const element = document.getElementById('stickers-header')
+      element.scrollIntoView({behavior: "smooth"})
     }
   })
 
@@ -496,6 +506,14 @@ document.addEventListener('DOMContentLoaded', () => {
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
         setTimeout(() => { childUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       })
+    }
+  })
+
+// SCROLL TO TOP OF CHILD PROFILE PAGE
+  childUserInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'top') {
+      const element = document.getElementById('stickers-header')
+      element.scrollIntoView({behavior: "smooth"})
     }
   })
 
@@ -1082,8 +1100,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(/*function*/(userDataJSON) => {
         hideViews('child-prizes-container', 'child-tasks-container' , 'child-stickers-container', 'child-user-info', 
                   'child-edit-user-form')
-        childStickerCollection.innerHTML = `<h2>Your Stickers Collection:</h2>
-                                            <h3>Total Stickers = ${userDataJSON.user.stickers.length}</h3>`
+        childStickerCollection.innerHTML = `<h1>Your Stickers Collection:</h1>
+                                            <h2>Total Stickers = ${userDataJSON.user.stickers.length}</h2>`
         showView('child-stickers-collection')
         
         if (userDataJSON.user.stickers.length !== 0) {
