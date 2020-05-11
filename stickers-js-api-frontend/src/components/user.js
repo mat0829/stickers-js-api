@@ -134,7 +134,8 @@ class User {
         prizesForChildren.forEach(function(prize) {
           if (prize.prizeReceiverId == child.id && prize.purchased == true) { // Only allowing prizes with the child.id
             if (!purchasedPrizes.includes(child.name)) {
-              purchasedPrizes += `${child.name} has purchased the Prize: "${prize.name}"`
+              purchasedPrizes += `${child.name} has purchased the Prize: "${prize.name}"
+              \n Please Edit or Delete ${prize.name} to get rid of this message.`
             }
           }
         })
@@ -164,11 +165,11 @@ class User {
             <img src="${this.avatar}"><br>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
-            <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button><br>
+            <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button>
             
             <h1>Children:</h1>
             ${childNames}<br>
-            <button class="top">Top of Page</button><br><br>
+            <button class="top">Top of Page</button>
             `
   }
 
@@ -184,14 +185,19 @@ class User {
             let completedTaskWithPoints = `${task.name}` // assign to completed task with points for collecting
             alert(`You have completed the Task: "${completedTaskWithPoints}"! \n\nGo to the Tasks page to collect your rewards!`)
         } else if (task.completed == true) {
-          completedTasks += `<li>${task.name}</li>` // add line items to completedTasks list
+            completedTasks += `<li>${task.name}</li>` // add line items to completedTasks list
         }
       })
     } else if (currentTasks == '<ul>') {
         currentTasks += '<li>'+'You currently have 0 tasks. Ask your parent(s) to create some for you.'+'</li>' // add if 0 tasks
     }
+
+    if (currentTasks == '<ul>') {
+      currentTasks += '<li>'+'You currently have 0 tasks. Ask your parent(s) to create some for you.'+'</li>'
+    }
     
     currentTasks += '</ul>' // 2nd half of currentTasks unordered list
+    
     if (completedTasks == '<ul>') {
       completedTasks += '<li>'+'You have not completed any Tasks.'+'</li>'
     } else {
@@ -204,13 +210,13 @@ class User {
             <h2>Stickers: ${this.stickers.length}</h2>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
-            <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button><br>
+            <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button>
 
-            <h1>Current Tasks:</h1>
+            <h2>Current Tasks:</h2>
             ${currentTasks}
-            <h1>Completed Tasks:</h1>
-            ${completedTasks}<br>
-            <button class="top">Top of Page</button><br><br>
+            <h2>Completed Tasks:</h2>
+            ${completedTasks}
+            <button class="top">Top of Page</button>
             `
   }
 
@@ -234,7 +240,7 @@ class User {
             <img src="${this.avatar}">
             <h2>You have purchased:</h2>
             <img src="${collectedPrize}"><br><br>
-            <button class="top">Top of Page</button><br><br>
+            <button class="top">Top of Page</button>
            `
   }
 }

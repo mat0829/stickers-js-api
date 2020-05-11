@@ -34,8 +34,17 @@ h2 {
   font-size: 30px;
 }
 
+h3 {
+  font-size: 20px;
+}
+
 form {
   padding-bottom: 2vw;
+}
+
+input {
+  font-family: 'Salsa', cursive;
+  font-size: 20px;
 }
 
 select {
@@ -65,6 +74,14 @@ li {
   flex-flow: column;
   align-items: center;
   padding-bottom: 25px;
+}
+
+#adult-user-info h1{
+  margin-block-end: 0.10em;
+}
+
+#adult-user-info h2{
+  margin-block-end: 0.10em;
 }
 
 #adult-user-info button {
@@ -225,6 +242,13 @@ li {
   text-align: center;
 }
 
+#adult-prize-info {
+  display: block;
+  flex-flow: column;
+  align-items: center;
+  padding-bottom: 25px;
+}
+
 #adult-prize-bar {
   height: auto;
   background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
@@ -302,6 +326,10 @@ li {
   padding-bottom: 25px;
 }
 
+#child-user-info h1{
+  margin-block-end: 0.10em;
+}
+
 #child-user-info li{
   font-size: 25px;
 }
@@ -358,6 +386,7 @@ li {
 /* CHILD STICKERS*/
 #child-stickers-collection {
   text-align: center;
+  padding-bottom: 25px;
 }
 
 #child-stickers-collection img {
@@ -378,9 +407,15 @@ li {
   text-align: center;
 }
 
+#child-prize-info {
+  display: block;
+  flex-flow: column;
+  align-items: center;
+  padding-bottom: 25px;
+}
+
 #child-prize-bar {
   height: auto;
-  line-height: 25vh;
   background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   display: block;
   justify-content: space-around;
