@@ -1,20 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Emilys+Candy&family=Salsa&family=Ultra&display=swap');
 
-/*https://wallpapercave.com/wp/wp3430475.jpg
-
-font-family: 'Emilys Candy', cursive;
-font-family: 'Salsa', cursive;
-*/
-h1 {
-  font-family: 'Emilys Candy', cursive;
-  font-size: 50px;
-}
-
-h2 {
-  font-family: 'Emilys Candy', cursive;
-  font-size: 30px;
-}
-
 body {
   background: url(https://wallpapercave.com/wp/wp3430475.jpg) center no-repeat;
   background-size: cover;
@@ -39,6 +24,20 @@ body {
 }
 
 /* GENERAL */
+h1 {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 50px;
+}
+
+h2 {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 30px;
+}
+
+form {
+  padding-bottom: 2vw;
+}
+
 select {
   font-family: 'Salsa', cursive;
   font-size: 20px;
@@ -381,6 +380,7 @@ li {
 
 #child-prize-bar {
   height: auto;
+  line-height: 25vh;
   background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   display: block;
   justify-content: space-around;

@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const indexNavBar = document.querySelector('#index-nav')
   const adultNavBar = document.querySelector('#adult-nav-bar')
   const childNavBar = document.querySelector('#child-nav-bar')
-  const adultUserErrorsInfo = document.querySelector('#adult-user-errors-info')
-  const childUserErrorsInfo = document.querySelector('#child-user-errors-info')
 
 // ADULT NEW USER
   const adultUserForm = document.querySelector('#adult-new-user-form')
@@ -107,6 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // CHILD PRIZES
   const childPrizeBar = document.querySelector('#child-prize-bar')
   const childPrizeInfo = document.querySelector('#child-prize-info')
+  
+// ADULT AND CHILD USER ERRORS  
+  const adultUserErrorsInfo = document.querySelector('#adult-user-errors-info')
+  const childUserErrorsInfo = document.querySelector('#child-user-errors-info')
 
 // FUNCTIONS
   function hideView(id) {
@@ -952,7 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
      event.preventDefault()
      const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
      const parentId = localStorage.parentId
-     const childId = prompt(`Type in the ID of the child the task is for: ${storedChildNames}` )
+     const childId = prompt(`Type in the ID of the child the Task is for: ${storedChildNames}` )
      const sticker = localStorage.sticker
      const taskImage = localStorage.taskImage
      if (newTaskImageInput.value == '') {
@@ -1456,7 +1458,7 @@ document.addEventListener('DOMContentLoaded', () => {
   newPrizeForm.addEventListener('submit', (event) => {
     event.preventDefault()
     const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
-    const childId = prompt(`Type in the ID of the child the prize is for: ${storedChildNames}` )
+    const childId = prompt(`Type in the ID of the child the Prize is for: ${storedChildNames}` )
     const token = localStorage.token
     const parentId = localStorage.parentId
     const prizeImage = localStorage.prizeImage
