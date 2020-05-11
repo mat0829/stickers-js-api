@@ -292,7 +292,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-// SCROLL TO TOP OF CHILD PROFILE PAGE
+// SAVE CURRENT ADULT AVATAR
+  adultUserInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'saveAvatar') {
+      console.log(event.target)
+      const clickedUserId = parseInt(event.target.dataset.id)
+      const foundUser = User.findUser(clickedUserId)
+      const token = localStorage.token
+      if (adultUserLoginPassword.value !== '') {
+        foundUser.password = adultUserLoginPassword.value
+
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+            user: {
+              name: foundUser.name,
+              email: foundUser.email,
+              password: foundUser.password,
+              avatar: foundUser.avatar
+            }
+          })
+        })
+        .then((r) => r.json())
+        .then((updatedUserJSON) => {
+          const updatedUser = User.updateUser(updatedUserJSON) 
+          //render the changes so the DOM is in sync with our data
+          alert('Your current Avatar has been saved.')
+          adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile()
+        })
+      } else if (adultNewPasswordInput.value !== '') {
+        foundUser.password = adultNewPasswordInput.value
+
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {  
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+            user: {
+              name: foundUser.name,
+              email: foundUser.email,
+              password: foundUser.password,
+              avatar: foundUser.avatar
+            }
+          })
+        })
+        .then((r) => r.json())
+        .then((updatedUserJSON) => {
+          const updatedUser = User.updateUser(updatedUserJSON) 
+          //render the changes so the DOM is in sync with our data
+          alert('Your current Avatar has been saved.')
+          adultUserInfo.innerHTML = updatedUser.renderAdultUserProfile()
+        })
+      } else {
+        alert(`Error!\n\n To save your current avatar manually, click on "Edit User ${foundUser.name}", enter your password, and click "Update User".`)
+      }
+    }
+  })
+
+// SCROLL TO TOP OF ADULT PROFILE PAGE
   adultUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'top') {
       const element = document.getElementById('stickers-header')
@@ -506,6 +571,70 @@ document.addEventListener('DOMContentLoaded', () => {
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
         setTimeout(() => { childUserInfo.scrollIntoView({behavior: "smooth"}) }, 500)
       })
+    }
+  })
+
+// SAVE CURRENT CHILD AVATAR
+  childUserInfo.addEventListener('click', (event) => {
+    if (event.target.className === 'saveAvatar') {
+      console.log(event.target)
+      debugger
+      const clickedUserId = parseInt(event.target.dataset.id)
+      const foundUser = User.findUser(clickedUserId)
+      const token = localStorage.token
+      if (childUserLoginPassword.value !== '') {
+        foundUser.password = childUserLoginPassword.value
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+            user: {
+              name: foundUser.name,
+              email: foundUser.email,
+              password: foundUser.password,
+              avatar: foundUser.avatar
+            }
+          })
+        })
+        .then((r) => r.json())
+        .then((updatedUserJSON) => {
+          const updatedUser = User.updateUser(updatedUserJSON) 
+          //render the changes so the DOM is in sync with our data
+          alert('Your current Avatar has been saved.')
+          childUserInfo.innerHTML = updatedUser.renderChildUserProfile()
+        })
+      } else if (childNewPasswordInput.value !== '') {
+        foundUser.password = childNewPasswordInput.value
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {  
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            // form inputs were stored in vars at the top of DOMContentLoaded event handler (callback Fn)
+            user: {
+              name: foundUser.name,
+              email: foundUser.email,
+              password: foundUser.password,
+              avatar: foundUser.avatar
+            }
+          })
+        })
+        .then((r) => r.json())
+        .then((updatedUserJSON) => {
+          const updatedUser = User.updateUser(updatedUserJSON) 
+          //render the changes so the DOM is in sync with our data
+          alert('Your current Avatar has been saved.')
+          childUserInfo.innerHTML = updatedUser.renderChildUserProfile()
+        })
+      } else {
+        alert(`Error!\n\n To save your current avatar manually, click on "Edit User ${foundUser.name}", enter your password, and click "Update User".`)
+      }
     }
   })
 
