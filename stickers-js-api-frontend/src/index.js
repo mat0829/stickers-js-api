@@ -583,7 +583,6 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserInfo.addEventListener('click', (event) => {
     if (event.target.className === 'saveAvatar') {
       console.log(event.target)
-      debugger
       const clickedUserId = parseInt(event.target.dataset.id)
       const foundUser = User.findUser(clickedUserId)
       const token = localStorage.token
