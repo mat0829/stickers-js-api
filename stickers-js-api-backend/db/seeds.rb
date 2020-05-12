@@ -343,7 +343,7 @@ PrizeImage.create!([
   { imageUrl: 'https://i.imgur.com/DBcJSGo.jpg'},
   { imageUrl: 'https://i.imgur.com/BedZbsL.jpg'},
   { imageUrl: 'https://i.imgur.com/ZCVXbvy.jpg'},
-  { imageUrl: 'https://i.imgur.com/DiNgdqd.jpg'},
+  { imageUrl: 'https://i.imgur.com/DiNgdqd.jpg?1'},
   { imageUrl: 'https://i.imgur.com/0SHYKHr.jpg'},
   { imageUrl: 'https://i.imgur.com/1VNnqcu.jpg'},
   { imageUrl: 'https://i.imgur.com/uaaO3s1.jpg'},
