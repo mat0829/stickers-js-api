@@ -168,6 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function getOccurrence(array, value) {
+    let count = 0
+    array.forEach((v) => (v === value && count++)) //Flag
+    return count
+  }
+
   function alertToCreateChildren(className) {
     if (!localStorage.childNames) {
       setTimeout(() => { alert(`Logout and make Child Users to start creating ${className}.`) }, 500)
@@ -1259,12 +1265,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (userDataJSON.user.stickers.length !== 0) {
           const arrayWithoutDuplicates = [...new Set(userDataJSON.user.stickers)]
 
-          function getOccurrence(array, value) {
-            let count = 0
-            array.forEach((v) => (v === value && count++)) //Flag
-            return count
-          }
-
           arrayWithoutDuplicates.forEach(/*function*/(sticker) => {
             let stickerCount = getOccurrence(userDataJSON.user.stickers, sticker)
             childStickerCollection.innerHTML += `<span><img src="${sticker}"></img><br>
@@ -1819,12 +1819,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (userDataJSON.user.prizes.length !== 0) {
           const arrayWithoutDuplicates = [...new Set(userDataJSON.user.prizes)]
-
-          function getOccurrence(array, value) {
-            let count = 0
-            array.forEach((v) => (v === value && count++)) //Flag
-            return count
-          }
 
           arrayWithoutDuplicates.forEach(/*function*/(prize) => {
             let prizeCount = getOccurrence(userDataJSON.user.prizes, prize)
