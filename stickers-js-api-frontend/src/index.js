@@ -977,10 +977,17 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     debugger
      const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
      const parentId = localStorage.parentId
-     const childId = prompt(`Type in the ID of the child the Task is for: ${storedChildNames}` )
+     let childId = prompt(`Type in the ID of the child the Task is for: ${storedChildNames}` )
+
+     if (!storedChildNames.find(childString => {
+          const parsedId = parseInt(childId)
+          return childString.match(parsedId)
+        })) {
+       childId = undefined
+     }
+
      const sticker = localStorage.sticker
      const taskImage = localStorage.taskImage
      if (newTaskImageInput.value == '') {
@@ -1427,7 +1434,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultNavBar.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.id === 'addPrizeBtn') {
-      alertToCreateChildren('Prizes') //FLAG 
+      alertToCreateChildren('Prizes')
       const token = localStorage.token
       
       fetch('http://localhost:3000/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
@@ -1479,7 +1486,15 @@ document.addEventListener('DOMContentLoaded', () => {
   newPrizeForm.addEventListener('submit', (event) => {
     event.preventDefault()
     const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
-    const childId = prompt(`Type in the ID of the child the Prize is for: ${storedChildNames}` )
+    let childId = prompt(`Type in the ID of the child the Prize is for: ${storedChildNames}` )
+
+    if (!storedChildNames.find(childString => {
+        const parsedId = parseInt(childId)
+        return childString.match(parsedId)
+       })) {
+      childId = undefined
+    }
+
     const token = localStorage.token
     const parentId = localStorage.parentId
     const prizeImage = localStorage.prizeImage
