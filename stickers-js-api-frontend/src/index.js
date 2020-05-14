@@ -977,7 +977,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
-     const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
+     const storedChildNames = JSON.parse(localStorage.getItem("childNames"))
      const parentId = localStorage.parentId
      let childId = prompt(`Type in the ID of the child the Task is for: ${storedChildNames}` )
 
@@ -1485,7 +1485,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW PRIZE
   newPrizeForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
+    const storedChildNames = JSON.parse(localStorage.getItem("childNames"))
     let childId = prompt(`Type in the ID of the child the Prize is for: ${storedChildNames}` )
 
     if (!storedChildNames.find(childString => {

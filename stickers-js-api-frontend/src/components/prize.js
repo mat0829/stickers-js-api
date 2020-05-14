@@ -68,7 +68,7 @@ class Prize {
         const isPrizePurchasedString = `"${this.name}" has not been purchased yet.`
 
         return `<h2>${isPrizePurchasedString}</h2>
-                <h3>~ Created by: ${this.prizeParent.name}</h3>
+                <h3>~ Created for: ${this.prizeChild.name}</h3>
                 <img src="${this.image}"><br>
                 <h2>Cost: ${this.cost} Points!</h2>
                 <button class="edit" data-id="${this.id}" data-action="edit">Edit this Prize!</button>

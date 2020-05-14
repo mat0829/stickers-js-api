@@ -90,8 +90,8 @@ li {
 }
 
 #adult-user-info img {
-  max-width: 20vw;
-  max-height: 20vw;
+  max-width: 25vw;
+  max-height: 25vw;
 }
 
 #adult-user-info div {
@@ -105,6 +105,11 @@ li {
   border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   border-image-slice: 1;
   margin: 30px;
+}
+
+#adult-user-info span img {
+  max-width: 15vw;
+  max-height: 15vw;
 }
 
 /* ADULT TASKS */
@@ -340,8 +345,8 @@ li {
 }
 
 #child-user-info img {
-  max-width: 15vw;
-  max-height: 15vw;
+  max-width: 20vw;
+  max-height: 20vw;
 }
 
 /* CHILD TASKS */

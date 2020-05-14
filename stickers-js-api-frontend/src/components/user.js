@@ -141,11 +141,11 @@ class User {
         })
         
         if (!childNames.includes(child.name)) { // Checking for duplicate child names
-          debugger
           childNames += `<span><h2>${child.name}</h2>
-                         <img src="${child.avatar}" width='150px' height='150px'>
+                         <img src="${child.avatar}">
                          <h3>Sticker Points: ${child.points}</h3>
                          <h3>Stickers: ${child.stickers.length}</h3>
+                         <h3>Prizes: ${child.prizes.length}</h3>
                          <h2>Current Tasks:</h2>
                          ${currentTasks}<br>
                          <h2>Completed Tasks:</h2>
