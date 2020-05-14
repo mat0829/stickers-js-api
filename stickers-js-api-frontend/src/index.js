@@ -105,6 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // CHILD PRIZES
   const childPrizeBar = document.querySelector('#child-prize-bar')
   const childPrizeInfo = document.querySelector('#child-prize-info')
+
+// CHILD PRIZES COLLECTION
+  const childPrizeCollection = document.querySelector('#child-prizes-collection')
   
 // ADULT AND CHILD USER ERRORS  
   const adultUserErrorsInfo = document.querySelector('#adult-user-errors-info')
@@ -569,7 +572,8 @@ document.addEventListener('DOMContentLoaded', () => {
           userDataJSON.user.avatar = placeholderAvatar
         }
         const newUser = new User(userDataJSON)
-        hideViews('child-edit-user-form', 'child-tasks-container','child-prizes-container', 'child-stickers-collection')
+        hideViews('child-edit-user-form', 'child-tasks-container','child-prizes-container', 'child-stickers-collection', 
+                  'child-prizes-collection')
         showView('child-user-info')
         childUserInfo.innerHTML = ''
         childUserInfo.innerHTML = newUser.renderChildUserProfile()
@@ -1214,7 +1218,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(childTaskBar.scrollIntoView({behavior: "smooth"})) // Flag
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(taskDataJSON) => {
-        hideViews('child-prizes-container','child-user-info', 'child-edit-user-form', 'child-stickers-collection')
+        hideViews('child-prizes-container','child-user-info', 'child-edit-user-form', 'child-stickers-collection', 
+                  'child-prizes-collection')
         childTaskBar.innerHTML = ''
         childTaskInfo.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
@@ -1246,7 +1251,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(userDataJSON) => {
         hideViews('child-prizes-container', 'child-tasks-container' , 'child-stickers-container', 'child-user-info', 
-                  'child-edit-user-form')
+                  'child-edit-user-form', 'child-prizes-collection')
         childStickerCollection.innerHTML = `<h1>Your Stickers Collection:</h1>
                                             <h2>Total Stickers = ${userDataJSON.user.stickers.length}</h2>`
         showView('child-stickers-collection')
@@ -1660,7 +1665,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(childPrizeBar.scrollIntoView({behavior: "smooth"}))
       .then(/*function*/(resp) => resp.json())
       .then(/*function*/(prizeDataJSON) => {
-        hideViews('child-tasks-container','child-user-info', 'child-edit-user-form', 'child-stickers-collection')
+        hideViews('child-tasks-container','child-user-info', 'child-edit-user-form', 'child-stickers-collection', 
+                  'child-prizes-collection')
         childPrizeBar.innerHTML = ''
         childPrizeInfo.innerHTML = ''
         if (prizeDataJSON && prizeDataJSON.length) {
@@ -1788,4 +1794,48 @@ document.addEventListener('DOMContentLoaded', () => {
       element.scrollIntoView({behavior: "smooth"})
     }
   })
+
+// INITIAL FETCH OF CHILD PRIZES COLLECTION
+  childNavBar.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (event.target.id === 'prizesCollectionBtn') {
+      const token = localStorage.token
+
+      fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(/*function*/(resp) => resp.json())
+      .then(/*function*/(userDataJSON) => {
+        hideViews('child-prizes-container', 'child-tasks-container' , 'child-stickers-container', 'child-user-info', 
+                  'child-edit-user-form', 'child-stickers-collection')
+        childPrizeCollection.innerHTML = `<h1>Your Prizes Collection:</h1>
+                                            <h2>Total Prizes = ${userDataJSON.user.prizes.length}</h2>`
+        showView('child-prizes-collection')
+        
+        if (userDataJSON.user.prizes.length !== 0) {
+          const arrayWithoutDuplicates = [...new Set(userDataJSON.user.prizes)]
+
+          function getOccurrence(array, value) {
+            let count = 0
+            array.forEach((v) => (v === value && count++)) //Flag
+            return count
+          }
+
+          arrayWithoutDuplicates.forEach(/*function*/(prize) => {
+            let prizeCount = getOccurrence(userDataJSON.user.prizes, prize)
+            childPrizeCollection.innerHTML += `<span><img src="${prize}"></img><br>
+                                                 (${prizeCount} collected)</span>`
+          })
+        } else {
+            childPrizeCollection.innerHTML = 
+            `<h2>You currently have 0 Prizes. Complete Tasks to get Sticker Points to purchase Prizes.</h2>`
+        }
+      })
+    }
+  })  
 })

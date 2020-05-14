@@ -402,6 +402,17 @@ li {
 }
 
 /* CHILD PRIZES */
+#child-prizes-collection {
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+#child-prizes-collection img {
+  width:  250px;
+  height: 125px;
+  padding-right: 10px;
+}
+
 #child-prizes-container {
   height: 75vh;
   text-align: center;
@@ -487,11 +498,6 @@ input[type="submit" i] {
   background-image: linear-gradient(to right, red, yellow);
 }
 
-.userProfileBtn {
-  color: white;
-  background-image: linear-gradient(to right, orange, purple);
-}
-
 .adultTasksBtn {
   color: white;
   background-image: linear-gradient(to right, purple, blue);
@@ -552,12 +558,12 @@ input[type="submit" i] {
 
 .childPrizesBtn {
   color: white;
-  background-image: linear-gradient(to right, red, gold);
+  background-image: linear-gradient(to right, red, rgb(250, 120, 142));
 }
 
-.logoutBtn {
+.prizesCollectionBtn {
   color: white;
-  background-image: linear-gradient(to right, gold, green);
+  background-image: linear-gradient(to right, rgb(250, 120, 142), gold);
 }
 
 .collectStickerPoints {
@@ -572,4 +578,14 @@ button {
 
 .delete.delete { 
   color: red;
+}
+
+.userProfileBtn {
+  color: white;
+  background-image: linear-gradient(to right, orange, purple);
+}
+
+.logoutBtn {
+  color: white;
+  background-image: linear-gradient(to right, gold, green);
 }

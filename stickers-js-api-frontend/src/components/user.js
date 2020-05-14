@@ -141,9 +141,11 @@ class User {
         })
         
         if (!childNames.includes(child.name)) { // Checking for duplicate child names
+          debugger
           childNames += `<span><h2>${child.name}</h2>
                          <img src="${child.avatar}" width='150px' height='150px'>
                          <h3>Sticker Points: ${child.points}</h3>
+                         <h3>Stickers: ${child.stickers.length}</h3>
                          <h2>Current Tasks:</h2>
                          ${currentTasks}<br>
                          <h2>Completed Tasks:</h2>
@@ -208,6 +210,7 @@ class User {
             <img src="${this.avatar}"><br>
             <h2>Sticker Points: ${this.points}</h2>
             <h2>Stickers: ${this.stickers.length}</h2>
+            <h2>Prizes: ${this.prizes.length}</h2>
             <button class="edit" data-id="${this.id}" data-action="edit">Edit User ${this.name}</button>
             <button class="delete" data-id="${this.id}" data-action="delete">Delete User ${this.name}</button><br><br>
             <button class="saveAvatar" data-id="${this.id}" data-action="saveAvatar">Save Current Avatar</button>
