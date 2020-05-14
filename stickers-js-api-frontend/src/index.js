@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function avatarCreationIfEmpty(jsonUserData) {
     const robotNumber = Math.floor((Math.random() * 1000) + 1)
     const catNumber = Math.floor((Math.random() * 415) + 1)
-    const dogNumber = Math.floor((Math.random() * 150) + 1)
+    const dogNumber = Math.floor((Math.random() * 100) + 1)
     const monsterNumber = Math.floor((Math.random() * 750) + 1)
     if (jsonUserData.avatar == '') {
       userChoice = prompt("Choose between a random Robot, Cat, Dog, Monster Avatar or type in a Noun(person, place, or thing)")
@@ -273,7 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'userProfileBtn') {
       const token = localStorage.token
-
       fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {
@@ -683,7 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const childNames = JSON.parse(localStorage.getItem("childNames")) || [] // Get or create childNames Array
           const childObject = ' ' + '[' + newUser.name + '-' + ' ' + 'ID:' + ' ' + newUser.id + ']' + ' '
           childNames.push(childObject) // Add new childObject to childNames array
-          window.localStorage.setItem('childNames', JSON.stringify(childNames))
+          localStorage.setItem('childNames', JSON.stringify(childNames))
           localStorage.setItem("loggedIn", newUser.logged_in)
           hideViews('users-signup-login-container', 'index-nav')
           showView('child-user-container')
@@ -750,6 +749,20 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
           avatarCreationIfEmpty(updatedUserJSON)
           const updatedUser = User.updateUser(updatedUserJSON)
+          let storedChildNames = JSON.parse(localStorage.getItem("childNames")) ///// Patch childNames child
+          let childToUpdate = storedChildNames.find(childString => {
+            const parsedId = parseInt(updatedUser.id)
+            return childString.match(parsedId)
+          })
+
+          function updateChild(array, childObject) { // Flag
+            const index = array.indexOf(childObject)
+            array[index] = ' ' + '[' + updatedUser.name + '-' + ' ' + 'ID:' + ' ' + updatedUser.id + ']' + ' '
+            window.localStorage.setItem('childNames', JSON.stringify(array))
+          }
+  
+          updateChild(storedChildNames, childToUpdate)
+          localStorage.setItem('childNames', JSON.stringify(storedChildNames))
           hideView('child-edit-user-form')
           showView('child-user-info')
           //render the changes so the DOM is in sync with our data
@@ -954,6 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CREATE A NEW TASK
   newTaskForm.addEventListener('submit', (event) => {
      event.preventDefault()
+     debugger
      const storedChildNames = JSON.parse(localStorage.getItem("childNames") || "[]")
      const parentId = localStorage.parentId
      const childId = prompt(`Type in the ID of the child the Task is for: ${storedChildNames}` )
