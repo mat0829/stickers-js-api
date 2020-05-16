@@ -124,6 +124,11 @@ label {
   text-align: center;
 }
 
+#adult-tasks-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
+}
+
 #adult-task-bar {
   height: 25vh;
   background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
@@ -157,7 +162,24 @@ label {
   max-height: 15vw;
 }
 
+#new-task-form label {
+  font-family: 'Emilys Candy', cursive;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+#adult-edit-task-form label {
+  font-family: 'Emilys Candy', cursive;
+  font-weight: bold;
+  font-size: 25px;
+}
+
 /* ADULT TASK IMAGES */
+#adult-task-image-bar-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
+}
+
 #adult-task-image-bar {
   background: black;
   display: flex;
@@ -178,6 +200,11 @@ label {
 #adult-task-image-info img {
   max-width: 250px;
   max-height: 125px;
+}
+
+#adult-edit-task-image-bar-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
 }
 
 #adult-edit-task-image-bar {
@@ -203,6 +230,11 @@ label {
 }
 
 /* ADULT STICKERS */
+#adult-sticker-bar-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
+}
+
 #adult-sticker-bar {
   background: black;
   display: flex;
@@ -232,6 +264,11 @@ label {
   align-items: center;
 }
 
+#adult-edit-sticker-bar-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
+}
+
 #adult-edit-sticker-bar img {
   width:  75px;
   height: 75px;
@@ -251,6 +288,11 @@ label {
 #adult-prizes-container {
   height: 75vh;
   text-align: center;
+}
+
+#adult-prizes-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
 }
 
 #adult-prize-info {
@@ -283,7 +325,24 @@ label {
   max-height: 20vw;
 }
 
+#new-prize-form label {
+  font-family: 'Emilys Candy', cursive;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+#adult-edit-prize-form label {
+  font-family: 'Emilys Candy', cursive;
+  font-weight: bold;
+  font-size: 25px;
+}
+
 /* ADULT PRIZE IMAGES */
+#adult-prize-image-bar-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
+}
+
 #adult-prize-image-bar {
   background: black;
   display: flex;
@@ -304,6 +363,11 @@ label {
 #adult-prize-image-info img {
   max-width: 15vw;
   max-height: 15vw;
+}
+
+#adult-edit-prize-image-bar-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
 }
 
 #adult-edit-prize-image-bar {

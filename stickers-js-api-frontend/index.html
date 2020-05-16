@@ -115,7 +115,7 @@
       </center>
       
       <div id="adult-tasks-container" style="display: none">
-        <h2>Click on a Task to see more details:</h2>
+        <label for="adult-task-bar">Click on a Task to see more details:</label>
         <div id="adult-task-bar">
             
         </div>
@@ -125,14 +125,14 @@
         </div>
 
         <form id="new-task-form" method="POST" style="display: none">
-          <h1>Create a new Task:</h1>
+          <h1>Create a new Task</h1>
           <label for="new-task-name">Task Name:</label>
           <input type="text" name="newTaskName" id="new-task-name" placeholder="Name Your Task Here" autocomplete="off"><br><br>
           <label for="new-task-image">Task Image URL:</label>
           <input type="text" name="newTaskImage" id="new-task-image" placeholder="Manually Add Image Url" autocomplete="off"><br><br>
 
           <div id="adult-task-image-bar-container">
-            <h1>Click on to Choose a Task Image:</h1>
+            <label for="adult-task-image-bar">Click to Select a Task Image:</label>
             <div id="adult-task-image-bar">
             
             </div><br>
@@ -143,7 +143,7 @@
           </div><br>
 
           <div id="adult-sticker-bar-container">
-            <h1>Click on to Choose a Task Sticker:</h1>
+            <label for="adult-sticker-bar">Click to Select a Sticker:</label>
             <div id="adult-sticker-bar">
             
               </div><br>
@@ -166,7 +166,7 @@
             <option value="500">500 Sticker Points</option>
             <option value="750">750 Sticker Points</option>
             <option value="1000">1000 Sticker Points</option>
-          </select>
+          </select><br><br>
               
           <input type="submit" value="Create Task">
         </form><br>
@@ -179,8 +179,9 @@
           <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"><br><br>
 
           <div id="adult-edit-task-image-bar-container">
-            <button class="markTaskCompleted">Skip to Mark Task Completed Checkbox</button>
-            <h1>Click on a Image to Choose a New Task Image:</h1>
+            <button class="markTaskCompleted">Skip to Mark Task Completed Checkbox</button><br><br>
+
+            <label for="new-task-name">Click to Select a New Task Image:</label>
             <div id="adult-edit-task-image-bar">
             
             </div><br>
@@ -191,7 +192,7 @@
           </div><br>
 
           <div id="adult-edit-sticker-bar-container">
-            <h1>Click on a Sticker to Choose a New Task Sticker:</h1>
+            <label for="adult-edit-sticker-bar">Click to Select a New Sticker:</label>
             <div id="adult-edit-sticker-bar">
             
             </div><br>
@@ -202,7 +203,7 @@
           </div><br>
             
           
-          <label for="adult-edit-task-value">Choose Task Sticker Value:</label>
+          <label for="adult-edit-task-value">Choose New Task Sticker Value:</label>
           <select id="adult-edit-task-value" name="editTaskValue">
             <option value="5">5 Sticker Points</option>
             <option value="10">10 Sticker Points</option>
@@ -224,7 +225,7 @@
       </div>
 
       <div id="adult-prizes-container" style="display: none">
-        <h2>Click on a Prize to see more details:</h2>
+        <label for="new-prize-bar">Click on a Prize to see more details:</label>
         <div id="adult-prize-bar">
             
         </div>
@@ -241,7 +242,7 @@
           <input type="text" name="newPrizeImage" id="new-prize-image" placeholder="Manually Add Image Url" autocomplete="off"><br><br>
 
           <div id="adult-prize-image-bar-container">
-            <h1>Click on to Choose a Prize Image:</h1>
+            <label for="adult-prize-image-bar">Click on to Choose a Prize Image:</label>
             <div id="adult-prize-image-bar">
             
             </div><br>
@@ -277,7 +278,7 @@
           <input type="text" name="adultEditPrizeImage" id="adult-edit-prize-image"><br><br>
 
           <div id="adult-edit-prize-image-bar-container">
-            <h1>Click on a Image to Choose a New Prize Image:</h1>
+            <label for="adult-edit-prize-image-bar">Click on a Image to Choose a New Prize Image:</label>
             <div id="adult-edit-prize-image-bar">
             
             </div><br>
