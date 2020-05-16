@@ -849,6 +849,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hideViews('adult-prizes-container','new-task-form', 'adult-edit-task-form', 'adult-user-info', 'adult-edit-user-form')
         adultTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
+          debugger
           taskDataJSON.forEach(/*function*/(task) => {
             const newTask = new Task(task)
             adultTaskBar.innerHTML += newTask.renderTaskSpan()
@@ -1455,7 +1456,8 @@ document.addEventListener('DOMContentLoaded', () => {
           adultPrizeImageBar.innerHTML += newPrizeImage.renderPrizeImageCollection()
         })
       })
-      hideViews('adult-tasks-container', 'adult-user-info', 'adult-prize-image-info', 'adult-prize-info', 'adult-edit-user-form')
+      hideViews('adult-tasks-container', 'adult-user-info', 'adult-prize-image-info', 'adult-prize-info', 
+      'adult-edit-user-form', 'adult-edit-prize-form')
       showViews('adult-prizes-container', 'new-prize-form', 'adult-prize-image-bar-container')
       setTimeout(() => { newPrizeForm.scrollIntoView({behavior: "smooth"}) }, 1000)
     }

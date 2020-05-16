@@ -64,6 +64,12 @@ li {
   list-style-position: inside;
 }
 
+label {
+  cursor: default;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 /* ADULT USER */
 #adult-login-signup-container input[type="submit" i] {
   background-image: linear-gradient(to right, #b827fc, #2c90fc, #b8fd33);

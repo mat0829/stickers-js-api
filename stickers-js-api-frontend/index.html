@@ -43,10 +43,14 @@
     
           <form id="adult-new-user-form" method="POST">
             <h2>New Adult User:</h2>
-            <h3>Name: <input id="adult-new-user-name" type="text" name="name" placeholder="Enter Your Name" autocomplete="off"></h3>
-            <h3>Email: <input id="adult-new-user-email" type="text" name="email" placeholder="Enter Your Email Address" autocomplete="off"></h3>
-            <h3>Password: <input id="adult-new-user-password" type="password" name="password"placeholder="Create a Password"></h3>
-            <h3>Avatar Image URL: <input id="adult-new-user-avatar" type="text" name="avatar" placeholder="Leave to Generate Avatar" autocomplete="off"></h3>
+            <label for="adult-new-user-name">Name:</label>
+            <input id="adult-new-user-name" type="text" name="name" placeholder="Enter Your Name" autocomplete="off"><br><br>
+            <label for="adult-new-user-email">Email:</label>
+            <input id="adult-new-user-email" type="text" name="email" placeholder="Enter Your Email Address" autocomplete="off"><br><br>
+            <label for="adult-new-user-password">Password:</label>
+            <input id="adult-new-user-password" type="password" name="password"placeholder="Create a Password"><br><br>
+            <label for="adult-new-user-avatar">Avatar Image URL:</label>
+            <input id="adult-new-user-avatar" type="text" name="avatar" placeholder="Leave to Generate Avatar" autocomplete="off"><br><br>
             <input type="submit" value="Create User">
           </form>
         </div>
@@ -65,10 +69,14 @@
   
           <form id="child-new-user-form" method="POST">
             <h2>New Child User:</h2>
-            <h3>Name: <input id="child-new-user-name" type="text" name="name" placeholder="Enter Your Name" autocomplete="off"></h3>
-            <h3>Email: <input id="child-new-user-email" type="text" name="email" placeholder="Enter Your Email Address" autocomplete="off"></h3>
-            <h3>Password: <input id="child-new-user-password" type="password" placeholder="Create a Password" name="password"></h3>
-            <h3>Avatar Image URL: <input id="child-new-user-avatar" type="text" name="avatar" placeholder="Leave to Generate Avatar" autocomplete="off"></h3>
+            <label for="child-new-user-name">Name:</label>
+            <input id="child-new-user-name" type="text" name="name" placeholder="Enter Your Name" autocomplete="off"><br><br>
+            <label for="child-new-user-email">Email:</label>
+            <input id="child-new-user-email" type="text" name="email" placeholder="Enter Your Email Address" autocomplete="off"><br><br>
+            <label for="child-new-user-password">Password:</label>
+            <input id="child-new-user-password" type="password" placeholder="Create a Password" name="password"><br><br>
+            <label for="child-new-user-avatar">Avatar Image URL:</label>
+            <input id="child-new-user-avatar" type="text" name="avatar" placeholder="Leave to Generate Avatar" autocomplete="off"><br><br>
             <input type="submit" value="Create User">
           </form>
         </div>
@@ -91,11 +99,15 @@
         </div>
 
         <form id="adult-edit-user-form" method="PATCH" style="display: none">
-          <h1>Edit Adult User:</h1>
-          <h3>Name: <input id="adult-edit-user-name" type="text" name="name" autocomplete="off"></h3>
-          <h3>Email: <input id="adult-edit-user-email" type="text" name="email" autocomplete="off"></h3>
-          <h3>Password: <input id="adult-edit-user-password" type="password" name="password" placeholder="Enter old or new password:"></h3>
-          <h3>Avatar Image: <input id="adult-edit-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
+          <h1>Edit Adult User</h1>
+          <label for="adult-edit-user-name">Name:</label>
+          <input id="adult-edit-user-name" type="text" name="name" autocomplete="off"><br><br>
+          <label for="adult-edit-user-email">Email:</label>
+          <input id="adult-edit-user-email" type="text" name="email" autocomplete="off"><br><br>
+          <label for="adult-edit-user-password">Password:</label>
+          <input id="adult-edit-user-password" type="password" name="password" placeholder="Enter old or new password:"><br><br>
+          <label for="adult-edit-user-avatar">Avatar Image:</label>
+          <input id="adult-edit-user-avatar" type="text" name="avatar" autocomplete="off">
           <h4>(Leave Avatar Image blank to generate another fun Avatar!)</h4>
           
           <input type="submit" value="Update User">
@@ -103,15 +115,17 @@
       </center>
       
       <div id="adult-tasks-container" style="display: none">
-        <h2>Current Tasks:</h2>
+        <h2>Click on a Task to see more details:</h2>
         <div id="adult-task-bar">
             
         </div>
   
         <form id="adult-edit-task-form" method="POST" style="display: none">
-          <h1>Edit Task:</h1>
-          <h3>Task Name: <input type="text" name="adultEditTaskName" id="adult-edit-task-name"></h3>
-          <h3>Task Image URL: <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"></h3>
+          <h1>Edit Task</h1>
+          <label for="adult-edit-task-name">Task Name:</label>
+          <input type="text" name="adultEditTaskName" id="adult-edit-task-name"><br><br>
+          <label for="adult-edit-task-image">Task Image URL:</label>
+          <input type="text" name="adultEditTaskImage" id="adult-edit-task-image"><br><br>
 
           <div id="adult-edit-task-image-bar-container">
             <button class="markTaskCompleted">Skip to Mark Task Completed Checkbox</button>
@@ -136,7 +150,8 @@
             
           </div>
             
-          <h3>Choose Task Sticker Value:</h3>
+          
+          <label for="adult-edit-task-value">Choose Task Sticker Value:</label>
           <select id="adult-edit-task-value" name="editTaskValue">
             <option value="5">5 Sticker Points</option>
             <option value="10">10 Sticker Points</option>
@@ -149,16 +164,19 @@
             <option value="500">500 Sticker Points</option>
             <option value="750">750 Sticker Points</option>
             <option value="1000">1000 Sticker Points</option>
-          </select>
-          <h3>Mark Task Completed?<input id="adult-edit-task-completed" type="checkbox" name="adultEditTaskCompleted" value=""></h3>
+          </select><br><br>
+          <label for="adult-edit-task-completed">Mark Task Completed?</label>
+          <input id="adult-edit-task-completed" type="checkbox" name="adultEditTaskCompleted" value=""><br><br>
           
           <input type="submit" value="Update Task">
         </form>
 
         <form id="new-task-form" method="POST" style="display: none">
           <h1>Create a new Task:</h1>
-          <h3>Task Name: <input type="text" name="newTaskName" id="new-task-name" placeholder="Name Your Task Here" autocomplete="off"></h3>
-          <h3>Task Image URL: <input type="text" name="newTaskImage" id="new-task-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
+          <label for="new-task-name">Task Name:</label>
+          <input type="text" name="newTaskName" id="new-task-name" placeholder="Name Your Task Here" autocomplete="off"><br><br>
+          <label for="new-task-image">Task Image URL:</label>
+          <input type="text" name="newTaskImage" id="new-task-image" placeholder="Manually Add Image Url" autocomplete="off"><br><br>
 
           <div id="adult-task-image-bar-container">
             <h1>Click on to Choose a Task Image:</h1>
@@ -181,7 +199,8 @@
           <div id="adult-sticker-info">
           
           </div>
-          <h3>Choose Task Sticker Value:</h3>
+
+          <label for="new-task-value">Choose Task Sticker Value:</label>
           <select id="new-task-value" name="newTaskValue">
             <option value="5">5 Sticker Points</option>
             <option value="10">10 Sticker Points</option>
@@ -206,15 +225,17 @@
       </div>
 
       <div id="adult-prizes-container" style="display: none">
-        <h2>Prizes:</h2>
+        <h2>Click on a Prize to see more details:</h2>
         <div id="adult-prize-bar">
             
         </div>
   
         <form id="adult-edit-prize-form" method="POST" style="display: none">
-          <h1>Edit Prize:</h1>
-          <h3>Prize Name: <input type="text" name="adultEditPrizeName" id="adult-edit-prize-name"></h3>
-          <h3>Prize Image URL: <input type="text" name="adultEditPrizeImage" id="adult-edit-prize-image"></h3>
+          <h1>Edit Prize</h1>
+          <label for="adult-edit-prize-name">Prize Name:</label>
+          <input type="text" name="adultEditPrizeName" id="adult-edit-prize-name"><br><br>
+          <label for="adult-edit-prize-image">Prize Image URL:</label>
+          <input type="text" name="adultEditPrizeImage" id="adult-edit-prize-image"><br><br>
 
           <div id="adult-edit-prize-image-bar-container">
             <h1>Click on a Image to Choose a New Prize Image:</h1>
@@ -225,9 +246,9 @@
 
           <div id="adult-edit-prize-image-info">
             
-          </div>
+          </div><br>
             
-          <h3>Choose Prize Cost:</h3>
+          <label for="adult-edit-prize-cost">Choose Prize Cost:</label>
           <select id="adult-edit-prize-cost" name="editPrizeCost">
             <option value="5">5 Sticker Points</option>
             <option value="10">10 Sticker Points</option>
@@ -240,16 +261,19 @@
             <option value="500">500 Sticker Points</option>
             <option value="750">750 Sticker Points</option>
             <option value="1000">1000 Sticker Points</option>
-          </select>
-          <h3>Mark Prize Purchased?<input id="adult-edit-prize-purchased" type="checkbox" name="adultEditPrizePurchased" value=""></h3>
+          </select><br><br>
+          <label for="adult-edit-prize-purchased">Mark Prize Purchased?</label>
+          <input id="adult-edit-prize-purchased" type="checkbox" name="adultEditPrizePurchased" value=""><br><br>
           
           <input type="submit" value="Update Prize">
         </form>
 
         <form id="new-prize-form" method="POST" style="display: none">
           <h1>Create a new Prize:</h1>
-          <h3>Prize Name: <input type="text" name="newPrizeName" id="new-prize-name" placeholder="Name Your Prize Here" autocomplete="off"></h3>
-          <h3>Prize Image URL: <input type="text" name="newPrizeImage" id="new-prize-image" placeholder="Manually Add Image Url" autocomplete="off"></h3>
+          <label for="new-prize-name">Prize Name:</label>
+          <input type="text" name="newPrizeName" id="new-prize-name" placeholder="Name Your Prize Here" autocomplete="off"><br><br>
+          <label for="new-prize-image">Prize Image URL:</label>
+          <input type="text" name="newPrizeImage" id="new-prize-image" placeholder="Manually Add Image Url" autocomplete="off"><br><br>
 
           <div id="adult-prize-image-bar-container">
             <h1>Click on to Choose a Prize Image:</h1>
@@ -262,7 +286,7 @@
           
           </div><br>
 
-          <h3>Choose Prize Cost:</h3>
+          <label for="new-prize-cost">Choose Prize Cost:</label>
           <select id="new-prize-cost" name="newPrizeCost">
             <option value="5">5 Sticker Points</option>
             <option value="10">10 Sticker Points</option>
@@ -304,11 +328,15 @@
         </div>
 
         <form id="child-edit-user-form" method="PATCH" style="display: none">
-          <h1>Edit Child User:</h1>
-          <h3>Name: <input id="child-edit-user-name" type="text" name="name" autocomplete="off"></h3>
-          <h3>Email: <input id="child-edit-user-email" type="text" name="email" autocomplete="off"></h3>
-          <h3>Password: <input id="child-edit-user-password" type="password" name="password" placeholder="Enter old or new password:"></h3>
-          <h3>Avatar Image: <input id="child-edit-user-avatar" type="text" name="avatar" autocomplete="off"></h3>
+          <h1>Edit Child User</h1>
+          <label for="child-edit-user-name">Name:</label>
+          <input id="child-edit-user-name" type="text" name="name" autocomplete="off"><br><br>
+          <label for="child-edit-user-email">Email:</label>
+          <input id="child-edit-user-email" type="text" name="email" autocomplete="off"><br><br>
+          <label for="child-edit-user-password">Password:</label>
+          <input id="child-edit-user-password" type="password" name="password" placeholder="Enter old or new password:"><br><br>
+          <label for="child-edit-user-avatar">Avatar Image:</label>
+          <input id="child-edit-user-avatar" type="text" name="avatar" autocomplete="off">
           <h4>(Leave Avatar Image blank to generate another fun Avatar!)</h4>
           
           <input type="submit" value="Update User">
@@ -316,7 +344,7 @@
       </center>
 
       <div id="child-tasks-container" style="display: none">
-        <h2>Current Tasks:</h2>
+        <h2>Click on a Task to see more details:</h2>
         <div id="child-task-bar">
             
         </div><br>
@@ -340,7 +368,7 @@
       </div>
 
       <div id="child-prizes-container" style="display: none">
-        <h2>Prizes:</h2>
+        <h2>Click on a Prize to see more details:</h2>
         <div id="child-prize-bar">
             
         </div>
