@@ -65,9 +65,10 @@ li {
 }
 
 label {
-  cursor: default;
+  font-family: 'Emilys Candy', cursive;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
+  cursor: default;
 }
 
 /* ADULT USER */
@@ -420,6 +421,16 @@ label {
 }
 
 /* CHILD TASKS */
+#child-tasks-container {
+  height: 75vh;
+  text-align: center;
+}
+
+#child-tasks-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
+}
+
 #child-task-bar {
   height: 25vh;
   background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
@@ -439,11 +450,6 @@ label {
   align-items: center;
   border-radius: 1rem;
   border: 2px solid black;
-}
-
-#child-tasks-container {
-  height: 75vh;
-  text-align: center;
 }
 
 #child-task-info {
@@ -480,6 +486,11 @@ label {
 #child-prizes-collection {
   text-align: center;
   padding-bottom: 25px;
+}
+
+#child-prizes-container label {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 35px;
 }
 
 #child-prizes-collection img {

@@ -849,8 +849,10 @@ document.addEventListener('DOMContentLoaded', () => {
         hideViews('adult-prizes-container','new-task-form', 'adult-edit-task-form', 'adult-user-info', 'adult-edit-user-form')
         adultTaskBar.innerHTML = ''
         if (taskDataJSON && taskDataJSON.length) {
+          // destroys the original array
+          let sortedTasks = taskDataJSON.sort((a, b) => (a.name > b.name) ? 1 : -1)
           debugger
-          taskDataJSON.forEach(/*function*/(task) => {
+          sortedTasks.forEach(/*function*/(task) => {
             const newTask = new Task(task)
             adultTaskBar.innerHTML += newTask.renderTaskSpan()
           })
