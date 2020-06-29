@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
 
-    fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/login', {
+    fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     if (event.target.id === 'userProfileBtn') {
       const token = localStorage.token
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/profile', {
+      fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (adultUserLoginPassword.value !== '') {
         foundUser.password = adultUserLoginPassword.value
 
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${foundUser.id}`, {
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (adultNewPasswordInput.value !== '') {
         foundUser.password = adultNewPasswordInput.value
 
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${foundUser.id}`, {  
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {  
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
   adultUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
   
-    fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/users', {
+    fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.token
     const updateUserId = event.target.dataset.id
 
-    fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${updateUserId}`, {
+    fetch(`http://localhost:3000/api/v1/users/${updateUserId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.token
         const userToDeleteId = event.target.dataset.id
 
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${userToDeleteId}`, {
+        fetch(`http://localhost:3000/api/v1/users/${userToDeleteId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -520,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
   childLoginForm.addEventListener('submit', (event) => {
     event.preventDefault()
 
-    fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/login', {
+    fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.id === 'userProfileBtn') {
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/profile', {
+      fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const token = localStorage.token
       if (childUserLoginPassword.value !== '') {
         foundUser.password = childUserLoginPassword.value
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${foundUser.id}`, {
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -622,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       } else if (childNewPasswordInput.value !== '') {
         foundUser.password = childNewPasswordInput.value
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${foundUser.id}`, {  
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {  
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -663,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
   childUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
 
-    fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/users', {
+    fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -733,7 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.token
     const updateUserId = event.target.dataset.id
     
-    fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${updateUserId}`, {
+    fetch(`http://localhost:3000/api/v1/users/${updateUserId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -815,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         removeChild(storedChildNames, childToDelete)
 
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${userToDeleteId}`, {
+        fetch(`http://localhost:3000/api/v1/users/${userToDeleteId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -836,7 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showView('adult-tasks-container')
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/tasks', {
+      fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -891,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alertToCreateChildren('Tasks')
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
+      fetch('http://localhost:3000/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -910,7 +910,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       })
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
+      fetch('http://localhost:3000/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -998,7 +998,7 @@ document.addEventListener('DOMContentLoaded', () => {
      }
      const token = localStorage.token
 
-     fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/tasks`, {
+     fetch(`http://localhost:3000/api/v1/tasks`, {
        method: 'POST',
        headers: {
         'Content-Type': 'application/json',
@@ -1044,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log(event.target)
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
+      fetch('http://localhost:3000/api/v1/task_images', { // INITIAL FETCH OF TASK IMAGES COLLECTION
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1063,7 +1063,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       })
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
+      fetch('http://localhost:3000/api/v1/stickers', { // INITIAL FETCH OF STICKERS COLLECTION
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1164,7 +1164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateTaskId = event.target.dataset.id 
     const token = localStorage.token
 
-    fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/tasks/${updateTaskId}`, {
+    fetch(`http://localhost:3000/api/v1/tasks/${updateTaskId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -1202,7 +1202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskToDeleteId = event.target.dataset.id
         const token = localStorage.token
 
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/tasks/${taskToDeleteId}`, {
+        fetch(`http://localhost:3000/api/v1/tasks/${taskToDeleteId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -1223,7 +1223,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showView('child-tasks-container')
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/tasks', {
+      fetch('http://localhost:3000/api/v1/tasks', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1256,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.id === 'stickersPageBtn') {
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/profile', {
+      fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1304,7 +1304,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.className === 'collectStickerPoints') {
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/profile', {
+      fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -1324,7 +1324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskId = parseInt(localStorage.taskId)
         const foundTask = Task.findTask(taskId)
 
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/tasks/${taskId}`, {
+        fetch(`http://localhost:3000/api/v1/tasks/${taskId}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -1344,7 +1344,7 @@ document.addEventListener('DOMContentLoaded', () => {
           Task.updateTask(updatedTaskJSON) 
         })
         
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${foundUser.id}`, {
+        fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -1388,7 +1388,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showView('adult-prizes-container')
       const token = localStorage.token
   
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/prizes', {
+      fetch('http://localhost:3000/api/v1/prizes', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1440,7 +1440,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alertToCreateChildren('Prizes')
       const token = localStorage.token
       
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
+      fetch('http://localhost:3000/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1506,7 +1506,7 @@ document.addEventListener('DOMContentLoaded', () => {
       newPrizeImageInput.value = prizeImage
     }
 
-    fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/prizes`, {
+    fetch(`http://localhost:3000/api/v1/prizes`, {
       method: 'POST',
       headers: {
        'Content-Type': 'application/json',
@@ -1551,7 +1551,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log(event.target)
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
+      fetch('http://localhost:3000/api/v1/prize_images', { // INITIAL FETCH OF PRIZE IMAGES COLLECTION
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1616,7 +1616,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updatePrizeId = event.target.dataset.id
     const token = localStorage.token
 
-    fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/prizes/${updatePrizeId}`, {
+    fetch(`http://localhost:3000/api/v1/prizes/${updatePrizeId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -1652,7 +1652,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prizeToDeleteId = event.target.dataset.id
         const token = localStorage.token
 
-        fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/prizes/${prizeToDeleteId}`, {
+        fetch(`http://localhost:3000/api/v1/prizes/${prizeToDeleteId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -1673,7 +1673,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showView('child-prizes-container')
       const token = localStorage.token
       
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/prizes', {
+      fetch('http://localhost:3000/api/v1/prizes', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -1719,7 +1719,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.className === 'buyPrize') {
       const token = localStorage.token
       
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/profile', {
+      fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -1749,7 +1749,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const prizeId = parseInt(localStorage.prizeId)
             const foundPrize = Prize.findPrize(prizeId)
   
-            fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/prizes/${prizeId}`, {
+            fetch(`http://localhost:3000/api/v1/prizes/${prizeId}`, {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
@@ -1768,7 +1768,7 @@ document.addEventListener('DOMContentLoaded', () => {
               Prize.updatePrize(updatedPrizeJSON) 
             })
             
-            fetch(`https://stickers-js-api-backend.herokuapp.com/api/v1/users/${foundUser.id}`, {
+            fetch(`http://localhost:3000/api/v1/users/${foundUser.id}`, {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
@@ -1820,7 +1820,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.id === 'prizesCollectionBtn') {
       const token = localStorage.token
 
-      fetch('https://stickers-js-api-backend.herokuapp.com/api/v1/profile', {
+      fetch('http://localhost:3000/api/v1/profile', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
